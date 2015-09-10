@@ -25,7 +25,6 @@ public abstract class GameState {
         hudCamera = game.getHudCamera();
     }
 
-    public abstract void handleInput();
     public abstract void update(float delta);
     public abstract void render();
     public abstract void dispose();

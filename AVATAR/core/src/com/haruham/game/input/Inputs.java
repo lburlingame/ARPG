@@ -8,10 +8,15 @@ public class Inputs {
     public static boolean[] keys;
     public static boolean[] pkeys;
 
-    public static final int NUM_KEYS = 3;
-    public static final int BUTTON1 = 0;
-    public static final int BUTTON2 = 1;
-    public static final int BUTTON3 = 2;
+    public static final int NUM_KEYS = 5;
+    public static final int W = 0;
+    public static final int S = 1;
+    public static final int A = 2;
+    public static final int D = 3;
+
+    public static final int SPACE = 4;
+
+
 
     static {
         keys = new boolean[NUM_KEYS];

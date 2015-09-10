@@ -2,34 +2,51 @@ package com.haruham.game.input;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.haruham.game.state.Play;
 
 /**
  * Created on 5/16/2015.
  */
 public class InputHandler extends InputAdapter {
 
+
     public boolean keyDown(int k) {
+        if (k == Input.Keys.W) {
+            Inputs.setKey(Inputs.W, true);
+        }
+        if (k == Input.Keys.S) {
+            Inputs.setKey(Inputs.S, true);
+        }
         if (k == Input.Keys.A) {
-            Inputs.setKey(Inputs.BUTTON1, true);
+            Inputs.setKey(Inputs.A, true);
         }
         if (k == Input.Keys.D) {
-            Inputs.setKey(Inputs.BUTTON2, true);
+            Inputs.setKey(Inputs.D, true);
         }
+
         if (k == Input.Keys.SPACE) {
-            Inputs.setKey(Inputs.BUTTON3, true);
+            Inputs.setKey(Inputs.SPACE, true);
         }
         return true;
     }
 
     public boolean keyUp(int k) {
+        if (k == Input.Keys.W) {
+            Inputs.setKey(Inputs.W, false);
+        }
+        if (k == Input.Keys.S) {
+            Inputs.setKey(Inputs.S, false);
+        }
         if (k == Input.Keys.A) {
-            Inputs.setKey(Inputs.BUTTON1, false);
+            Inputs.setKey(Inputs.A, false);
         }
         if (k == Input.Keys.D) {
-            Inputs.setKey(Inputs.BUTTON2, false);
+            Inputs.setKey(Inputs.D, false);
         }
+
         if (k == Input.Keys.SPACE) {
-            Inputs.setKey(Inputs.BUTTON3, false);
+            Inputs.setKey(Inputs.SPACE, false);
         }
         return true;
     }
@@ -57,6 +74,12 @@ public class InputHandler extends InputAdapter {
     @Override
     public boolean scrolled(int amount) {
 
+        OrthographicCamera camera = Play.camera;
+        if ((camera.viewportHeight > 100 && amount < 0) || (camera.viewportHeight < 1000 && amount > 0)) {
+            camera.viewportWidth += 100 * amount;
+            camera.viewportHeight += 56.25 * amount;
+            //camera.zoom = 1.5f;
+        }
         return true;
     }
 }
