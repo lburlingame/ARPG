@@ -1,5 +1,6 @@
 package com.haruham.game.input;
 
+import com.badlogic.gdx.Gdx;
 import com.haruham.game.GameMain;
 import com.haruham.game.entity.Entity;
 
@@ -44,6 +45,9 @@ public class PlayerInput extends InputComponent {
             character.jump();
         }
 
+        if (Inputs.isPressed(Inputs.ESCAPE)) {
+            Gdx.app.exit();
+        }
        /* if (input.SHIFT.isPressed()) {
             character.sprint();
         }else if (input.CTRL.isPressed()) {

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -34,12 +35,7 @@ public class Play extends GameState {
 
     // private OrthogonalTiledMapRenderer renderer;
     private OrthogonalTiledMapRenderer renderer;
-
-    public static OrthographicCamera camera;
-    private OrthographicCamera UIcamera;
-
-    private SpriteBatch batch;
-
+    private ShapeRenderer debugRenderer;
     private Player character;
     private Entity char1;
     private Texture img;
@@ -70,19 +66,11 @@ public class Play extends GameState {
         world = new World(new Vector2(0,-9.81f), true);
         b2dr = new Box2DDebugRenderer();
 
-        w = Gdx.graphics.getWidth();
-        h = Gdx.graphics.getHeight();
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, w, h);
-        UIcamera = new OrthographicCamera();
-        UIcamera.setToOrtho(false, w, h);
-
-        map = new TmxMapLoader().load("levels/testmap1.tmx");
+        map = new TmxMapLoader().load("levels/testmap2.tmx");
         //   renderer = new OrthogonalTiledMapRenderer(map);
         renderer = new OrthogonalTiledMapRenderer(map);
-
-        batch = new SpriteBatch();
+        debugRenderer = new ShapeRenderer();
 
         img = new Texture("sprites/bear_sprite.png");
         character = new Player(new Sprite(img), new Vector3(0, 0, 0), camera);
@@ -116,13 +104,20 @@ public class Play extends GameState {
         char1.draw(batch);
         //batch.draw(img, character.getX(), character.getY());
         //batch.setProjectionMatrix(camera.invProjectionView);
-        batch.setProjectionMatrix(UIcamera.combined);
+        batch.setProjectionMatrix(hudCamera.combined);
         fps = Gdx.graphics.getFramesPerSecond();
 
         font.draw(batch, fps + " ", 10, Gdx.graphics.getHeight() - 20);
         batch.end();
     }
 
+    public void renderDebug() {
+        debugRenderer.setProjectionMatrix(camera.combined);
+        debugRenderer.setAutoShapeType(true);
+        debugRenderer.begin();
+        char1.drawDebug(debugRenderer);
+        debugRenderer.end();
+    }
     public void dispose() {
 
     }

@@ -57,6 +57,11 @@ public class MainMenu extends GameState {
         batch.end();*/
     }
 
+    @Override
+    public void renderDebug() {
+
+    }
+
     public void dispose() {
 
     }

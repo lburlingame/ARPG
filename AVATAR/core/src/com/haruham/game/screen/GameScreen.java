@@ -129,6 +129,8 @@ public class GameScreen implements Screen {
         frames++;
     }
 
+    public void renderDebug()
+
     @Override
     public void show() {
 

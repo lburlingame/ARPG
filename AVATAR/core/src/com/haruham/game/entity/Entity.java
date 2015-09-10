@@ -1,6 +1,7 @@
 package com.haruham.game.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.gfx.TextureLoader;
@@ -58,7 +59,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
 
         this.dim = new Vector3(32 * smult, 32 * smult, 32 * smult);
 
-        this.hit = new HitCircle(new Vector3(0, -dim.z/8, 0), dim.x / 3);
+        this.hit = new HitCircle(new Vector3(dim.x * .667f, dim.z/3, 0), dim.x / 3);
         gold = (int)(Math.random() * 58) + 5;
     }
 
@@ -119,6 +120,10 @@ public class Entity extends Collidable implements Comparable<Entity>{
 
     public void draw(SpriteBatch batch) {
         batch.draw(TextureLoader.getSprite(id, id++), pos.x, pos.y + pos.z, 32,32);
+    }
+
+    public void drawDebug(ShapeRenderer renderer) {
+        renderer.circle(pos.x + hit.getCenter().x - hit.getRadius()/2, pos.y + hit.getCenter().y - hit.getRadius()/2, hit.getRadius());
     }
 
    /* public void draw(Graphics2D g, Camera camera){

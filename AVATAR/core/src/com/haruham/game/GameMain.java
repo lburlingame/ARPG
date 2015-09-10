@@ -23,6 +23,7 @@ public class GameMain implements ApplicationListener {
     private OrthographicCamera hudCamera;
 
     private GameStateManager gsm;
+    public boolean debug = true;
 
     public SpriteBatch getBatch() {
         return batch;
@@ -37,13 +38,19 @@ public class GameMain implements ApplicationListener {
     }
 
     public void create() {
-        Gdx.input.setInputProcessor(new InputHandler());
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         hudCamera = new OrthographicCamera();
-        camera.setToOrtho(false, V_WIDTH, V_HEIGHT);
-        hudCamera.setToOrtho(false, V_WIDTH, V_HEIGHT);
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, w/2, h/2);
+
+        hudCamera = new OrthographicCamera();
+        hudCamera.setToOrtho(false, w, h);
         gsm = new GameStateManager(this);
+        Gdx.input.setInputProcessor(new InputHandler(gsm));
     }
 
     public void resize(int width, int height) {

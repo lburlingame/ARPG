@@ -9,7 +9,6 @@ import com.haruham.game.GameMain;
  */
 public abstract class GameState {
 
-
     protected GameStateManager gsm;
     protected GameMain game;
 
@@ -27,6 +26,7 @@ public abstract class GameState {
 
     public abstract void update(float delta);
     public abstract void render();
+    public abstract void renderDebug();
     public abstract void dispose();
 
 }
