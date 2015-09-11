@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -17,7 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.haruham.game.GameMain;
+import com.haruham.game.GameApp;
 import com.haruham.game.entity.Entity;
 import com.haruham.game.entity.Player;
 import com.haruham.game.handler.PlayerContactListener;
@@ -31,7 +30,7 @@ import com.haruham.game.level.TileMap;
  */
 public class Play extends GameState {
 
-    private GameMain game;
+    private GameApp game;
 
     private TiledMap map;
     private TileMap tmap;

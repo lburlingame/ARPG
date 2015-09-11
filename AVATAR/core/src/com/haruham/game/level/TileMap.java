@@ -34,7 +34,7 @@ public class TileMap {
 	private void loadMap(String path){
 		try{
             FileHandle file = Gdx.files.internal(path);
-			BufferedReader br = file.reader(32);
+			BufferedReader br = file.reader(1);
 			
 			String curLine;
 

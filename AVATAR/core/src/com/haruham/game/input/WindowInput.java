@@ -2,8 +2,7 @@ package com.haruham.game.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.haruham.game.GameMain;
-import com.haruham.game.entity.Entity;
+import com.haruham.game.GameApp;
 import com.haruham.game.state.GameStateManager;
 
 /**
@@ -12,7 +11,7 @@ import com.haruham.game.state.GameStateManager;
 public class WindowInput {
 
     private GameStateManager gsm;
-    private GameMain game;
+    private GameApp game;
     private OrthographicCamera camera;
     private OrthographicCamera hudCamera;
 

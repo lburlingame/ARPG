@@ -2,7 +2,7 @@ package com.haruham.game.state;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.haruham.game.GameMain;
+import com.haruham.game.GameApp;
 
 /**
  * Created on 5/16/2015.
@@ -10,7 +10,7 @@ import com.haruham.game.GameMain;
 public abstract class GameState {
 
     protected GameStateManager gsm;
-    protected GameMain game;
+    protected GameApp game;
 
     protected SpriteBatch batch;
     protected OrthographicCamera camera;

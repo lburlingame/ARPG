@@ -1,6 +1,6 @@
 package com.haruham.game.state;
 
-import com.haruham.game.GameMain;
+import com.haruham.game.GameApp;
 
 import java.util.Stack;
 
@@ -9,7 +9,7 @@ import java.util.Stack;
  */
 public class GameStateManager {
 
-    private GameMain game;
+    private GameApp game;
 
     private Stack<GameState> gameStates;
 
@@ -17,13 +17,13 @@ public class GameStateManager {
     public static final int MAINMENU = 850823;
     public static final int PLAY = 850824;
 
-    public GameStateManager(GameMain game) {
+    public GameStateManager(GameApp game) {
         this.game = game;
         gameStates = new Stack<GameState>();
         pushState(SPLASH);
     }
 
-    public GameMain getGame() {
+    public GameApp getGame() {
         return game;
     }
 

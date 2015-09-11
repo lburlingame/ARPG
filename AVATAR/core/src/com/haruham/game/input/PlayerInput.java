@@ -1,7 +1,7 @@
 package com.haruham.game.input;
 
 import com.badlogic.gdx.Gdx;
-import com.haruham.game.GameMain;
+import com.haruham.game.GameApp;
 import com.haruham.game.entity.Entity;
 
 /**
@@ -14,7 +14,7 @@ public class PlayerInput extends InputComponent {
     private boolean clicked = false;
     private boolean stopped = false;
 
-    public PlayerInput(GameMain game) {
+    public PlayerInput(GameApp game) {
         super(game);
     }
 

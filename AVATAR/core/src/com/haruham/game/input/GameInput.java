@@ -9,10 +9,10 @@ import com.haruham.game.state.Play;
 /**
  * Created on 5/16/2015.
  */
-public class InputHandler extends InputAdapter {
+public class GameInput extends InputAdapter {
 
 
-    public InputHandler() {
+    public GameInput() {
     }
 
 

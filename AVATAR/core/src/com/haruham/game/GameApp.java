@@ -4,12 +4,12 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.haruham.game.input.InputHandler;
+import com.haruham.game.input.GameInput;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.input.WindowInput;
 import com.haruham.game.state.GameStateManager;
 
-public class GameMain implements ApplicationListener {
+public class GameApp implements ApplicationListener {
 
     public static final String TITLE = "RPG";
     public static final int V_WIDTH = 320;
@@ -41,7 +41,7 @@ public class GameMain implements ApplicationListener {
         hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, w, h);
         gsm = new GameStateManager(this);
-        Gdx.input.setInputProcessor(new InputHandler());
+        Gdx.input.setInputProcessor(new GameInput());
         win = new WindowInput(gsm);
     }
 

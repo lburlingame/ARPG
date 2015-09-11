@@ -4,16 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.haruham.game.GameMain;
+import com.haruham.game.GameApp;
 
 /**
  * Created on 9/10/2015.
  */
 public class Splash extends GameState {
 
-    private GameMain game;
+    private GameApp game;
     private Sprite splash;
 
     private long start;
@@ -44,7 +43,7 @@ public class Splash extends GameState {
         frames++;
 
         if (TimeUtils.millis()>(start+1000)) {
-            gsm.setState(GameStateManager.PLAY);
+            gsm.setState(GameStateManager.MAINMENU);
         }
     }
 
