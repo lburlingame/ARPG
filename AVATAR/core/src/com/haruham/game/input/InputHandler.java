@@ -11,13 +11,8 @@ import com.haruham.game.state.Play;
  */
 public class InputHandler extends InputAdapter {
 
-    private GameStateManager gsm;
-    private OrthographicCamera camera;
 
-
-    public InputHandler(GameStateManager gsm) {
-        this.gsm = gsm;
-        camera = gsm.getGame().getCamera();
+    public InputHandler() {
     }
 
 
@@ -53,11 +48,7 @@ public class InputHandler extends InputAdapter {
 
     @Override
     public boolean scrolled(int amount) {
-        if ((camera.viewportHeight > 250 && amount < 0) || (camera.viewportHeight < 1000 && amount > 0)) {
-            camera.viewportWidth += 100 * amount;
-            camera.viewportHeight += 56.25 * amount;
-            //camera.zoom = 1.5f;
-        }
+        Inputs.amount = amount;
         return true;
     }
 }

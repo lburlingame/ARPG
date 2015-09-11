@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.haruham.game.input.InputHandler;
 import com.haruham.game.input.Inputs;
+import com.haruham.game.input.WindowInput;
 import com.haruham.game.state.GameStateManager;
 
 public class GameMain implements ApplicationListener {
@@ -23,19 +24,9 @@ public class GameMain implements ApplicationListener {
     private OrthographicCamera hudCamera;
 
     private GameStateManager gsm;
+    private WindowInput win;
     public boolean debug = true;
 
-    public SpriteBatch getBatch() {
-        return batch;
-    }
-
-    public OrthographicCamera getCamera() {
-        return camera;
-    }
-
-    public OrthographicCamera getHudCamera() {
-        return hudCamera;
-    }
 
     public void create() {
         batch = new SpriteBatch();
@@ -50,11 +41,14 @@ public class GameMain implements ApplicationListener {
         hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, w, h);
         gsm = new GameStateManager(this);
-        Gdx.input.setInputProcessor(new InputHandler(gsm));
+        Gdx.input.setInputProcessor(new InputHandler());
+        win = new WindowInput(gsm);
     }
 
     public void resize(int width, int height) {
-
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        hudCamera.setToOrtho(false, w, h);
     }
 
     public void render() {
@@ -63,6 +57,7 @@ public class GameMain implements ApplicationListener {
             delta -= STEP;
             gsm.update(STEP);
             gsm.render();
+            win.update();
             Inputs.update();
         }
     }
@@ -78,4 +73,16 @@ public class GameMain implements ApplicationListener {
     public void dispose() {
         batch.dispose();
     }
+
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+    public OrthographicCamera getHudCamera() {
+        return hudCamera;
+    }
+
 }

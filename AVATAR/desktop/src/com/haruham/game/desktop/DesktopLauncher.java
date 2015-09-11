@@ -10,10 +10,12 @@ public class DesktopLauncher {
 
         config.width = 1280;
         config.height = 720;
-        config.title = "2D RPG";
+        config.title = GameMain.TITLE;
 
         config.vSyncEnabled = true;
         //config.resizable = false;
+        config.fullscreen = false;
+
 
         new LwjglApplication(new GameMain(), config);
 	}

@@ -14,7 +14,7 @@ import java.awt.*;
 // enemy aggro could be cone based on vision, and circular based on noise, your noise level depends on whether you are running or walking or sprinting, and maybe even have a talent tree that reduces noise and stuff
 // vision is reduced in poorly lit areas
 
-//only calculates lighting on tiles that are either on screen, or in between the player and an enemy that is in aggro range
+//only calculates lighting on tiles that are either on _screen, or in between the player and an enemy that is in aggro range
 public class Entity extends Collidable implements Comparable<Entity>{
 
     public static final int STOPPED = 0;
@@ -59,7 +59,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
 
         this.dim = new Vector3(32 * smult, 32 * smult, 32 * smult);
 
-        this.hit = new HitCircle(new Vector3(dim.x * .667f, dim.z/3, 0), dim.x / 3);
+        this.hit = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
         gold = (int)(Math.random() * 58) + 5;
     }
 
