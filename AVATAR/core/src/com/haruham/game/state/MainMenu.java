@@ -55,10 +55,12 @@ public class MainMenu extends GameState {
       /*  play.setPosition(200, 300);
         //play.setSize(400, 100);
         play.getLabel().setFontScale(1.5f);*/
-        play.addListener(new ClickListener()
-        {
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button)
-            {
+        play.addListener(new ClickListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 playClicked();
             }
         });
@@ -66,17 +68,15 @@ public class MainMenu extends GameState {
 
         //play_b = new ImageButton(new Texture("menu/play.png"));
         //stage.addActor(play);
-        game.getInput().addProcessor(stage);
         Gdx.input.setInputProcessor(game.getInput());
     }
 
     public void playClicked() {
-        gsm.setState(GameStateManager.PLAY);
+        gsm.pushState(GameStateManager.PLAY);
     }
 
     public void update(float delta) {
-        stage.act(delta);
-
+      //  stage.act(delta);
     }
 
     public void render() {
@@ -90,6 +90,14 @@ public class MainMenu extends GameState {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.end();
+    }
+
+    public void removeInput() {
+        game.getInput().removeProcessor(stage);
+    }
+
+    public void addInput() {
+        game.getInput().addProcessor(stage);
     }
 
     @Override

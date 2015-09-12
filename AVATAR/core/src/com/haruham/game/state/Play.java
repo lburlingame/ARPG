@@ -126,6 +126,15 @@ public class Play extends GameState {
 
         batch.end();
     }
+
+    public void addInput() {
+
+    }
+
+    public void removeInput() {
+
+    }
+
     public void dispose() {
 
     }

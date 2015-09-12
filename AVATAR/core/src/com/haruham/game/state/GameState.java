@@ -27,6 +27,10 @@ public abstract class GameState {
     public abstract void update(float delta);
     public abstract void render();
     public abstract void renderDebug();
+
+    public abstract void addInput();
+    public abstract void removeInput();
+
     public abstract void dispose();
 
 }

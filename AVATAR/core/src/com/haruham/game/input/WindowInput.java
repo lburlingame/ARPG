@@ -25,7 +25,7 @@ public class WindowInput {
     public void update() {
 
         if (Inputs.isPressed(Inputs.ESCAPE)) {
-            Gdx.app.exit();
+            gsm.popState();
         }
 
         if (Inputs.isPressed(Inputs.I)) {

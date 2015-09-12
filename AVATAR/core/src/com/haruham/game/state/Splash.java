@@ -47,8 +47,15 @@ public class Splash extends GameState {
         }
     }
 
-    @Override
     public void renderDebug() {
+
+    }
+
+    public void addInput() {
+
+    }
+
+    public void removeInput() {
 
     }
 

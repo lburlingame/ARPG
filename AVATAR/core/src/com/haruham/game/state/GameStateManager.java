@@ -52,12 +52,19 @@ public class GameStateManager {
     }
 
     public void pushState(int state) {
-        gameStates.push(getState(state));
+        if (gameStates.size() > 0)
+        gameStates.peek().removeInput();
+        GameState gameState = getState(state);
+        gameState.addInput();
+        gameStates.push(gameState);
     }
 
     public void popState() {
-        GameState state = gameStates.pop();
-        state.dispose();
+        GameState gameState = gameStates.pop();
+        gameState.removeInput();
+        gameState.dispose();
+        if (gameStates.size() > 0)
+        gameStates.peek().addInput();
     }
 
 }
