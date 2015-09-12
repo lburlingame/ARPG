@@ -13,13 +13,24 @@ public class DesktopLauncher {
         config.addIcon("assets/icon-64.png", FileType.Internal);
         config.addIcon("assets/icon-32.png", FileType.Internal);
  */
-        config.width = 1280;
-        config.height = 720;
-        config.title = GameApp.TITLE;
 
+        boolean fullscreen = false;
+        /*fullscreen = true;*/
+
+        if (fullscreen) {
+            config.setFromDisplayMode(LwjglApplicationConfiguration.getDesktopDisplayMode());
+        }else{
+            config.width = 1280;
+            config.height = 720;
+        }
+
+        config.fullscreen = fullscreen;
+        config.resizable = !fullscreen;
+
+
+        config.title = GameApp.TITLE;
         config.vSyncEnabled = true;
-        //config.resizable = false;
-        config.fullscreen = false;
+
 
 
         new LwjglApplication(new GameApp(), config);

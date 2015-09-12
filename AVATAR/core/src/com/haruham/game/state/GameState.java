@@ -9,10 +9,10 @@ import com.haruham.game.GameApp;
  */
 public abstract class GameState {
 
-    protected GameStateManager gsm;
-    protected GameApp game;
+    protected final GameStateManager gsm;
+    protected final GameApp game;
 
-    protected SpriteBatch batch;
+    protected final SpriteBatch batch;
     protected OrthographicCamera camera;
     protected OrthographicCamera hudCamera;
 

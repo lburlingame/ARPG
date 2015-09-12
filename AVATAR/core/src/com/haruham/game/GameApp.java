@@ -2,6 +2,7 @@ package com.haruham.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.haruham.game.input.GameInput;
@@ -24,6 +25,9 @@ public class GameApp implements ApplicationListener {
     private OrthographicCamera hudCamera;
 
     private GameStateManager gsm;
+
+    private InputMultiplexer input = new InputMultiplexer();
+    private GameInput gin;
     private WindowInput win;
     public boolean debug = true;
 
@@ -41,7 +45,10 @@ public class GameApp implements ApplicationListener {
         hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, w, h);
         gsm = new GameStateManager(this);
-        Gdx.input.setInputProcessor(new GameInput());
+
+        gin = new GameInput();
+        input.addProcessor(gin);
+        Gdx.input.setInputProcessor(gin);
         win = new WindowInput(gsm);
     }
 
@@ -74,6 +81,9 @@ public class GameApp implements ApplicationListener {
         batch.dispose();
     }
 
+    public InputMultiplexer getInput() {
+        return input;
+    }
 
     public SpriteBatch getBatch() {
         return batch;

@@ -35,7 +35,6 @@ public class Play extends GameState {
     private TiledMap map;
     private TileMap tmap;
 
-    // private OrthogonalTiledMapRenderer renderer;
     private OrthogonalTiledMapRenderer renderer;
     private ShapeRenderer debugRenderer;
     private Player character;
@@ -70,7 +69,6 @@ public class Play extends GameState {
 
         tmap = new TileMap("levels/test_map.txt", gsm);
         map = new TmxMapLoader().load("levels/testmap2.tmx");
-        //   renderer = new OrthogonalTiledMapRenderer(map);
         renderer = new OrthogonalTiledMapRenderer(map);
         debugRenderer = new ShapeRenderer();
 
@@ -82,7 +80,7 @@ public class Play extends GameState {
 
     public void update(float delta) {
         world.step(delta, 6, 2);
-        tmap.update(delta);
+       // tmap.update(delta);
         char1.update(delta);
     }
 
@@ -94,14 +92,13 @@ public class Play extends GameState {
         Vector3 position = camera.position;
         position.x += (char1.getX() + char1.getWidth()/2 - position.x) * lerp ;
         position.y += (char1.getY() + char1.getHeight()/2 - position.y) * lerp *1.5;
-        //camera.position.set(character.getX() + character.getWidth()/2, character.getY() + character.getHeight() / 2, 0);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
-        //renderer.setView(camera);
-        //renderer.render();
+        renderer.setView(camera);
+        renderer.render();
 
         batch.begin();
-        tmap.draw(batch);
+        //tmap.draw(batch);
 
         character.draw(batch);
         char1.draw(batch);

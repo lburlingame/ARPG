@@ -21,7 +21,7 @@ public class Splash extends GameState {
 
     public Splash(GameStateManager gsm) {
         super(gsm);
-        splash = new Sprite(new Texture("sprites/bear_sprite.png"));
+        splash = new Sprite(new Texture("other/fbtest.png"));
         splash.setSize(32*5, 32*5);
         splash.setX(Gdx.graphics.getWidth() / 2 - splash.getWidth() / 2);
         splash.setY(Gdx.graphics.getHeight() / 2 - splash.getHeight() / 2);
