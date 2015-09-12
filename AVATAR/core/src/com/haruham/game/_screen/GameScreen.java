@@ -1,18 +1,15 @@
-package com.haruham.game.screen;
+package com.haruham.game._screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -90,7 +87,7 @@ public class GameScreen implements Screen {
 
         /*img.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);*/ /*//** for scaling **//*/
         sprite = new Sprite(texture);
-        sprite.setSize(0.1f, 0.3f); /*//** sprite size in screen coordinates **//*/
+        sprite.setSize(0.1f, 0.3f); /*//** sprite size in _screen coordinates **//*/
         sprite.setOrigin(0.05f,0); //*/
 
     }
@@ -128,6 +125,8 @@ public class GameScreen implements Screen {
 
         frames++;
     }
+
+    public void renderDebug()
 
     @Override
     public void show() {

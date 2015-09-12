@@ -1,6 +1,6 @@
 package com.haruham.game.input;
 
-import com.haruham.game.GameMain;
+import com.haruham.game.GameApp;
 
 /**
  * Created on 5/2/2015.
@@ -8,7 +8,7 @@ import com.haruham.game.GameMain;
 public class AIInput extends InputComponent {
 
 
-    public AIInput(GameMain game) {
+    public AIInput(GameApp game) {
         super(game);
     }
 

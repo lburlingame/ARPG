@@ -9,6 +9,8 @@ public class TextureLoader {
     private static Texture bear_tex = new Texture("sprites/bear_sheet.png");
     private static ArrayList<TextureRegion> bears;
 
+    private static Texture grass_tex = new Texture("tiles/grass.png");
+    private static ArrayList<TextureRegion> grass;
 
     public static TextureRegion getSprite(int id, int frame) {
         switch (id) {
@@ -27,6 +29,25 @@ public class TextureLoader {
             }
         }
         return bears.get(frame % bears.size());
+    }
+
+    public static TextureRegion getTile(int id, int frame) {
+        switch (id) {
+            case (1):
+                return getGrass(frame);
+            default:
+                return getGrass(frame);
+        }
+    }
+
+    private static TextureRegion getGrass(int frame) {
+        if (grass == null) {
+            grass = new ArrayList<TextureRegion>();
+            for (int i = 0; i < grass_tex.getWidth(); i+= 32) {
+                grass.add(new TextureRegion(grass_tex, i, 0, 32, 32));
+            }
+        }
+        return grass.get(frame % grass.size());
     }
 
 

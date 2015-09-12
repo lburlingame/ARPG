@@ -1,4 +1,4 @@
-package com.haruham.game.screen;
+package com.haruham.game._screen;
 
 /**
  * Created on 9/8/2015.

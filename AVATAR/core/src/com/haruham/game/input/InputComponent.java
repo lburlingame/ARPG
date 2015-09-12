@@ -1,6 +1,6 @@
 package com.haruham.game.input;
 
-import com.haruham.game.GameMain;
+import com.haruham.game.GameApp;
 import com.haruham.game.entity.Entity;
 
 /**
@@ -8,10 +8,10 @@ import com.haruham.game.entity.Entity;
  */
 public abstract class InputComponent {
 
-    protected GameMain game;
+    protected GameApp game;
     protected Entity character;
 
-    public InputComponent(GameMain game) {
+    public InputComponent(GameApp game) {
         this.game = game;
     }
 

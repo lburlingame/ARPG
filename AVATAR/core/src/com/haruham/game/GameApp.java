@@ -2,13 +2,15 @@ package com.haruham.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.haruham.game.input.InputHandler;
+import com.haruham.game.input.GameInput;
 import com.haruham.game.input.Inputs;
+import com.haruham.game.input.WindowInput;
 import com.haruham.game.state.GameStateManager;
 
-public class GameMain implements ApplicationListener {
+public class GameApp implements ApplicationListener {
 
     public static final String TITLE = "RPG";
     public static final int V_WIDTH = 320;
@@ -24,30 +26,36 @@ public class GameMain implements ApplicationListener {
 
     private GameStateManager gsm;
 
-    public SpriteBatch getBatch() {
-        return batch;
-    }
+    private InputMultiplexer input = new InputMultiplexer();
+    private GameInput gin;
+    private WindowInput win;
+    public boolean debug = true;
 
-    public OrthographicCamera getCamera() {
-        return camera;
-    }
-
-    public OrthographicCamera getHudCamera() {
-        return hudCamera;
-    }
 
     public void create() {
-        Gdx.input.setInputProcessor(new InputHandler());
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         hudCamera = new OrthographicCamera();
-        camera.setToOrtho(false, V_WIDTH, V_HEIGHT);
-        hudCamera.setToOrtho(false, V_WIDTH, V_HEIGHT);
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, w/2, h/2);
+
+        hudCamera = new OrthographicCamera();
+        hudCamera.setToOrtho(false, w, h);
         gsm = new GameStateManager(this);
+
+        gin = new GameInput();
+        input.addProcessor(gin);
+        Gdx.input.setInputProcessor(gin);
+        win = new WindowInput(gsm);
     }
 
     public void resize(int width, int height) {
-
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        hudCamera.setToOrtho(false, w, h);
     }
 
     public void render() {
@@ -56,6 +64,7 @@ public class GameMain implements ApplicationListener {
             delta -= STEP;
             gsm.update(STEP);
             gsm.render();
+            win.update();
             Inputs.update();
         }
     }
@@ -71,4 +80,19 @@ public class GameMain implements ApplicationListener {
     public void dispose() {
         batch.dispose();
     }
+
+    public InputMultiplexer getInput() {
+        return input;
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+    public OrthographicCamera getHudCamera() {
+        return hudCamera;
+    }
+
 }
