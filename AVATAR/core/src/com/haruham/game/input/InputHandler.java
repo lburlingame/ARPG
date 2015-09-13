@@ -9,10 +9,10 @@ import com.haruham.game.state.Play;
 /**
  * Created on 5/16/2015.
  */
-public class GameInput extends InputAdapter {
+public class InputHandler extends InputAdapter {
 
 
-    public GameInput() {
+    public InputHandler() {
     }
 
 
@@ -28,11 +28,13 @@ public class GameInput extends InputAdapter {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        Inputs.setKey(button, true);
         return super.touchDown(screenX, screenY, pointer, button);
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        Inputs.setKey(button, false);
         return super.touchUp(screenX, screenY, pointer, button);
     }
 

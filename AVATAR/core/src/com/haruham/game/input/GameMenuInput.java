@@ -8,14 +8,14 @@ import com.haruham.game.state.GameStateManager;
 /**
  * Created on 3/26/2015.
  */
-public class WindowInput {
+public class GameMenuInput {
 
     private GameStateManager gsm;
     private GameApp game;
     private OrthographicCamera camera;
     private OrthographicCamera hudCamera;
 
-    public WindowInput(GameStateManager gsm) {
+    public GameMenuInput(GameStateManager gsm) {
         this.gsm = gsm;
         game = gsm.getGame();
         camera = game.getCamera();
@@ -25,7 +25,8 @@ public class WindowInput {
     public void update() {
 
         if (Inputs.isPressed(Inputs.ESCAPE)) {
-            gsm.popState();
+            gsm.popState(false);
+            //gsm.leavePlay();
         }
 
         if (Inputs.isPressed(Inputs.I)) {

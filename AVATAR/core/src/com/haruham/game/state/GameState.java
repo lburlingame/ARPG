@@ -3,6 +3,7 @@ package com.haruham.game.state;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.haruham.game.GameApp;
+import com.haruham.game.audio.SoundManager;
 
 /**
  * Created on 5/16/2015.
@@ -16,12 +17,15 @@ public abstract class GameState {
     protected OrthographicCamera camera;
     protected OrthographicCamera hudCamera;
 
+    protected SoundManager smg;
+
     protected GameState(GameStateManager gsm) {
         this.gsm = gsm;
         game = gsm.getGame();
         batch = game.getBatch();
         camera = game.getCamera();
         hudCamera = game.getHudCamera();
+        smg = game.getSound();
     }
 
     public abstract void update(float delta);
