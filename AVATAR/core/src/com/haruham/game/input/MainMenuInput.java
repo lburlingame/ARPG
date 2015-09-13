@@ -25,7 +25,7 @@ public class MainMenuInput {
     public void update() {
 
         if (Inputs.isPressed(Inputs.ESCAPE)) {
-            Gdx.app.exit();
+            gsm.pushState(GameStateManager.PLAY);
         }
     }
 }

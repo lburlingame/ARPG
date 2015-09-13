@@ -21,20 +21,20 @@ public class PlayerInput extends InputComponent {
     public void update() {
 
         // TODO MAKE IT SO THE MOST RECENTLY ACTIVATED KEY GETS PRIORITY
-        if (Inputs.isDown(Inputs.W)) {
+        if (Inputs.isDown(Inputs.MOVE_UP)) {
             character.setDy(180);
         }else{
-            if (Inputs.isDown(Inputs.S)) {
+            if (Inputs.isDown(Inputs.MOVE_DOWN)) {
                 character.setDy(-180);
             }else{
                 character.setDy(0);
             }
         }
 
-        if (Inputs.isDown(Inputs.A)) {
+        if (Inputs.isDown(Inputs.MOVE_LEFT)) {
             character.setDx(-180);
         }else{
-            if (Inputs.isDown(Inputs.D)) {
+            if (Inputs.isDown(Inputs.MOVE_RIGHT)) {
                 character.setDx(180);
             }else{
                 character.setDx(0);

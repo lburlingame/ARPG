@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.haruham.game.audio.SoundManager;
 import com.haruham.game.input.InputHandler;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.state.GameStateManager;
@@ -22,6 +23,8 @@ public class GameApp implements ApplicationListener {
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private OrthographicCamera hudCamera;
+
+    private SoundManager smg;
 
     private GameStateManager gsm;
 
@@ -42,6 +45,8 @@ public class GameApp implements ApplicationListener {
 
         hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, w, h);
+
+        smg = new SoundManager();
         gsm = new GameStateManager(this);
 
         inputHandler = new InputHandler();
@@ -92,4 +97,7 @@ public class GameApp implements ApplicationListener {
         return hudCamera;
     }
 
+    public SoundManager getSound() {
+        return smg;
+    }
 }

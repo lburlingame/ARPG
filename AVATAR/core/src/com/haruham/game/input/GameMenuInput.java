@@ -26,7 +26,7 @@ public class GameMenuInput {
 
         if (Inputs.isPressed(Inputs.ESCAPE)) {
             gsm.popState(false);
-            gsm.leavePlay();
+            //gsm.leavePlay();
         }
 
         if (Inputs.isPressed(Inputs.I)) {

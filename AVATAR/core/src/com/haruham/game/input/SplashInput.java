@@ -15,15 +15,11 @@ public class SplashInput {
     }
 
     public void update() {
-
         for (int i = 0; i < Inputs.keys.length; i++) {
             if (Inputs.keys[i]) {
                 gsm.setState(GameStateManager.MAINMENU);
             }
         }
-
-
-
     }
 }
 

@@ -32,6 +32,12 @@ public class Inputs {
     public static int amount = 0;
 
 
+    public static int MOVE_UP = W;
+    public static int MOVE_DOWN = S;
+    public static int MOVE_LEFT = A;
+    public static int MOVE_RIGHT = D;
+    public static int JUMP = SPACE;
+
     public static Vector3 pos = new Vector3(0,0,0);
 
     static {

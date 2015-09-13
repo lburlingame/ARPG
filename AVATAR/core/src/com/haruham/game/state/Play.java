@@ -3,6 +3,7 @@ package com.haruham.game.state;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -55,11 +56,13 @@ public class Play extends GameState {
     private World world;
     private Body playerBody;
     private PlayerContactListener contact;
+    private Sound wavSound = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/spooky1.wav"));
 
     private GameMenuInput gin;
 
     public Play(GameStateManager gsm) {
         super(gsm);
+        //wavSound.loop(.4f, 2f,.1f);
 
         gin = new GameMenuInput(gsm);
 
