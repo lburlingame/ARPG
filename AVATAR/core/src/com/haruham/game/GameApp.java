@@ -5,9 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.haruham.game.input.GameInput;
+import com.haruham.game.audio.SoundManager;
+import com.haruham.game.input.InputHandler;
 import com.haruham.game.input.Inputs;
-import com.haruham.game.input.WindowInput;
 import com.haruham.game.state.GameStateManager;
 
 public class GameApp implements ApplicationListener {
@@ -24,11 +24,12 @@ public class GameApp implements ApplicationListener {
     private OrthographicCamera camera;
     private OrthographicCamera hudCamera;
 
+    private SoundManager smg;
+
     private GameStateManager gsm;
 
-    private InputMultiplexer input = new InputMultiplexer();
-    private GameInput gin;
-    private WindowInput win;
+    private InputMultiplexer inputs = new InputMultiplexer();
+    private InputHandler inputHandler;
     public boolean debug = true;
 
 
@@ -44,12 +45,14 @@ public class GameApp implements ApplicationListener {
 
         hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, w, h);
+
+        smg = new SoundManager();
         gsm = new GameStateManager(this);
 
-        gin = new GameInput();
-        input.addProcessor(gin);
-        Gdx.input.setInputProcessor(gin);
-        win = new WindowInput(gsm);
+        inputHandler = new InputHandler();
+        inputs.addProcessor(inputHandler);
+        Gdx.input.setInputProcessor(inputs);
+
     }
 
     public void resize(int width, int height) {
@@ -64,7 +67,6 @@ public class GameApp implements ApplicationListener {
             delta -= STEP;
             gsm.update(STEP);
             gsm.render();
-            win.update();
             Inputs.update();
         }
     }
@@ -81,8 +83,8 @@ public class GameApp implements ApplicationListener {
         batch.dispose();
     }
 
-    public InputMultiplexer getInput() {
-        return input;
+    public InputMultiplexer getInputs() {
+        return inputs;
     }
 
     public SpriteBatch getBatch() {
@@ -95,4 +97,7 @@ public class GameApp implements ApplicationListener {
         return hudCamera;
     }
 
+    public SoundManager getSound() {
+        return smg;
+    }
 }
