@@ -20,9 +20,11 @@ import com.haruham.game.GameApp;
 import com.haruham.game.entity.Entity;
 import com.haruham.game.entity.Player;
 import com.haruham.game.handler.PlayerContactListener;
+import com.haruham.game.input.GameMenuInput;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.input.PlayerInput;
 import com.haruham.game.level.TileMap;
+import javafx.stage.Screen;
 
 
 /**
@@ -30,16 +32,12 @@ import com.haruham.game.level.TileMap;
  */
 public class Play extends GameState {
 
-    private GameApp game;
-
     private TiledMap map;
     private TileMap tmap;
 
     private OrthogonalTiledMapRenderer renderer;
     private ShapeRenderer debugRenderer;
-    private Player character;
     private Entity char1;
-    private Texture img;
 
     private long start;
     private int frames = 0;
@@ -58,8 +56,13 @@ public class Play extends GameState {
     private Body playerBody;
     private PlayerContactListener contact;
 
+    private GameMenuInput gin;
+
     public Play(GameStateManager gsm) {
         super(gsm);
+
+        gin = new GameMenuInput(gsm);
+
 
         start = TimeUtils.millis();
         font = new BitmapFont();
@@ -72,13 +75,13 @@ public class Play extends GameState {
         renderer = new OrthogonalTiledMapRenderer(map);
         debugRenderer = new ShapeRenderer();
 
-        img = new Texture("sprites/bear_sprite.png");
-        character = new Player(new Sprite(img), new Vector3(0, 0, 0), camera);
         char1 = new Entity(1, new PlayerInput(game), 1, new Vector3(300,300,0));
+        camera.position.set(char1.getX() + char1.getWidth()/2,char1.getY() + char1.getHeight()/2,0);
     }
 
 
     public void update(float delta) {
+        gin.update();
         world.step(delta, 6, 2);
        // tmap.update(delta);
         char1.update(delta);
@@ -100,7 +103,6 @@ public class Play extends GameState {
         batch.begin();
         //tmap.draw(batch);
 
-        character.draw(batch);
         char1.draw(batch);
 
         batch.end();
@@ -136,7 +138,9 @@ public class Play extends GameState {
     }
 
     public void dispose() {
-
+        renderer.dispose();
+        debugRenderer.dispose();
+        map.dispose();
     }
 
 

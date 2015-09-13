@@ -231,7 +231,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
         return new Vector3(pos.x,pos.y,pos.z);
     }
 
-    public double getX() {
+    public float getX() {
         return pos.x;
     }
 
@@ -240,7 +240,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
         dest.x = x;
     }
 
-    public double getY() {
+    public float getY() {
         return pos.y;
     }
 
@@ -249,15 +249,15 @@ public class Entity extends Collidable implements Comparable<Entity>{
         dest.y = y;
     }
 
-    public double getZ() {
+    public float getZ() {
         return pos.z;
     }
 
-    public double getDy() {
+    public float getDy() {
         return vel.y;
     }
 
-    public double getDx() {
+    public float getDx() {
         return vel.x;
     }
 
@@ -269,19 +269,19 @@ public class Entity extends Collidable implements Comparable<Entity>{
         this.vel.x = dx;
     }
 
-    public double getDest_y() {
+    public float getDest_y() {
         return dest.y;
     }
 
-    public double getDest_x() {
+    public float getDest_x() {
         return dest.x;
     }
 
-    public double getWidth() {
+    public float getWidth() {
         return dim.x;
     }
 
-    public double getHeight() {
+    public float getHeight() {
         return dim.z;
     }
 
