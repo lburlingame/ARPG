@@ -13,7 +13,7 @@ public class Inputs {
     public static boolean[] keys;
     public static boolean[] pkeys;
 
-    public static final int NUM_KEYS = 7;
+    public static final int NUM_KEYS = 10;
 
     public static final int W = 0;
     public static final int S = 1;
@@ -25,8 +25,18 @@ public class Inputs {
     public static final int ESCAPE = 5;
     public static final int I = 6;
 
+    public static final int M1 = 7;
+    public static final int M2 = 8;
+    public static final int M3 = 9;
+
     public static int amount = 0;
 
+
+    public static int MOVE_UP = W;
+    public static int MOVE_DOWN = S;
+    public static int MOVE_LEFT = A;
+    public static int MOVE_RIGHT = D;
+    public static int JUMP = SPACE;
 
     public static Vector3 pos = new Vector3(0,0,0);
 
@@ -71,10 +81,22 @@ public class Inputs {
         if (i == Input.Keys.I) {
             keys[I] = b;
         }
+
+        if (i == Input.Buttons.LEFT) {
+            keys[M1] = b;
+        }
+
+        if (i == Input.Buttons.RIGHT) {
+            keys[M3] = b;
+        }
     }
 
     public static boolean isDown(int i) { return keys[i]; }
     public static boolean isPressed(int i) {
         return keys[i] && !pkeys[i];
     }
+    public static boolean isReleased(int i) {
+        return !keys[i] && pkeys[i];
+    }
+
 }

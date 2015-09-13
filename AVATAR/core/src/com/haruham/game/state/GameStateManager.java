@@ -13,9 +13,11 @@ public class GameStateManager {
 
     private Stack<GameState> gameStates;
 
-    public static final int SPLASH = 850822;
-    public static final int MAINMENU = 850823;
-    public static final int PLAY = 850824;
+    private Play play;
+
+    public static final int SPLASH = 0;
+    public static final int MAINMENU = 1;
+    public static final int PLAY = 2;
 
     public GameStateManager(GameApp game) {
         this.game = game;
@@ -41,23 +43,46 @@ public class GameStateManager {
     private GameState getState(int state) {
         if (state == SPLASH) return new Splash(this);
         if (state == MAINMENU) return new MainMenu(this);
-        if (state == PLAY) return new Play(this);
+        if (state == PLAY) {
+            if (play == null) {
+                return play = new Play(this);
+            }
+            return play;
+        }
 
         return null;
     }
 
     public void setState(int state) {
-        popState();
+        popState(true);
         pushState(state);
     }
 
     public void pushState(int state) {
-        gameStates.push(getState(state));
+        if (gameStates.size() > 0) {
+            gameStates.peek().removeInput();
+        }
+        GameState gameState = getState(state);
+        gameState.addInput();
+        gameStates.push(gameState);
     }
 
-    public void popState() {
-        GameState state = gameStates.pop();
-        state.dispose();
+    public void popState(boolean dispose) {
+        GameState gameState = gameStates.pop();
+        gameState.removeInput();
+        if (dispose) {
+            gameState.dispose();
+        }
+        if (gameStates.size() > 0) {
+            gameStates.peek().addInput();
+        }
+    }
+
+    public void leavePlay() {
+        if (play != null) {
+            play.dispose();
+            play = null;
+        }
     }
 
 }

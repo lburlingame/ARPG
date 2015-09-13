@@ -6,17 +6,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.haruham.game.GameApp;
+import com.haruham.game.input.SplashInput;
 
 /**
  * Created on 9/10/2015.
  */
 public class Splash extends GameState {
 
-    private GameApp game;
     private Sprite splash;
 
     private long start;
     private int frames = 0;
+
+    private SplashInput sin;
 
 
     public Splash(GameStateManager gsm) {
@@ -26,10 +28,12 @@ public class Splash extends GameState {
         splash.setX(Gdx.graphics.getWidth() / 2 - splash.getWidth() / 2);
         splash.setY(Gdx.graphics.getHeight() / 2 - splash.getHeight() / 2);
         start = TimeUtils.millis();
+
+        sin = new SplashInput(gsm);
     }
 
     public void update(float delta) {
-
+        sin.update();
     }
 
     public void render() {
@@ -42,14 +46,20 @@ public class Splash extends GameState {
 
         frames++;
 
-        if (TimeUtils.millis()>(start+1000)) {
+        if (TimeUtils.millis()>(start+3000)) {
             gsm.setState(GameStateManager.MAINMENU);
         }
     }
 
-    @Override
     public void renderDebug() {
 
+    }
+
+    public void addInput() {
+
+    }
+
+    public void removeInput() {
     }
 
     public void dispose() {
