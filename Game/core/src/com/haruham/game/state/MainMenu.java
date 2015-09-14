@@ -3,6 +3,7 @@ package com.haruham.game.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -28,11 +29,19 @@ public class MainMenu extends GameState {
     private ImageButton play_b;
 
     private ShapeRenderer shapeRenderer;
+    private Texture background;
 
     private MainMenuInput min;
 
     public MainMenu(GameStateManager gsm) {
         super(gsm);
+        background = new Texture(Gdx.files.internal("other/tempback1.jpg"));
+        /*FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/myfont.ttf"));
+        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+        parameter.size = 12;
+        BitmapFont font12 = generator.generateFont(parameter); // font size 12 pixels
+        generator.dispose();*/
+
         smg.play();
 
         min = new MainMenuInput(gsm);
@@ -43,6 +52,7 @@ public class MainMenu extends GameState {
         table.setFillParent(true);
         table.setSize(400, 400);
         table.center();
+        table.setPosition(table.getX(), table.getY());
         stage.addActor(table);
 
         Skin skin = new Skin(Gdx.files.internal("menu/scene2d/uiskin.json"), new TextureAtlas("menu/scene2d/uiskin.atlas"));
@@ -58,12 +68,12 @@ public class MainMenu extends GameState {
 
         exit = new TextButton("Exit",  skin);
         exit.addListener(new ClickListener() {
-          /*  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.exit();
-            }*/
+            /*  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                  return true;
+              }
+              public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                  Gdx.app.exit();
+              }*/
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
             }
@@ -90,15 +100,17 @@ public class MainMenu extends GameState {
         Gdx.gl20.glClearColor(0,0,0,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        batch.setProjectionMatrix(hudCamera.combined);
+        batch.begin();
+        batch.draw(background, 0, 0, hudCamera.viewportWidth, hudCamera.viewportHeight);
+        font.draw(batch, "SNAT!", hudCamera.viewportWidth/2, hudCamera.viewportHeight -100);
+        batch.end();
+
         stage.draw();
         table.drawDebug(shapeRenderer); // This is optional, but enables debug lines for tables.
-
-
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        batch.end();
     }
 
+    //change to start()/end()
     public void removeInput() {
         game.getInputs().removeProcessor(stage);
         smg.pause();
