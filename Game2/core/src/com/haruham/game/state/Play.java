@@ -56,13 +56,13 @@ public class Play extends GameState {
     private World world;
     private Body playerBody;
     private PlayerContactListener contact;
-    private Sound wavSound = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/spooky1.wav"));
+    private Sound wavSound = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/pickup1.wav"));
 
     private GameMenuInput gin;
 
     public Play(GameStateManager gsm) {
         super(gsm);
-        //wavSound.loop(.4f, 2f,.1f);
+        //wavSound.loop(.4f, 1f,.1f);
 
         gin = new GameMenuInput(gsm);
 
