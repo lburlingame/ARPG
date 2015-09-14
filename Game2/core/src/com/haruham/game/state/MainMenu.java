@@ -30,12 +30,15 @@ public class MainMenu extends GameState {
 
     private ShapeRenderer shapeRenderer;
     private Texture background;
+    private Texture title;
 
     private MainMenuInput min;
 
     public MainMenu(GameStateManager gsm) {
         super(gsm);
         background = new Texture(Gdx.files.internal("other/tempback1.jpg"));
+        title = new Texture(Gdx.files.internal("other/TITLE.png"));
+
         /*FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/myfont.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
         parameter.size = 12;
@@ -103,7 +106,7 @@ public class MainMenu extends GameState {
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
         batch.draw(background, 0, 0, hudCamera.viewportWidth, hudCamera.viewportHeight);
-        font.draw(batch, "SNAT!", hudCamera.viewportWidth/2, hudCamera.viewportHeight -100);
+        batch.draw(title, hudCamera.viewportWidth/2 - title.getWidth() * hudCamera.viewportWidth / 1920 / 2, hudCamera.viewportHeight - title.getHeight() * hudCamera.viewportHeight / 1080 * 2f, title.getWidth() * hudCamera.viewportWidth / 1920, title.getHeight() * hudCamera.viewportHeight / 1080);
         batch.end();
 
         stage.draw();
