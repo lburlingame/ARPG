@@ -87,6 +87,7 @@ public class MainMenu extends GameState {
 
         //play_b = new ImageButton(new Texture("menu/play.png"));
         //stage.addActor(play);
+        skin.dispose();
         Gdx.input.setInputProcessor(game.getInputs());
     }
 

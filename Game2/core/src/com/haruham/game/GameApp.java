@@ -9,7 +9,6 @@ import com.haruham.game.audio.SoundManager;
 import com.haruham.game.input.InputHandler;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.state.GameStateManager;
-import org.lwjgl.openal.AL;
 
 public class GameApp implements ApplicationListener {
 
@@ -72,19 +71,12 @@ public class GameApp implements ApplicationListener {
         }
     }
 
-    public void pause() {
-
-    }
-
-    public void resume() {
-
-    }
 
     public void dispose() {
         gsm.dispose();
         smg.dispose();
         batch.dispose();
-        AL.destroy();
+        org.lwjgl.openal.AL.destroy();
         System.exit(1);
     }
 
@@ -105,4 +97,14 @@ public class GameApp implements ApplicationListener {
     public SoundManager getSound() {
         return smg;
     }
+
+
+    public void pause() {
+
+    }
+
+    public void resume() {
+
+    }
+
 }
