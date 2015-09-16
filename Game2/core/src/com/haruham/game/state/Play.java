@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.haruham.game.GameApp;
 import com.haruham.game.entity.Entity;
+import com.haruham.game.entity.Inventory;
 import com.haruham.game.entity.Player;
 import com.haruham.game.handler.PlayerContactListener;
 import com.haruham.game.input.GameMenuInput;
@@ -59,6 +60,8 @@ public class Play extends GameState {
     private Sound wavSound = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/pickup1.wav"));
 
     private GameMenuInput gin;
+
+    private Inventory inventory = new Inventory(5);
 
     public Play(GameStateManager gsm) {
         super(gsm);
