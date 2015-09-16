@@ -100,11 +100,11 @@ public class Play extends GameState {
         position.y += (char1.getY() + char1.getHeight()/2 - position.y) * lerp *1.5;
         camera.update();
         batch.setProjectionMatrix(camera.combined);
-        renderer.setView(camera);
-        renderer.render();
+        //renderer.setView(camera);
+        //renderer.render();
 
         batch.begin();
-        //tmap.draw(batch);
+        tmap.draw(batch);
 
         char1.draw(batch);
 
