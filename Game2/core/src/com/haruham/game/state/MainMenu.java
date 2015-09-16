@@ -24,6 +24,7 @@ public class MainMenu extends GameState {
 
     private Stage stage;
     private Table table;
+    private Skin skin;
     private TextButton play;
     private TextButton exit;
     private ImageButton play_b;
@@ -58,7 +59,7 @@ public class MainMenu extends GameState {
         table.setPosition(table.getX(), table.getY());
         stage.addActor(table);
 
-        Skin skin = new Skin(Gdx.files.internal("menu/scene2d/uiskin.json"), new TextureAtlas("menu/scene2d/uiskin.atlas"));
+        skin = new Skin(Gdx.files.internal("menu/scene2d/uiskin.json"), new TextureAtlas("menu/scene2d/uiskin.atlas"));
 
         play = new TextButton("Play",  skin);
 
@@ -87,6 +88,7 @@ public class MainMenu extends GameState {
 
         //play_b = new ImageButton(new Texture("menu/play.png"));
         //stage.addActor(play);
+        //skin.dispose();
         Gdx.input.setInputProcessor(game.getInputs());
     }
 
@@ -132,6 +134,7 @@ public class MainMenu extends GameState {
     public void dispose() {
         stage.dispose();
         background.dispose();
+        skin.dispose();
 
     }
       /*  TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
