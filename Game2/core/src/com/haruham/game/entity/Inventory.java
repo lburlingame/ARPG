@@ -49,6 +49,7 @@ public class Inventory {
     public Item addItem(Item item, int index) {
         Item remove = removeItem(index);
         items.add(index, item);
+        size++;
         return remove;
     }
 
@@ -59,6 +60,10 @@ public class Inventory {
             size--;
         }
         return item;
+    }
+
+    public Item getItem(int index) {
+        return items.get(index);
     }
 
     // in the Inventory frame class, it will keep track of indexes/items that have been clicked, and call the appropriate functions
