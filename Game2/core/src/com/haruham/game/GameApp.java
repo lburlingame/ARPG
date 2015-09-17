@@ -32,7 +32,6 @@ public class GameApp implements ApplicationListener {
     private InputHandler inputHandler;
     public boolean debug = true;
 
-
     public void create() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -77,6 +76,7 @@ public class GameApp implements ApplicationListener {
         smg.dispose();
         batch.dispose();
         org.lwjgl.openal.AL.destroy();
+       // System.out.println("dispose");
         System.exit(1);
     }
 
