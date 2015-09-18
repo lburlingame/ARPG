@@ -1,4 +1,4 @@
-package com.haruham.game._excl;
+package com.haruham.game.entity;
 
 /**
  * Created on 8/22/2015.
@@ -11,7 +11,7 @@ public class EntityInfo {
     public int current_mana;
     public int MAX_MANA;
 
-    private int level;       // coudl move all experience stuff into a class?
+    private int level;
 
     public int current_exp;
     public int NEXT_LEVEL_EXP;

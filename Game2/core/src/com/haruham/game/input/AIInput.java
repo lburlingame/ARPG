@@ -8,11 +8,10 @@ import com.haruham.game.GameApp;
 public class AIInput extends InputComponent {
 
 
-    public AIInput(GameApp game) {
-        super(game);
+    public AIInput() {
     }
 
-    public void update() {
+    public void update(float delta) {
         character.setDx(0);
         character.setDy(0);
     }

@@ -9,16 +9,13 @@ import com.haruham.game.GameApp;
  */
 public class NullInput extends InputComponent{
 
-    public NullInput(GameApp game) {
-        super(game);
+    public NullInput() {
+
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
 
     }
 
-    public Vector2 getScreenLoc() {
-        return new Vector2(0,0);
-    }
 }

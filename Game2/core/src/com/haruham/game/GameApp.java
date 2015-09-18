@@ -45,7 +45,7 @@ public class GameApp implements ApplicationListener {
         hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, w, h);
 
-        smg = new SoundManager();
+        smg = new SoundManager();//use observer for sound, but check to see if it happened on screen
         gsm = new GameStateManager(this);
 
         inputHandler = new InputHandler();
@@ -57,6 +57,7 @@ public class GameApp implements ApplicationListener {
     public void resize(int width, int height) {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
+
         hudCamera.setToOrtho(false, w, h);
     }
 

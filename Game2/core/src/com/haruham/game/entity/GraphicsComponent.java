@@ -1,4 +1,4 @@
-package com.haruham.game.gfx;
+package com.haruham.game.entity;
 
 import com.haruham.game.entity.Entity;
 
@@ -18,7 +18,7 @@ public class GraphicsComponent {
         frame = 0;
     }
 
-    public void tick() {
+    public void update(float delta) {
         if (character.getState() > 0) {
             animation_timer--;
             if (animation_timer == 0) {

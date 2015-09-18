@@ -72,7 +72,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
     }
 
     public void update(float delta) {
-        input.update();
+        input.update(delta);
 /*
         if ((pos.x + (vel.x * vmult) > dest.x && vel.x > 0) || (pos.x + (vel.x  * vmult) < dest.x && vel.x < 0)) {
             vel.x = 0;
@@ -304,30 +304,6 @@ public class Entity extends Collidable implements Comparable<Entity>{
         return 0;
     }
 
-    public boolean collidesWith(Collidable other) {
-        Vector3 hitCenter = hit.getCenter();
-
-        Vector3 opos = other.getPosition();
-        HitCircle o = other.getHit();
-        Vector3 oCenter = o.getCenter();
-
-        if (Util.findDistance((pos.x + hitCenter.x) - (opos.x + oCenter.x), (pos.y + hitCenter.y) - (opos.y + oCenter.y)) <= (hit.getRadius() + o.getRadius())) {
-            return true;
-        }
-
-        return false;
-    }
-
-
-
-    public HitCircle getHit() {
-        return hit;
-    }
-
-    public Vector3 getDimensions() {
-        return new Vector3(dim.x, dim.y, dim.z);
-    }
-
     public int getState() {
         return STATE;
     }
@@ -343,6 +319,11 @@ public class Entity extends Collidable implements Comparable<Entity>{
     public void grabGold(int gold) {
         this.gold += gold;
     }
+
+    public void heal(int amount) {
+
+    }
+
 }
 
 

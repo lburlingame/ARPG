@@ -12,6 +12,9 @@ public class Util {
     public static double findDistance(double x, double y) {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
+    public static double findSquareDistance(double x, double y) {
+        return x * x + y * y;
+    }
 
     public static Direction findSlope(double x, double y, double dest_x, double dest_y)
     {
