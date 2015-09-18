@@ -14,7 +14,7 @@ public class NullInput extends InputComponent{
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
 
     }
 

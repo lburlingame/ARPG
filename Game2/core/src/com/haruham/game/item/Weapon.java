@@ -10,7 +10,7 @@ public class Weapon extends Equipment {
 
     private int minDamage;
     private int maxDamage;
-    private int attackTime; // one attack every (attackTime / 60) seconds
+    private float attackTime; // time in seconds between attacks
     private float charge;
     private static final float MAX_CHARGE = 1.5f * 60;
 
@@ -18,7 +18,7 @@ public class Weapon extends Equipment {
         super(itemID, name, description, levelReq, quantity);
         minDamage = 10;
         maxDamage = 15;
-        attackTime = 90;
+        attackTime = 1.5f;
         charge = 0;
 
     }

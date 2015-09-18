@@ -1,6 +1,7 @@
 package com.haruham.game.state;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -19,6 +20,8 @@ public class Splash extends GameState {
     private int frames = 0;
 
     private SplashInput sin;
+    private Sound wavSound = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/pickup1.wav"));
+    private boolean played = false;
 
 
     public Splash(GameStateManager gsm) {
@@ -34,6 +37,10 @@ public class Splash extends GameState {
 
     public void update(float delta) {
         sin.update();
+        if (TimeUtils.millis()>(start+75) && !played) {
+            wavSound.play(.5f, .75f, 1);
+            played = true;
+        }
     }
 
     public void render() {
@@ -46,7 +53,7 @@ public class Splash extends GameState {
 
         frames++;
 
-        if (TimeUtils.millis()>(start+3000)) {
+        if (TimeUtils.millis()>(start+2500)) {
             gsm.setState(GameStateManager.MAINMENU);
         }
     }
@@ -63,5 +70,6 @@ public class Splash extends GameState {
     }
 
     public void dispose() {
+        wavSound.dispose();
     }
 }

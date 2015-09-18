@@ -13,7 +13,7 @@ public class PlayerInput extends InputComponent {
 
     }
 
-    public void update() {
+    public void update(float delta) {
 
         // TODO MAKE IT SO THE MOST RECENTLY ACTIVATED KEY GETS PRIORITY
         if (Inputs.isDown(Inputs.MOVE_UP)) {

@@ -20,7 +20,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.haruham.game.GameApp;
 import com.haruham.game.entity.Entity;
 import com.haruham.game.entity.Inventory;
-import com.haruham.game.entity.Player;
 import com.haruham.game.handler.PlayerContactListener;
 import com.haruham.game.input.GameMenuInput;
 import com.haruham.game.input.Inputs;
@@ -42,12 +41,8 @@ public class Play extends GameState {
     private Entity char1;
 
     private long start;
-    private int frames = 0;
 
     private int fps = 0;
-
-    public static float w;
-    public static float h;
 
     private BitmapFont font = new BitmapFont();
 

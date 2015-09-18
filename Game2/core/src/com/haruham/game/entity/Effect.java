@@ -5,9 +5,10 @@ package com.haruham.game.entity;
  */
 public abstract class Effect {
 
-
+    private float duration;
 
     public void update(float delta) {
 
     }
+
 }

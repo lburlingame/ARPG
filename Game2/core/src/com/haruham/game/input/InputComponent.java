@@ -1,6 +1,5 @@
 package com.haruham.game.input;
 
-import com.haruham.game.GameApp;
 import com.haruham.game.entity.Entity;
 
 /**
@@ -13,7 +12,7 @@ public abstract class InputComponent {
     public InputComponent() {
     }
 
-    public abstract void update();
+    public abstract void update(float delta);
     public void setCharacter(Entity character) {
         this.character = character;
     }

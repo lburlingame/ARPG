@@ -24,8 +24,8 @@ public class Item {
         this.active = active;
     }
 
-    public void use(Entity target) {
-        active.use(target);
+    public void use(Entity user) {
+        active.use(user);
     }
 
 

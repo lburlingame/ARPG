@@ -13,7 +13,7 @@ public class HealingActive extends Active {
         this.amount = amount;
     }
 
-    public void use(Entity target) {
-
+    public void use(Entity user) {
+        user.heal(amount);
     }
 }
