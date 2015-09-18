@@ -9,13 +9,8 @@ import com.haruham.game.entity.Entity;
  */
 public class PlayerInput extends InputComponent {
 
-    private Entity character;
+    public PlayerInput() {
 
-    private boolean clicked = false;
-    private boolean stopped = false;
-
-    public PlayerInput(GameApp game) {
-        super(game);
     }
 
     public void update() {
@@ -73,14 +68,6 @@ public class PlayerInput extends InputComponent {
         }*/
 
 
-        if (clicked && !stopped) {
-
-        }
-    }
-
-    // why is this needed? shouldn't the superclass method be sufficient? why is it breaking when i dont have this?
-    public void setCharacter(Entity character) {
-        this.character = character;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.haruham.game.gfx;
+package com.haruham.game.entity;
 
 import com.haruham.game.entity.Entity;
 

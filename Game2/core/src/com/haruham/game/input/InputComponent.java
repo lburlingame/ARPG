@@ -8,11 +8,9 @@ import com.haruham.game.entity.Entity;
  */
 public abstract class InputComponent {
 
-    protected GameApp game;
     protected Entity character;
 
-    public InputComponent(GameApp game) {
-        this.game = game;
+    public InputComponent() {
     }
 
     public abstract void update();

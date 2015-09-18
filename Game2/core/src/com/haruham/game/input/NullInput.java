@@ -9,8 +9,8 @@ import com.haruham.game.GameApp;
  */
 public class NullInput extends InputComponent{
 
-    public NullInput(GameApp game) {
-        super(game);
+    public NullInput() {
+
     }
 
     @Override
@@ -18,7 +18,4 @@ public class NullInput extends InputComponent{
 
     }
 
-    public Vector2 getScreenLoc() {
-        return new Vector2(0,0);
-    }
 }

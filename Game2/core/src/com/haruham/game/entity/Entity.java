@@ -318,16 +318,6 @@ public class Entity extends Collidable implements Comparable<Entity>{
         return false;
     }
 
-
-
-    public HitCircle getHit() {
-        return hit;
-    }
-
-    public Vector3 getDimensions() {
-        return new Vector3(dim.x, dim.y, dim.z);
-    }
-
     public int getState() {
         return STATE;
     }

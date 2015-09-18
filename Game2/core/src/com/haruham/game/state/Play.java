@@ -81,7 +81,7 @@ public class Play extends GameState {
         renderer = new OrthogonalTiledMapRenderer(map);
         debugRenderer = new ShapeRenderer();
 
-        char1 = new Entity(1, new PlayerInput(game), 1, new Vector3(300,300,0));
+        char1 = new Entity(1, new PlayerInput(), 1, new Vector3(300,300,0));
         camera.position.set(char1.getX() + char1.getWidth()/2,char1.getY() + char1.getHeight()/2,0);
     }
 
