@@ -37,9 +37,13 @@ public class Splash extends GameState {
 
     public void update(float delta) {
         sin.update();
-        if (TimeUtils.millis()>(start+75) && !played) {
+        if (TimeUtils.millis()>(start+990) && !played) {
             wavSound.play(.5f, .75f, 1);
             played = true;
+        }
+
+        if (TimeUtils.millis()>(start+4000)) {
+            gsm.setState(GameStateManager.MAINMENU);
         }
     }
 
@@ -48,14 +52,12 @@ public class Splash extends GameState {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        splash.draw(batch);
+        if (TimeUtils.millis()>(start+1000)) {
+            splash.draw(batch);
+        }
         batch.end();
 
         frames++;
-
-        if (TimeUtils.millis()>(start+2500)) {
-            gsm.setState(GameStateManager.MAINMENU);
-        }
     }
 
     public void renderDebug() {

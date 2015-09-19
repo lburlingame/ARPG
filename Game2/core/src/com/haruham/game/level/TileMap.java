@@ -25,9 +25,9 @@ public class TileMap {
 
     public static final double GRAVITY = .3;
 
-	public TileMap(String path, GameStateManager gsm){
+	public TileMap(String path, OrthographicCamera camera){
 		//tiles = new ArrayList();
-        camera = gsm.getGame().getCamera();
+        this.camera = camera;
 		loadMap(path);
 	}
 	

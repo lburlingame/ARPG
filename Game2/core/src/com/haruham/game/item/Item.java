@@ -7,6 +7,8 @@ import com.haruham.game.entity.Entity;
  */
 public class Item {
 
+
+    // pos and velocity too
     protected int itemID;
     protected String name;
     protected String description;  //  flavor text

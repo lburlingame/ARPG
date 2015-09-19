@@ -1,6 +1,7 @@
 package com.haruham.game.entity;
 
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.util.Util;
 
@@ -38,4 +39,6 @@ public abstract class Collidable {
 
         return false;
     }
+
+
 }

@@ -39,6 +39,7 @@ public class Inputs {
     public static int JUMP = SPACE;
 
     public static Vector3 pos = new Vector3(0,0,0);
+    public static Vector3 posScreen = new Vector3(0,0,0);
 
     static {
         keys = new boolean[NUM_KEYS];
@@ -50,8 +51,8 @@ public class Inputs {
             pkeys[i] = keys[i];
         }
 
-        pos.x = Gdx.input.getX();
-        pos.y = Gdx.input.getY();
+        pos.x = posScreen.x = Gdx.input.getX();
+        pos.y = posScreen.y = Gdx.input.getY();
 
         amount = 0;
     }

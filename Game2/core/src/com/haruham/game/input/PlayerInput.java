@@ -40,6 +40,11 @@ public class PlayerInput extends InputComponent {
             character.jump();
         }
 
+        if (Inputs.isPressed(Inputs.M1)) {
+
+            character.attack(Inputs.pos);
+        }
+
        /* if (input.SHIFT.isPressed()) {
             character.sprint();
         }else if (input.CTRL.isPressed()) {
@@ -51,6 +56,8 @@ public class PlayerInput extends InputComponent {
 
 
         Vector3 offset = camera.getOffset();
+
+
 
         if (input.M1.isPressed()) {
             character.fireball.use(new Vector2(character.getX(), character.getY()), new Vector2(input.mLoc.getX() / camera.getScale() + offset.x, input.mLoc.getY() / camera.getScale() + offset.y));

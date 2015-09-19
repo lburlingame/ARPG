@@ -1,9 +1,11 @@
 package com.haruham.game.item;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.entity.Collidable;
 import com.haruham.game.entity.Entity;
 import com.haruham.game.entity.HitCircle;
+import com.haruham.game.gfx.TextureLoader;
 
 import java.util.ArrayList;
 
@@ -29,7 +31,7 @@ public class Attack extends Collidable {
     private ArrayList<Integer> hitids;
     private String name;
 
-    private Attack(Entity owner, String name, float radius) {
+    public Attack(Entity owner, String name, float radius) {
         this.owner = owner;
         this.pos = owner.getPosition();
         this.name = name;
@@ -41,5 +43,13 @@ public class Attack extends Collidable {
 
     }
 
+    public void update(float delta) {
+        pos.x += vel.x;
+        pos.y += vel.y;
+    }
+
+    public void draw(SpriteBatch batch) {
+        batch.draw(TextureLoader.getSprite(1,1), pos.x, pos.y + pos.z);
+    }
 
 }
