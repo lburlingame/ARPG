@@ -57,7 +57,9 @@ public class Entity extends Collidable implements Comparable<Entity>{
 
         this.dim = new Vector3(32 * smult, 32 * smult, 32 * smult);
 
-        this.hit = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
+        this.hit = new HitCircle(new Vector3(0, dim.y*.3f, 0), dim.x / 3);
+
+        //this.hit = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
         gold = (int)(Math.random() * 58) + 5;
     }
 
@@ -117,11 +119,11 @@ public class Entity extends Collidable implements Comparable<Entity>{
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(TextureLoader.getSprite(id, id++), pos.x, pos.y + pos.z, 32,32);
+        batch.draw(TextureLoader.getSprite(id, id++), pos.x-dim.x/2, pos.y + pos.z, 32,32);
     }
 
     public void drawDebug(ShapeRenderer renderer) {
-        renderer.circle(pos.x + hit.getCenter().x - hit.getRadius()/2, pos.y + hit.getCenter().y - hit.getRadius()/2, hit.getRadius());
+        renderer.circle(pos.x + hit.getCenter().x, pos.y + hit.getCenter().y, hit.getRadius());
     }
 
    /* public void draw(Graphics2D g, Camera camera){

@@ -126,7 +126,7 @@ public class Play extends GameState {
 
         float lerp = .05f;//.0125f;
         Vector3 position = camera.position;
-        position.x += (char1.getX() + char1.getWidth()/2 - position.x) * lerp ;
+        position.x += (char1.getX() - position.x) * lerp ;
         position.y += (char1.getY() + char1.getHeight()/2 - position.y) * lerp * 1.5;
         camera.update();
 
