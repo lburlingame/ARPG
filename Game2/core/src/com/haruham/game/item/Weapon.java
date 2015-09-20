@@ -1,7 +1,9 @@
 package com.haruham.game.item;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.entity.Entity;
+import com.haruham.game.state.Play;
 
 /**
  * Created on 9/17/2015.
@@ -23,7 +25,7 @@ public class Weapon extends Equipment {
 
     }
 
-    public void attack(Entity user, Vector2 target) {
-        
+    public void attack(Play world, Entity user, Vector3 target) {
+        world.addAttack(new Attack(user, "Melee attack", 5, target));
     }
 }

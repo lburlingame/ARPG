@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.gfx.TextureLoader;
 import com.haruham.game.input.InputComponent;
+import com.haruham.game.item.Weapon;
+import com.haruham.game.state.Play;
 import com.haruham.game.util.Util;
 
 import java.awt.*;
@@ -29,24 +31,21 @@ public class Entity extends Collidable implements Comparable<Entity>{
     private int id;
 
     private Vector2 dest;  //destination
-    private Vector3 dim;   //dimensions
-    private float smult; // size multiplier
-
-    private HitCircle hit;
-    private float BASE_VELOCITY;
-
 
     private float vmult = 1;  // velocity multiplier
 
-
+    private Play world;
+    private Weapon weapon;
     private InputComponent input;
 
     private int gold;
 
-    public Entity(int id, InputComponent input, float smult, Vector3 pos) {
+    public Entity(Play world, int id, InputComponent input, float smult, Vector3 pos) {
         input.setCharacter(this);
-
+        this.world = world;
         this.id = id;
+
+        this.weapon = new Weapon(1, "Hello World", "Hi there friend", 25, 1);
 
         this.input = input;
         this.smult = smult;
@@ -54,7 +53,6 @@ public class Entity extends Collidable implements Comparable<Entity>{
         this.pos = pos;
         this.dest = new Vector2(pos.x, pos.y);
         STATE = STOPPED;
-        this.BASE_VELOCITY = 3;
         this.vel = new Vector3(0,0,0);
 
         this.dim = new Vector3(32 * smult, 32 * smult, 32 * smult);
@@ -68,7 +66,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
         dim.x = 32 * smult;
         dim.y = 32 * smult;
         dim.z = 32 * smult;
-        hit = new HitCircle(new Vector3(0, -dim.z/8, 0), dim.x / 3);
+        hit = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
     }
 
     public void update(float delta) {
@@ -324,6 +322,16 @@ public class Entity extends Collidable implements Comparable<Entity>{
 
     }
 
+    public Vector2[] getVertices() {
+        return new Vector2[] {
+                new Vector2(pos.x, pos.y),
+                new Vector2(pos.x + dim.x, pos.y),
+        };
+    }
+
+    public void attack(Vector3 target) {
+        weapon.attack(world, this, target);
+    }
 }
 
 
