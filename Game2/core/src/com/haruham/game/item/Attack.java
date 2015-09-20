@@ -31,9 +31,10 @@ public class Attack extends Collidable {
     private ArrayList<Integer> hitids;
     private String name;
 
-    public Attack(Entity owner, String name, float radius) {
+    public Attack(Entity owner, String name, float radius, Vector3 target) {
         this.owner = owner;
-        this.pos = owner.getPosition();
+        //this.pos = owner.getPosition();
+        this.pos = new Vector3(target.x, target.y, target.z);
         this.name = name;
         hit = new HitCircle(new Vector3(0,0,0), radius * .6f);
         hitids = new ArrayList<>(); // add casters hit id to this;

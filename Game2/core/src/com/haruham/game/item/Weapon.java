@@ -26,6 +26,6 @@ public class Weapon extends Equipment {
     }
 
     public void attack(Play world, Entity user, Vector3 target) {
-        world.addAttack(new Attack(user, "Melee attack", 5));
+        world.addAttack(new Attack(user, "Melee attack", 5, target));
     }
 }
