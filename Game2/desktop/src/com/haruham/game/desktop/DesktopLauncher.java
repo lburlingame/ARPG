@@ -20,8 +20,8 @@ public class DesktopLauncher {
         if (fullscreen) {
             config.setFromDisplayMode(LwjglApplicationConfiguration.getDesktopDisplayMode());
         }else{
-            config.width = 1280;
-            config.height = 720;
+            config.width = 1280;  // 1280
+            config.height = 720;  //720
         }
 
         config.fullscreen = fullscreen;
