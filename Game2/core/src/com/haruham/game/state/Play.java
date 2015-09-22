@@ -9,9 +9,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -20,7 +18,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.haruham.game.GameApp;
 import com.haruham.game.entity.Entity;
 import com.haruham.game.entity.Inventory;
 import com.haruham.game.gfx.LightRenderer;
@@ -32,7 +29,6 @@ import com.haruham.game.input.PlayerInput;
 import com.haruham.game.item.Attack;
 import com.haruham.game.item.Item;
 import com.haruham.game.level.TileMap;
-import javafx.stage.Screen;
 
 import java.util.ArrayList;
 
