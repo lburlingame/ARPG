@@ -69,8 +69,7 @@ public class LightRenderer {
             /*glUniform2f(glGetUniformLocation(shaderProgram, "lightLocation"), light.location.x, height - light.location.y);
             glUniform3f(glGetUniformLocation(shaderProgram, "lightColor"), light.red, light.green, light.blue);*/
             Vector3 lightpos = camera.project(light.getPosition());
-            lightpos.x += light.getWidth();
-			glUniform2f(glGetUniformLocation(shaderProgram, "lightLocation"), lightpos.x, lightpos.y);
+			glUniform2f(glGetUniformLocation(shaderProgram, "lightLocation"), lightpos.x, lightpos.y + light.getZ());
 			glUniform3f(glGetUniformLocation(shaderProgram, "lightColor"), 50, 50, 50);
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_ONE, GL_ONE);
@@ -81,7 +80,7 @@ public class LightRenderer {
 				glVertex2f(width, height);
 				glVertex2f(width, 0);
 			} glEnd();
-
+            // nothing
 			glDisable(GL_BLEND);
 			glUseProgram(0);
 			glClear(GL_STENCIL_BUFFER_BIT);

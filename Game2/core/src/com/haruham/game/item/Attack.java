@@ -35,6 +35,7 @@ public class Attack extends Collidable {
         this.owner = owner;
         //this.pos = owner.getPosition();
         this.pos = new Vector3(target.x, target.y, target.z);
+        this.dim = new Vector3(radius*2, radius*2, radius*2);
         this.name = name;
         hit = new HitCircle(new Vector3(0,0,0), radius * .6f);
         hitids = new ArrayList<>(); // add casters hit id to this;
@@ -50,7 +51,8 @@ public class Attack extends Collidable {
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(TextureLoader.getSprite(1,1), pos.x, pos.y + pos.z);
+        batch.draw(TextureLoader.getSprite(1, 1), pos.x-dim.x/2, pos.y + pos.z, dim.x, dim.y);
+
     }
 
 }

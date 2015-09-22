@@ -101,7 +101,7 @@ public class Play extends GameState {
 
         char1 = new Entity(this, 1, new PlayerInput(), 1, new Vector3(300,300,0));
         char2 = new Entity(this, 1, new NullInput(), 1, new Vector3(600,600,0));
-
+        lights.addLight(char1);
 
         world = new World(new Vector2(0,0),false);
         rayHandler = new RayHandler(world);
@@ -126,7 +126,7 @@ public class Play extends GameState {
 
         float lerp = .05f;//.0125f;
         Vector3 position = camera.position;
-        position.x += (char1.getX() + char1.getWidth()/2 - position.x) * lerp ;
+        position.x += (char1.getX() - position.x) * lerp ;
         position.y += (char1.getY() + char1.getHeight()/2 - position.y) * lerp * 1.5;
         camera.update();
 
@@ -139,12 +139,18 @@ public class Play extends GameState {
         batch.begin();
 
         tmap.draw(batch);
+
+        batch.end();
+
+        lights.render(camera);
+        batch.begin();
         char1.draw(batch);
         char2.draw(batch);
 
         for (int i = 0; i < entities.size(); i++) {
             entities.get(i).draw(batch);
         }
+
 
         for (int i = 0; i < attacks.size(); i++) {
             attacks.get(i).draw(batch);
