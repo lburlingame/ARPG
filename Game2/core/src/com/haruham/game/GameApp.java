@@ -46,7 +46,7 @@ public class GameApp implements ApplicationListener {
         hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, w, h);
 
-        smg = new SoundManager();//use observer for sound, but check to see if it happened on screen
+        smg = new SoundManager();//use observer for sound, but check to see if it happened on screenahh
         gsm = new GameStateManager(this);
 
         inputHandler = new InputHandler();
