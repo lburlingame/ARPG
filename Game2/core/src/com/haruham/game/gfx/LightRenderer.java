@@ -80,7 +80,7 @@ public class LightRenderer {
 				glVertex2f(width, height);
 				glVertex2f(width, 0);
 			} glEnd();
-
+            // nothing
 			glDisable(GL_BLEND);
 			glUseProgram(0);
 			glClear(GL_STENCIL_BUFFER_BIT);
