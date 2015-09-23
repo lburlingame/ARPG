@@ -72,12 +72,10 @@ public class GameApp implements ApplicationListener {
         }
     }
 
-
     public void dispose() {
         gsm.dispose();
         smg.dispose();
         batch.dispose();
-       // org.lwjgl.openal.AL.destroy();
        // System.out.println("dispose");
         AL.destroy();
         System.exit(1);
