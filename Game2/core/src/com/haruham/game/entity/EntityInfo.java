@@ -15,11 +15,16 @@ public class EntityInfo {
 
     public int current_exp;
     public int NEXT_LEVEL_EXP;
+    public boolean alive = true;
 
     public EntityInfo() {
         current_health = 1000;
         MAX_HEALTH = 1000;
         current_mana = MAX_MANA = 1000;
+
+    }
+
+    public void update(float delta) {
 
     }
 
@@ -50,5 +55,9 @@ public class EntityInfo {
     public void heal(int amount) {
         current_health = current_health + amount;
         if (current_health > MAX_HEALTH) current_health = MAX_HEALTH;
+    }
+
+    public void die() {
+        alive = false;
     }
 }
