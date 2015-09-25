@@ -17,6 +17,7 @@ import java.awt.*;
 // vision is reduced in poorly lit areas
 
 //only calculates lighting on tiles that are either on _screen, or in between the player and an enemy that is in aggro range
+//death() function called when hp = 0, death behavior on death is then called, will have a boolean dead, if dead then on the next for loop, the entity will be removed from the arraylist, or maybe moved to another arraylist to have its body still remain ticking.
 public class Entity extends Collidable implements Comparable<Entity>{
 
     public static final int STOPPED = 0;

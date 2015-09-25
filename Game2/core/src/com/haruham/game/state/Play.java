@@ -68,6 +68,7 @@ public class Play extends GameState {
     private Inventory inventory = new Inventory(5);
 
     private ArrayList<Entity> entities;
+    private ArrayList<Entity> dead;
     private ArrayList<Attack> attacks;
     private ArrayList<Item> items;
     //other drops;
@@ -92,6 +93,7 @@ public class Play extends GameState {
         lights = new LightRenderer();
 
         entities = new ArrayList<>();
+        dead = new ArrayList<>();
         attacks = new ArrayList<>();
         items = new ArrayList<>();
 
