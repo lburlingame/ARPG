@@ -7,11 +7,9 @@ import com.haruham.game.entity.Entity;
  */
 public abstract class Active {
 
-    private String description;
-
-    public Active(String description) {
-        this.description = description;
+    public Active() {
     }
 
     public abstract void use(Entity target);
+    public abstract String toString();
 }
