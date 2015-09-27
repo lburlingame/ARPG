@@ -9,11 +9,14 @@ public class HealingActive extends Active {
 
     private int amount;
     public HealingActive(int amount) {
-        super("Heals user for " + amount + "health.");
         this.amount = amount;
     }
 
     public void use(Entity user) {
         user.heal(amount);
+    }
+
+    public String toString() {
+        return "Heals user for " + amount + " health.";
     }
 }
