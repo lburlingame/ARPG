@@ -28,30 +28,84 @@ public class Weapon extends Equipment {
     public void attack(Play world, Entity user, Vector3 target) {
         world.addAttack(new Attack(user, "Melee attack", 16, target));
 
-       /* world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
-        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));*/
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(50,50,0)));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(-50,50,0)));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(50,-50,0)));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(-50,-50,0)));
 
+        /*world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));*/
+        /*world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*100,(float)Math.random()*100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));
+        world.addAttack(new Attack(user, "Melee attack", 16, target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*-100f,0))));*/
 
     }
 }
