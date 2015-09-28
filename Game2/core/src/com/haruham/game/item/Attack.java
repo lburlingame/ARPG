@@ -6,6 +6,8 @@ import com.haruham.game.entity.Collidable;
 import com.haruham.game.entity.Entity;
 import com.haruham.game.entity.HitCircle;
 import com.haruham.game.gfx.TextureLoader;
+import com.haruham.game.util.Direction;
+import com.haruham.game.util.Util;
 
 import java.util.ArrayList;
 
@@ -27,18 +29,44 @@ public class Attack extends Collidable {
     private float stun;
     private float knockback;
 
-    private HitCircle hit;
     private ArrayList<Integer> hitids;
     private String name;
 
+    private Vector3 target;
+
     public Attack(Entity owner, String name, float radius, Vector3 target) {
         this.owner = owner;
-        //this.pos = owner.getPosition();
-        this.pos = new Vector3(target.x, target.y, target.z);
+        this.pos = owner.getPosition();
+        pos.z = 10;
+        this.target = target;
+        vel = new Vector3(0,0,0);
+       // this.pos = new Vector3(target.x, target.y, target.z);
         this.dim = new Vector3(radius*2, radius*2, radius*2);
         this.name = name;
         hit = new HitCircle(new Vector3(0,0,0), radius * .6f);
         hitids = new ArrayList<>(); // add casters hit id to this;
+        hitids.add(owner.getUID());
+        init();
+    }
+
+    public void init() {
+        Direction dir = Util.findSlope(pos.x, pos.y, target.x, target.y);
+
+        vel.x = Util.findX(20f + 0, dir.slope) * dir.xdir;
+        vel.y = dir.slope * vel.x;
+
+        if (dir.slope == 200000 || dir.slope == -200000)
+        {
+            vel.y = 20f * dir.slope / Math.abs(dir.slope);
+        }
+    }
+
+    public boolean hasHit(Entity entity) {
+        return hitids.contains(entity.getUID());
+    }
+
+    public void hit(Entity entity) {
+        hitids.add(entity.getUID());
     }
 
     public void reset() {
@@ -51,8 +79,7 @@ public class Attack extends Collidable {
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(TextureLoader.getSprite(1, 1), pos.x-dim.x/2, pos.y + pos.z, dim.x, dim.y);
-
+        batch.draw(TextureLoader.getSprite(2, 1), pos.x-dim.x/2, pos.y + pos.z - dim.y/2, dim.x, dim.y);
     }
 
 }

@@ -8,10 +8,14 @@ import com.haruham.game.entity.Entity;
 public class NullActive extends Active {
 
     public NullActive() {
-        super(null);
+
     }
 
     public void use(Entity target) {
 
+    }
+
+    public String toString() {
+        return "";
     }
 }

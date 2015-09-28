@@ -33,8 +33,8 @@ public abstract class GameState {
     public abstract void renderDebug();
 
     // start stop
-    public abstract void addInput();
-    public abstract void removeInput();
+    public abstract void start();
+    public abstract void stop();
 
     public abstract void dispose();
 

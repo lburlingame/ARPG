@@ -9,6 +9,9 @@ public class TextureLoader {
     private static Texture bear_tex = new Texture("sprites/bear_sheet.png");
     private static ArrayList<TextureRegion> bears;
 
+    private static Texture fireball_tex = new Texture("effects/fireball.png");
+    private static ArrayList<TextureRegion> fireballs;
+
     private static Texture grass_tex = new Texture("tiles/grass.png");
     private static ArrayList<TextureRegion> grass;
 
@@ -16,6 +19,8 @@ public class TextureLoader {
         switch (id) {
             case (1):
                 return getBear(frame);
+            case (2):
+                return getFireball(frame);
             default:
                 return getBear(frame);
         }
@@ -29,6 +34,17 @@ public class TextureLoader {
             }
         }
         return bears.get(frame % bears.size());
+    }
+
+
+    private static TextureRegion getFireball(int frame) {
+        if (fireballs == null) {
+            fireballs = new ArrayList<TextureRegion>();
+            for (int i = 0; i < fireball_tex.getWidth(); i+= 32) {
+                fireballs.add(new TextureRegion(fireball_tex, i, 0, 32, 32));
+            }
+        }
+        return fireballs.get(frame % fireballs.size());
     }
 
     public static TextureRegion getTile(int id, int frame) {

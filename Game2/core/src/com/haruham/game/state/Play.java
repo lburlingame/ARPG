@@ -61,6 +61,11 @@ public class Play extends GameState {
     private Body playerBody;
     private PlayerContactListener contact;
     private Sound wavSound = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/pickup1.wav"));
+    private Sound ambient = Gdx.audio.newSound(Gdx.files.internal("audio/catacombs.wav"));
+    private Sound cast = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/firebolt2.wav"));
+    private Sound sizzle = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/sizzle2.wav"));
+
+
     private LightRenderer lights;
 
     private GameMenuInput gin;
@@ -78,7 +83,7 @@ public class Play extends GameState {
         //wavSound.loop(.4f, 1f,.1f);
 
         gin = new GameMenuInput(gsm);
-
+        ambient.loop(1f);
 
         start = TimeUtils.millis();
         font = new BitmapFont();
@@ -99,6 +104,10 @@ public class Play extends GameState {
 
         char1 = new Entity(this, 1, new PlayerInput(), 1, new Vector3(300,300,0));
         char2 = new Entity(this, 1, new NullInput(), 1, new Vector3(600,600,0));
+
+        entities.add(char1);
+        entities.add(char2);
+
         lights.addLight(char1);
 
         world = new World(new Vector2(0,0),false);
@@ -114,8 +123,21 @@ public class Play extends GameState {
         gin.update();
         //world.step(delta, 6, 2);
         tmap.update(delta);
-        char1.update(delta);
-        char2.update(delta);
+
+        for (int i = 0; i < attacks.size(); i++) {
+            attacks.get(i).update(delta);
+        }
+
+        for (int i = 0; i < entities.size(); i++) {
+            entities.get(i).update(delta);
+
+            for (int j = 0; j < attacks.size(); j++) {
+                if (entities.get(i).collidesWith(attacks.get(j)) && !attacks.get(j).hasHit(entities.get(i))) {
+                    attacks.get(j).hit(entities.get(i));
+                    sizzle.play(.25f);
+                }
+            }
+        }
     }
 
     public void render() {
@@ -138,12 +160,9 @@ public class Play extends GameState {
 
         tmap.draw(batch);
 
-        batch.end();
-
+        /*batch.end();
         lights.render(camera);
-        batch.begin();
-        char1.draw(batch);
-        char2.draw(batch);
+        batch.begin();*/
 
         for (int i = 0; i < entities.size(); i++) {
             entities.get(i).draw(batch);
@@ -165,7 +184,13 @@ public class Play extends GameState {
         debugRenderer.setAutoShapeType(true);
 
         debugRenderer.begin();
-        char1.drawDebug(debugRenderer);
+        for (int i = 0; i < entities.size(); i++) {
+            entities.get(i).drawDebug(debugRenderer);
+        }
+
+        for (int i = 0; i < attacks.size(); i++) {
+            attacks.get(i).drawDebug(debugRenderer);
+        }
         debugRenderer.end();
 
         batch.begin();
@@ -176,16 +201,17 @@ public class Play extends GameState {
         font.draw(batch, Inputs.posScreen.x + ", " + Inputs.posScreen.y, 10, Gdx.graphics.getHeight() - 40);
         font.draw(batch, (Inputs.pos.x) + ", " + (Inputs.pos.y), 10, Gdx.graphics.getHeight() - 60);
         font.draw(batch, (camera.zoom+ " "), 10, Gdx.graphics.getHeight() - 80);
+        font.draw(batch, attacks.size() + "", 10, Gdx.graphics.getHeight() - 100);
 
         batch.end();
     }
 
-    public void addInput() {
-
+    public void start() {
+        ambient.resume();
     }
 
-    public void removeInput() {
-
+    public void stop() {
+        ambient.pause();
     }
 
     public void dispose() {
@@ -201,5 +227,6 @@ public class Play extends GameState {
 
     public void addAttack(Attack attack) {
         attacks.add(attack);
+        cast.play(.2f);
     }
 }

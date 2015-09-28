@@ -21,11 +21,11 @@ public class GameSelect extends GameState {
 
     }
 
-    public void addInput() {
+    public void start() {
 
     }
 
-    public void removeInput() {
+    public void stop() {
 
     }
 
