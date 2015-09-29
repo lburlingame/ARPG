@@ -20,7 +20,7 @@ import java.awt.*;
 //death() function called when hp = 0, death behavior on death is then called, will have a boolean dead, if dead then on the next for loop, the entity will be removed from the arraylist, or maybe moved to another arraylist to have its body still remain ticking.
 public class Entity extends Collidable implements Comparable<Entity>{
 
-    private static int uid = 0;
+    private static int NEXT_UID = 0;
     public static final int STOPPED = 0;
     public static final int WALKING = 1;
     public static final int RUNNING = 2;
@@ -47,8 +47,8 @@ public class Entity extends Collidable implements Comparable<Entity>{
         input.setCharacter(this);
         this.world = world;
         this.id = id;
-        this.UID = new Integer(uid);
-        uid++;
+        this.UID = new Integer(NEXT_UID);
+        NEXT_UID++;
         this.weapon = new Weapon(1, "Hello World", "Hi there friend", 25, 1);
 
         this.input = input;

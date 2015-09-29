@@ -52,12 +52,12 @@ public class Attack extends Collidable {
     public void init() {
         Direction dir = Util.findSlope(pos.x, pos.y, target.x, target.y);
 
-        vel.x = Util.findX(1f + 0, dir.slope) * dir.xdir;
+        vel.x = Util.findX(20f + 0, dir.slope) * dir.xdir;
         vel.y = dir.slope * vel.x;
 
         if (dir.slope == 200000 || dir.slope == -200000)
         {
-            vel.y = 1f * dir.slope / Math.abs(dir.slope);
+            vel.y = 20f * dir.slope / Math.abs(dir.slope);
         }
     }
 

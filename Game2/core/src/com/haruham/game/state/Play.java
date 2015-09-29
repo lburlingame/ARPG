@@ -8,7 +8,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,12 +15,11 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.haruham.game.entity.Entity;
 import com.haruham.game.entity.Inventory;
 import com.haruham.game.gfx.LightRenderer;
-import com.haruham.game.handler.PlayerContactListener;
+import com.haruham.game.gfx.particle.ParticleEmitter;
 import com.haruham.game.input.GameMenuInput;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.input.NullInput;
@@ -29,6 +27,7 @@ import com.haruham.game.input.PlayerInput;
 import com.haruham.game.item.Attack;
 import com.haruham.game.item.Item;
 import com.haruham.game.level.TileMap;
+import com.haruham.game.level.World;
 
 import java.util.ArrayList;
 
@@ -52,14 +51,8 @@ public class Play extends GameState {
 
     private BitmapFont font = new BitmapFont();
 
-    private Box2DDebugRenderer b2dr;
-    private OrthographicCamera b2dCam;
-
     private World world;
-    private RayHandler rayHandler;
 
-    private Body playerBody;
-    private PlayerContactListener contact;
     private Sound wavSound = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/pickup1.wav"));
     private Sound ambient = Gdx.audio.newSound(Gdx.files.internal("audio/catacombs.wav"));
     private Sound cast = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/firebolt2.wav"));
@@ -73,9 +66,13 @@ public class Play extends GameState {
     private Inventory inventory = new Inventory(5);
 
     private ArrayList<Entity> entities;
-    private ArrayList<Entity> dead;
     private ArrayList<Attack> attacks;
+    private ArrayList<Entity> dead;
     private ArrayList<Item> items;
+    private ArrayList<Item> coins;
+
+
+    private ParticleEmitter emitter;
     //other drops;
 
     public Play(GameStateManager gsm) {
@@ -95,24 +92,22 @@ public class Play extends GameState {
         renderer = new OrthogonalTiledMapRenderer(map);
         debugRenderer = new ShapeRenderer();
 
-        lights = new LightRenderer();
-
         entities = new ArrayList<>();
         dead = new ArrayList<>();
         attacks = new ArrayList<>();
         items = new ArrayList<>();
 
+        emitter = new ParticleEmitter();
         char1 = new Entity(this, 1, new PlayerInput(), 1, new Vector3(300,300,0));
         char2 = new Entity(this, 1, new NullInput(), 1, new Vector3(600,600,0));
 
         entities.add(char1);
         entities.add(char2);
-
+        lights = new LightRenderer();
         lights.addLight(char1);
 
-        world = new World(new Vector2(0,0),false);
-        rayHandler = new RayHandler(world);
-        new PointLight(rayHandler,1000, Color.BLUE,2000,char1.getX(),char1.getY());
+       // world = new World(new Vector2(0,0),false);
+        //rayHandler = new RayHandler(world);
 
         camera.position.set(char1.getX() + char1.getWidth()/2,char1.getY() + char1.getHeight()/2,0);
     }
@@ -135,9 +130,12 @@ public class Play extends GameState {
                 if (entities.get(i).collidesWith(attacks.get(j)) && !attacks.get(j).hasHit(entities.get(i))) {
                     attacks.get(j).hit(entities.get(i));
                     sizzle.play(.25f);
+                    emitter.bloodSpatter(entities.get(i).getPosition(), new Vector3((float)Math.random() * 3 - 1.5f,(float)Math.random() * 3 - 1.5f,(float)Math.random() * 3));
                 }
             }
         }
+
+        emitter.update(delta);
     }
 
     public void render() {
@@ -151,9 +149,6 @@ public class Play extends GameState {
         camera.update();
 
         batch.setProjectionMatrix(camera.combined);
-        //renderer.setView(camera);
-        //renderer.render();
-        //rayHandler.setCombinedMatrix(camera);
 
 
         batch.begin();
@@ -163,6 +158,7 @@ public class Play extends GameState {
         /*batch.end();
         lights.render(camera);
         batch.begin();*/
+        emitter.draw(batch);
 
         for (int i = 0; i < entities.size(); i++) {
             entities.get(i).draw(batch);
@@ -218,7 +214,6 @@ public class Play extends GameState {
         renderer.dispose();
         debugRenderer.dispose();
         wavSound.dispose();
-        world.dispose();
         font.dispose();
         map.dispose();
         lights.dispose();

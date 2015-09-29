@@ -63,13 +63,13 @@ public class GameApp implements ApplicationListener {
     }
 
     public void render() {
-       /* delta += Gdx.graphics.getDeltaTime();
+        delta += Gdx.graphics.getDeltaTime();
         while (delta >= STEP) {
-            delta -= STEP;*/
+            delta -= STEP;
             gsm.update(STEP);
             gsm.render();
             Inputs.update();
-        //}
+        }
     }
 
     public void dispose() {
