@@ -9,20 +9,20 @@ import com.badlogic.gdx.math.Vector2;
 public class Util {
 
 
-    public static double findDistance(double x, double y) {
-        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+    public static float findDistance(float x, float y) {
+        return (float)Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
-    public static double findSquareDistance(double x, double y) {
+    public static float findSquareDistance(float x, float y) {
         return x * x + y * y;
     }
 
-    public static Direction findSlope(double x, double y, double dest_x, double dest_y)
+    public static Direction findSlope(float x, float y, float dest_x, float dest_y)
     {
-        double rise = dest_y - y;
-        double run = dest_x - x;
+        float rise = dest_y - y;
+        float run = dest_x - x;
 
         byte xdir = 0;
-        double slope = 0;
+        float slope = 0;
         if (run == 0 && rise > 0) {
             slope = 200000;
             xdir = 0;
@@ -41,8 +41,8 @@ public class Util {
         return new Direction(xdir, slope);
     }
 
-    public static double findX(double hypotenuse, double slope) {
-        return Math.sqrt(Math.pow(hypotenuse, 2) / (1 + Math.pow(slope, 2)));
+    public static float findX(float hypotenuse, float slope) {
+        return (float) Math.sqrt(Math.pow(hypotenuse, 2) / (1 + Math.pow(slope, 2)));
     }
 
 

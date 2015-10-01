@@ -6,9 +6,9 @@ package com.haruham.game.util;
 public class Direction {
 
     public byte xdir;
-    public double slope;
+    public float slope;
 
-    public Direction(byte xdir, double slope) {
+    public Direction(byte xdir, float slope) {
         this.xdir = xdir;
         this.slope = slope;
     }

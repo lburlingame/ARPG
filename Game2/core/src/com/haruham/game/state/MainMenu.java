@@ -89,7 +89,7 @@ public class MainMenu extends GameState {
         //play_b = new ImageButton(new Texture("menu/play.png"));
         //stage.addActor(play);
         //skin.dispose();
-        Gdx.input.setInputProcessor(game.getInputs());
+        //Gdx.input.setInputProcessor(game.getInputs());
     }
 
     public void playClicked() {
@@ -116,12 +116,12 @@ public class MainMenu extends GameState {
     }
 
     //change to start()/end()
-    public void removeInput() {
+    public void stop() {
         game.getInputs().removeProcessor(stage);
         smg.pause();
     }
 
-    public void addInput() {
+    public void start() {
         game.getInputs().addProcessor(stage);
         smg.resume();
     }

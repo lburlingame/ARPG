@@ -20,6 +20,7 @@ import java.awt.*;
 //death() function called when hp = 0, death behavior on death is then called, will have a boolean dead, if dead then on the next for loop, the entity will be removed from the arraylist, or maybe moved to another arraylist to have its body still remain ticking.
 public class Entity extends Collidable implements Comparable<Entity>{
 
+    private static int NEXT_UID = 0;
     public static final int STOPPED = 0;
     public static final int WALKING = 1;
     public static final int RUNNING = 2;
@@ -30,6 +31,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
     private int PREV_STATE = 0; // ??
 
     private int id;
+    private Integer UID;
 
     private Vector2 dest;  //destination
 
@@ -45,7 +47,8 @@ public class Entity extends Collidable implements Comparable<Entity>{
         input.setCharacter(this);
         this.world = world;
         this.id = id;
-
+        this.UID = new Integer(NEXT_UID);
+        NEXT_UID++;
         this.weapon = new Weapon(1, "Hello World", "Hi there friend", 25, 1);
 
         this.input = input;
@@ -123,9 +126,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
         batch.draw(TextureLoader.getSprite(id, id++), pos.x-dim.x/2, pos.y + pos.z, 32,32);
     }
 
-    public void drawDebug(ShapeRenderer renderer) {
-        renderer.circle(pos.x + hit.getCenter().x, pos.y + hit.getCenter().y, hit.getRadius());
-    }
+
 
    /* public void draw(Graphics2D g, Camera camera){
         Vector3 offset = camera.getOffset();
@@ -312,6 +313,8 @@ public class Entity extends Collidable implements Comparable<Entity>{
     public int getID() {
         return id;
     }
+
+    public Integer getUID() { return UID; }
 
     public int getGold() {
         return gold;

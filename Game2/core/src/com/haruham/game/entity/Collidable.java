@@ -2,6 +2,7 @@ package com.haruham.game.entity;
 
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.util.Util;
 
@@ -38,6 +39,10 @@ public abstract class Collidable {
         }
 
         return false;
+    }
+
+    public void drawDebug(ShapeRenderer renderer) {
+        renderer.circle(pos.x + hit.getCenter().x, pos.y + hit.getCenter().y, hit.getRadius());
     }
 
 

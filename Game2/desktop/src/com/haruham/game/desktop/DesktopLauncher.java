@@ -25,12 +25,13 @@ public class DesktopLauncher {
         }
 
         config.fullscreen = fullscreen;
-        config.resizable = !fullscreen;
+        config.resizable = false;
 
 
         config.title = GameApp.TITLE;
         config.vSyncEnabled = true;
-
+        /*config.foregroundFPS = 0;
+        config.backgroundFPS = 0;*/
 
 
         new LwjglApplication(new GameApp(), config);
