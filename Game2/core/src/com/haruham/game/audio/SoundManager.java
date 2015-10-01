@@ -16,7 +16,7 @@ public class SoundManager {
     }
 
     public void play() {
-        music.loop(.5f);
+        music.loop(.6f, 1.2f, 0f);
     }
 
     public void resume() {

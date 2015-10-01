@@ -222,6 +222,6 @@ public class Play extends GameState {
 
     public void addAttack(Attack attack) {
         attacks.add(attack);
-        cast.play(.2f, .2f, 0f);
+        cast.play(.2f, 1.25f, 0f);
     }
 }

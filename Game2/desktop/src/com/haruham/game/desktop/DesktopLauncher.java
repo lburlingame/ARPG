@@ -25,7 +25,7 @@ public class DesktopLauncher {
         }
 
         config.fullscreen = fullscreen;
-        config.resizable = !fullscreen;
+        config.resizable = false;
 
 
         config.title = GameApp.TITLE;
