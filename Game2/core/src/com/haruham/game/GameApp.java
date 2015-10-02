@@ -25,8 +25,6 @@ public class GameApp implements ApplicationListener {
     private OrthographicCamera camera;
     private OrthographicCamera hudCamera;
 
-    private SoundManager smg;
-
     private GameStateManager gsm;
 
     private InputMultiplexer inputs = new InputMultiplexer();
@@ -46,7 +44,6 @@ public class GameApp implements ApplicationListener {
         hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, w, h);
 
-        smg = new SoundManager();//use observer for sound, but check to see if it happened on screenahh
         gsm = new GameStateManager(this);
 
         inputHandler = new InputHandler();
@@ -74,7 +71,6 @@ public class GameApp implements ApplicationListener {
 
     public void dispose() {
         gsm.dispose();
-        smg.dispose();
         batch.dispose();
        // System.out.println("dispose");
         AL.destroy();
@@ -94,11 +90,6 @@ public class GameApp implements ApplicationListener {
     public OrthographicCamera getHudCamera() {
         return hudCamera;
     }
-
-    public SoundManager getSound() {
-        return smg;
-    }
-
 
     public void pause() {
 

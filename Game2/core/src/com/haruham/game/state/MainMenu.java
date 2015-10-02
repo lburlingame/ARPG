@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.haruham.game.audio.MusicManager;
 import com.haruham.game.audio.SoundManager;
 import com.haruham.game.input.MainMenuInput;
 
@@ -34,6 +35,7 @@ public class MainMenu extends GameState {
     private Texture title;
 
     private MainMenuInput min;
+    private MusicManager mmg;
 
     public MainMenu(GameStateManager gsm) {
         super(gsm);
@@ -46,7 +48,8 @@ public class MainMenu extends GameState {
         BitmapFont font12 = generator.generateFont(parameter); // font size 12 pixels
         generator.dispose();*/
 
-        smg.play();
+        mmg = new MusicManager();//use observer for sound, but check to see if it happened on screenahh
+        mmg.play();
 
         min = new MainMenuInput(gsm);
 
@@ -118,12 +121,12 @@ public class MainMenu extends GameState {
     //change to start()/end()
     public void stop() {
         game.getInputs().removeProcessor(stage);
-        smg.pause();
+        mmg.pause();
     }
 
     public void start() {
         game.getInputs().addProcessor(stage);
-        smg.resume();
+        mmg.play();
     }
 
     @Override
@@ -135,7 +138,7 @@ public class MainMenu extends GameState {
         stage.dispose();
         background.dispose();
         skin.dispose();
-
+        mmg.dispose();
     }
       /*  TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = skin.newDrawable("white");
