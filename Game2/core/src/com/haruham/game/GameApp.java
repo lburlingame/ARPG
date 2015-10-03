@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.haruham.game.audio.SoundManager;
 import com.haruham.game.input.InputHandler;
 import com.haruham.game.input.Inputs;
@@ -22,6 +23,7 @@ public class GameApp implements ApplicationListener {
     private float delta;
 
     private SpriteBatch batch;
+    private ShapeRenderer shapeRenderer;
     private OrthographicCamera camera;
     private OrthographicCamera hudCamera;
 
@@ -33,6 +35,7 @@ public class GameApp implements ApplicationListener {
 
     public void create() {
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
         camera = new OrthographicCamera();
         hudCamera = new OrthographicCamera();
         float w = Gdx.graphics.getWidth();
@@ -99,4 +102,7 @@ public class GameApp implements ApplicationListener {
 
     }
 
+    public ShapeRenderer getShapeRenderer() {
+        return shapeRenderer;
+    }
 }

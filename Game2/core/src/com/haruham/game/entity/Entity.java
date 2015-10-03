@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.gfx.TextureLoader;
 import com.haruham.game.input.InputComponent;
 import com.haruham.game.item.Weapon;
+import com.haruham.game.level.Level;
+import com.haruham.game.level.World;
 import com.haruham.game.state.Play;
 import com.haruham.game.util.Util;
 
@@ -37,15 +39,15 @@ public class Entity extends Collidable implements Comparable<Entity>{
 
     private float vmult = 1;  // velocity multiplier
 
-    private Play world;
+    private Level level;
     private Weapon weapon;
     private InputComponent input;
 
     private int gold;
 
-    public Entity(Play world, int id, InputComponent input, float smult, Vector3 pos) {
+    public Entity(Level level, int id, InputComponent input, float smult, Vector3 pos) {
         input.setCharacter(this);
-        this.world = world;
+        this.level = level;
         this.id = id;
         this.UID = new Integer(NEXT_UID);
         NEXT_UID++;
@@ -336,7 +338,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
     }
 
     public void attack(Vector3 target) {
-        weapon.attack(world, this, target);
+        weapon.attack(level, this, target);
     }
 }
 
