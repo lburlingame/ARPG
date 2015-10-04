@@ -45,5 +45,11 @@ public abstract class Collidable {
         renderer.circle(pos.x + hit.getCenter().x, pos.y + hit.getCenter().y, hit.getRadius());
     }
 
+    public float getDx() {
+        return vel.x;
+    }
 
+    public float getDy() {
+        return vel.y;
+    }
 }

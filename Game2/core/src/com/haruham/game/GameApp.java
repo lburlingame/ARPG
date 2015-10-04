@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.haruham.game.audio.SoundManager;
 import com.haruham.game.input.InputHandler;
 import com.haruham.game.input.Inputs;
@@ -22,10 +23,9 @@ public class GameApp implements ApplicationListener {
     private float delta;
 
     private SpriteBatch batch;
+    private ShapeRenderer shapeRenderer;
     private OrthographicCamera camera;
     private OrthographicCamera hudCamera;
-
-    private SoundManager smg;
 
     private GameStateManager gsm;
 
@@ -35,6 +35,7 @@ public class GameApp implements ApplicationListener {
 
     public void create() {
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
         camera = new OrthographicCamera();
         hudCamera = new OrthographicCamera();
         float w = Gdx.graphics.getWidth();
@@ -46,7 +47,6 @@ public class GameApp implements ApplicationListener {
         hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, w, h);
 
-        smg = new SoundManager();//use observer for sound, but check to see if it happened on screenahh
         gsm = new GameStateManager(this);
 
         inputHandler = new InputHandler();
@@ -74,7 +74,6 @@ public class GameApp implements ApplicationListener {
 
     public void dispose() {
         gsm.dispose();
-        smg.dispose();
         batch.dispose();
        // System.out.println("dispose");
         AL.destroy();
@@ -95,11 +94,6 @@ public class GameApp implements ApplicationListener {
         return hudCamera;
     }
 
-    public SoundManager getSound() {
-        return smg;
-    }
-
-
     public void pause() {
 
     }
@@ -108,4 +102,7 @@ public class GameApp implements ApplicationListener {
 
     }
 
+    public ShapeRenderer getShapeRenderer() {
+        return shapeRenderer;
+    }
 }

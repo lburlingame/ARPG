@@ -11,8 +11,7 @@ public class SoundManager {
 
     public Sound music;
     public SoundManager() {
-        music = Gdx.audio.newSound(Gdx.files.internal("audio/dkr.mp3"));
-
+        music = Gdx.audio.newSound(Gdx.files.internal("audio/dkr2.mp3"));
     }
 
     public void play() {
