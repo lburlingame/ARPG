@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.haruham.game.entity.Entity;
@@ -117,11 +118,7 @@ public class Level {
     }
 
     public void render() {
-        float lerp = .05f;//.0125f;
-        Vector3 position = camera.position;
-        position.x += (char1.getX() - position.x) * lerp ;
-        position.y += (char1.getY() + char1.getHeight()/2 - position.y) * lerp * 1.5;
-        camera.update();
+        lerp(new Vector2(0,0));
 
         batch.setProjectionMatrix(camera.combined);
 
@@ -144,9 +141,6 @@ public class Level {
         }
 
         batch.end();
-        //rayHandler.render();
-
-
     }
 
     public void renderDebug() {
@@ -162,8 +156,14 @@ public class Level {
             attacks.get(i).drawDebug(shapeRenderer);
         }
         shapeRenderer.end();
+    }
 
-
+    public void lerp(Vector2 pos) {
+        float lerp = .05f;//.0125f;
+        Vector3 position = camera.position;
+        position.x += (char1.getX() - position.x) * lerp;
+        position.y += (char1.getY() + char1.getHeight()/2 - position.y) * lerp * 1.5;
+        camera.update();
     }
 
     public void start() {

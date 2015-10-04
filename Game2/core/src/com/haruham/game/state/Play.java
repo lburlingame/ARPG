@@ -12,25 +12,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.TimeUtils;
-import com.haruham.game.entity.Entity;
-import com.haruham.game.entity.Inventory;
-import com.haruham.game.gfx.LightRenderer;
-import com.haruham.game.gfx.particle.ParticleEmitter;
 import com.haruham.game.input.GameMenuInput;
 import com.haruham.game.input.Inputs;
-import com.haruham.game.input.NullInput;
-import com.haruham.game.input.PlayerInput;
-import com.haruham.game.item.Attack;
-import com.haruham.game.item.Item;
 import com.haruham.game.level.Level;
-import com.haruham.game.level.TileMap;
-import com.haruham.game.level.World;
 
 import java.util.ArrayList;
 
@@ -67,10 +51,9 @@ public class Play extends GameState {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         levels.get(0).render();
 
-        batch.begin();
         batch.setProjectionMatrix(hudCamera.combined);
+        batch.begin();
         int fps = Gdx.graphics.getFramesPerSecond();
-        hudCamera.update();
         font.draw(batch, fps + " ", 10, Gdx.graphics.getHeight() - 20);
         font.draw(batch, Inputs.posScreen.x + ", " + Inputs.posScreen.y, 10, Gdx.graphics.getHeight() - 40);
         font.draw(batch, (Inputs.pos.x) + ", " + (Inputs.pos.y), 10, Gdx.graphics.getHeight() - 60);
@@ -78,7 +61,7 @@ public class Play extends GameState {
         //font.draw(batch, attacks.size() + "", 10, Gdx.graphics.getHeight() - 100);
 
         batch.end();
-
+/*
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.setProjectionMatrix(hudCamera.combined);
@@ -86,7 +69,7 @@ public class Play extends GameState {
         shapeRenderer.setColor(new Color(0, 0, 0, 0.85f));
         shapeRenderer.rect(0,0,hudCamera.viewportWidth, hudCamera.viewportHeight);
         shapeRenderer.end();
-        Gdx.gl.glDisable(GL20.GL_BLEND);
+        Gdx.gl.glDisable(GL20.GL_BLEND);*/
 
     }
 
