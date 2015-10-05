@@ -45,6 +45,12 @@ public class PlayerInput extends InputComponent {
             character.attack(new Vector3(Inputs.pos.x, Inputs.pos.y, 0));
         }
 
+        if (Inputs.isPressed(Inputs.M3)) {
+            character.setX(Inputs.pos.x);
+            character.setY(Inputs.pos.y);
+
+        }
+
        /* if (input.SHIFT.isPressed()) {
             character.sprint();
         }else if (input.CTRL.isPressed()) {

@@ -19,7 +19,7 @@ public class GameApp implements ApplicationListener {
     public static final int V_HEIGHT = 240;
     public static final int SCALE = 3;
 
-    public static final float STEP = 1 / 60f;
+    public static final float STEP = 1/60f;
     private float delta;
 
     private SpriteBatch batch;
@@ -63,13 +63,17 @@ public class GameApp implements ApplicationListener {
     }
 
     public void render() {
-        delta += Gdx.graphics.getDeltaTime();
+        /*delta += Gdx.graphics.getDeltaTime();
         while (delta >= STEP) {
             delta -= STEP;
             gsm.update(STEP);
             gsm.render();
             Inputs.update();
-        }
+        }*/
+
+        gsm.update(Gdx.graphics.getDeltaTime());
+        gsm.render();
+        Inputs.update();
     }
 
     public void dispose() {

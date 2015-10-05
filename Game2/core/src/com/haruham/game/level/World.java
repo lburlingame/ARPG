@@ -40,7 +40,7 @@ public class World {
     private Sound ambient = Gdx.audio.newSound(Gdx.files.internal("audio/catacombs.wav"));
     private Sound cast = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/firebolt2.wav"));
     private Sound sizzle = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/sizzle2.wav"));
-    private LightRenderer lights;
+  //  private LightRenderer lights;
 
     private Inventory inventory = new Inventory(5);
 
@@ -76,8 +76,8 @@ public class World {
 
         entities.add(player);
         entities.add(new Entity(this, 1, new NullInput(), new Vector3(600,600,0)));
-        lights = new LightRenderer();
-        lights.addLight(player);
+      //  lights = new LightRenderer();
+        //lights.addLight(player);
 
 
         camera.position.set(player.getX() + player.getWidth()/2,player.getY() + player.getHeight()/2,0);
