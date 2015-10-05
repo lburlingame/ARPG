@@ -95,11 +95,11 @@ public class GameApp implements ApplicationListener {
     }
 
     public void pause() {
-
+        System.out.println("pause");
     }
 
     public void resume() {
-
+        System.out.println("Resume");
     }
 
     public ShapeRenderer getShapeRenderer() {

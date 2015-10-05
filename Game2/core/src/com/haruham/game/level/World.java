@@ -98,7 +98,7 @@ public class World {
             for (int j = 0; j < attacks.size(); j++) {
                 if (entities.get(i).collidesWith(attacks.get(j)) && !attacks.get(j).hasHit(entities.get(i))) {
                     attacks.get(j).hit(entities.get(i));
-                    sizzle.play(.25f);  /// .08
+                    sizzle.play(1f);  /// .08
                     emitter.bloodSpatter(entities.get(i).getPosition().add(entities.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.14f, attacks.get(j).getDy()*.1f,(float)Math.random() * 3 - 1.5f));
                 }
             }
