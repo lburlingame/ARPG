@@ -1,19 +1,19 @@
 package com.haruham.game.input;
 
-import com.haruham.game.obj.Entity;
+import com.haruham.game.obj.Character;
 
 /**
  * Created on 3/26/2015.
  */
 public abstract class InputComponent {
 
-    protected Entity character;
+    protected Character character;
 
     public InputComponent() {
     }
 
     public abstract void update(float delta);
-    public void setCharacter(Entity character) {
+    public void setCharacter(Character character) {
         this.character = character;
     }
 

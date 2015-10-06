@@ -3,7 +3,7 @@ package com.haruham.game.obj;
 /**
  * Created on 8/22/2015.
  */
-public class EntityInfo {
+public class CharacterInfo {
 
     public int current_health;
     public int MAX_HEALTH;
@@ -17,7 +17,7 @@ public class EntityInfo {
     public int NEXT_LEVEL_EXP;
     public boolean alive = true;
 
-    public EntityInfo() {
+    public CharacterInfo() {
         current_health = 1000;
         MAX_HEALTH = 1000;
         current_mana = MAX_MANA = 1000;

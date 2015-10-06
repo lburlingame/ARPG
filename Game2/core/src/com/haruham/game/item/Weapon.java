@@ -1,8 +1,9 @@
 package com.haruham.game.item;
 
 import com.badlogic.gdx.math.Vector3;
-import com.haruham.game.obj.Entity;
+import com.haruham.game.obj.Character;
 import com.haruham.game.level.World;
+import com.haruham.game.obj.ProjectileType;
 
 /**
  * Created on 9/17/2015.
@@ -24,8 +25,8 @@ public class Weapon extends Equipment {
 
     }
 
-    public void attack(World world, Entity user, Vector3 target) {
-        world.addAttack(new Attack(user, "Melee attack", 16, target));
+    public void attack(World world, Character user, Vector3 target) {
+        world.addAttack(new ProjectileType(user, "Melee attack", 16, target));
         // based on distance from camera center
 
         /*world.addAttack(new Attack(user, "Melee attack", 16, target.add(50,50,0)));

@@ -1,7 +1,5 @@
 package com.haruham.game.obj;
 
-import com.haruham.game.item.Attack;
-
 /**
  * Created on 10/3/2015.
  */

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created on 8/27/2015.
  */
-public class Coin extends GameObject {
+public class Coin extends Entity {
     private static Texture coin_tex = new Texture("effects/fireball.png");
     private static ArrayList<TextureRegion> coins;
 
@@ -77,8 +77,4 @@ public class Coin extends GameObject {
     }
 
 
-    @Override
-    public int compareTo(GameObject o) {
-        return 0;
-    }
 }

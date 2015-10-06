@@ -1,6 +1,6 @@
 package com.haruham.game.item;
 
-import com.haruham.game.obj.Entity;
+import com.haruham.game.obj.Character;
 
 /**
  * Created on 9/17/2015.
@@ -11,7 +11,7 @@ public class NullActive extends Active {
 
     }
 
-    public void use(Entity target) {
+    public void use(Character target) {
 
     }
 

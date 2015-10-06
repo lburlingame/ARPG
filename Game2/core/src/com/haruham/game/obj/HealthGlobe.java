@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created on 8/27/2015.
  */
-public class HealthGlobe extends GameObject {
+public class HealthGlobe extends Entity {
 
 
     private static Texture globe_tex = new Texture("effects/fireball.png");
@@ -55,8 +55,4 @@ public class HealthGlobe extends GameObject {
     }
 
 
-    @Override
-    public int compareTo(GameObject o) {
-        return 0;
-    }
 }

@@ -8,13 +8,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.haruham.game.obj.Entity;
+import com.haruham.game.obj.Character;
 import com.haruham.game.obj.Inventory;
 import com.haruham.game.gfx.particle.ParticleEmitter;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.input.NullInput;
 import com.haruham.game.input.PlayerInput;
-import com.haruham.game.item.Attack;
+import com.haruham.game.obj.Attack;
 import com.haruham.game.item.Item;
 import com.haruham.game.state.Play;
 
@@ -43,11 +43,11 @@ public class World {
 
     private Inventory inventory = new Inventory(5);
 
-    private Entity player;
+    private Character player;
 
-    private ArrayList<Entity> entities;
+    private ArrayList<Character> entities;
     private ArrayList<Attack> attacks;
-    private ArrayList<Entity> dead;
+    private ArrayList<Character> dead;
     private ArrayList<Item> items;
     private ArrayList<Item> coins;
 
@@ -71,10 +71,10 @@ public class World {
         items = new ArrayList<>();
 
         emitter = new ParticleEmitter();
-        player = new Entity(this, 1, new PlayerInput(), new Vector3(300,300,0));
+        player = new Character(this, 1, new PlayerInput(), new Vector3(300,300,0));
 
         entities.add(player);
-        entities.add(new Entity(this, 1, new NullInput(), new Vector3(600,600,0)));
+        entities.add(new Character(this, 1, new NullInput(), new Vector3(600,600,0)));
       //  lights = new LightRenderer();
         //lights.addLight(player);
 
@@ -95,7 +95,7 @@ public class World {
             entities.get(i).update(delta);
 
             for (int j = 0; j < attacks.size(); j++) {
-                if (entities.get(i).collidesWith(attacks.get(j)) && !attacks.get(j).hasHit(entities.get(i))) {
+                if (attacks.get(j).collidesWith(entities.get(i)) && !attacks.get(j).hasHit(entities.get(i))) {
                     attacks.get(j).hit(entities.get(i));
                     sizzle.play(1f);  /// .08
                     emitter.bloodSpatter(entities.get(i).getPosition().add(entities.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.14f, attacks.get(j).getDy()*.1f,(float)Math.random() * 3 - 1.5f));
