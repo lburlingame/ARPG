@@ -1,21 +1,18 @@
-package com.haruham.game.entity;
+package com.haruham.game.obj;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
-import com.haruham.game.level.Tile;
 import com.haruham.game.level.TileMap;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 
 /**
  * Created on 8/27/2015.
  */
-public class HealthGlobe extends Collidable {
+public class HealthGlobe extends GameObject {
 
 
     private static Texture globe_tex = new Texture("effects/fireball.png");
@@ -43,7 +40,7 @@ public class HealthGlobe extends Collidable {
     }
 
 
-    public void tick() {
+    public void update(float delta) {
         if (pos.z < 0 || vel.z < 0) {
             vel.z += TileMap.GRAVITY;
             pos.z += vel.z;
@@ -51,23 +48,6 @@ public class HealthGlobe extends Collidable {
         if (pos.z > 0) {
             pos.z = 0;
         }
-
-       /* if (pos.z != 0) {
-            Tile curr = getTile(pos.x + (vel.x), pos.y);
-            if (curr != null && curr.walkable) {
-                pos.x += (vel.x);
-            }
-
-            curr = getTile(pos.x, pos.y + (vel.y));
-            if (curr != null && curr.walkable) {
-                pos.y += (vel.y);
-            }
-           *//* pos.x += vel.x;
-            pos.y += vel.y;
-*//*
-
-        }*/
-
     }
 
     public void draw(SpriteBatch batch) {
@@ -75,4 +55,8 @@ public class HealthGlobe extends Collidable {
     }
 
 
+    @Override
+    public int compareTo(GameObject o) {
+        return 0;
+    }
 }

@@ -1,6 +1,4 @@
-package com.haruham.game.entity;
-
-import com.haruham.game.entity.Entity;
+package com.haruham.game.obj;
 
 
 /**

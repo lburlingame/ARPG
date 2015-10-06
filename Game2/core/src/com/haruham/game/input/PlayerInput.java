@@ -1,9 +1,6 @@
 package com.haruham.game.input;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
-import com.haruham.game.GameApp;
-import com.haruham.game.entity.Entity;
 
 /**
  * Created on 3/26/2015.

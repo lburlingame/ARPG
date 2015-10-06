@@ -1,4 +1,4 @@
-package com.haruham.game.entity;
+package com.haruham.game.obj;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -13,8 +13,8 @@ import com.haruham.game.level.World;
 // vision is reduced in poorly lit areas
 
 //only calculates lighting on tiles that are either on _screen, or in between the player and an enemy that is in aggro range
-//death() function called when hp = 0, death behavior on death is then called, will have a boolean dead, if dead then on the next for loop, the entity will be removed from the arraylist, or maybe moved to another arraylist to have its body still remain ticking.
-public class Entity extends Collidable implements Comparable<Entity>{
+//death() function called when hp = 0, death behavior on death is then called, will have a boolean dead, if dead then on the next for loop, the obj will be removed from the arraylist, or maybe moved to another arraylist to have its body still remain ticking.
+public class Entity extends GameObject {
 
     private static int NEXT_UID = 0;
     public static final int STOPPED = 0;
@@ -238,7 +238,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
     }
 
     @Override
-    public int compareTo(Entity o) {
+    public int compareTo(GameObject o) {
         if (this.pos.y < o.getY()) {
             return -1;
         }else if (this.pos.y >  o.getY()) {

@@ -1,6 +1,6 @@
 package com.haruham.game.item;
 
-import com.haruham.game.entity.Entity;
+import com.haruham.game.obj.Entity;
 
 /**
  * Created on 9/15/2015.

@@ -1,4 +1,4 @@
-package com.haruham.game.entity;
+package com.haruham.game.obj;
 
 /**
  * Created on 8/22/2015.

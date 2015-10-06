@@ -5,10 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.haruham.game.entity.Entity;
-import com.haruham.game.gfx.Block;
-import com.haruham.game.gfx.Light;
-import org.lwjgl.opengl.*;
+import com.haruham.game.obj.Entity;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;

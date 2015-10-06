@@ -2,9 +2,9 @@ package com.haruham.game.item;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.haruham.game.entity.Collidable;
-import com.haruham.game.entity.Entity;
-import com.haruham.game.entity.HitCircle;
+import com.haruham.game.obj.GameObject;
+import com.haruham.game.obj.Entity;
+import com.haruham.game.obj.HitCircle;
 import com.haruham.game.gfx.TextureLoader;
 import com.haruham.game.util.Direction;
 import com.haruham.game.util.Util;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 // TODO figure out how to add attack to level's arraylist
 // TODO multiple types of spells, using strategy?
 // laser spell would use a rectangle that is rotated based on mouse location, and is drawn using shaders
-public class Attack extends Collidable {
+public class Attack extends GameObject {
 
     private Entity owner;
     private float duration;
@@ -80,6 +80,10 @@ public class Attack extends Collidable {
 
     public void draw(SpriteBatch batch) {
         batch.draw(TextureLoader.getSprite(2, 1), pos.x-dim.x/2, pos.y + pos.z - dim.y/2, dim.x, dim.y);
+    }
+
+    public int compareTo(GameObject o) {
+        return 0;
     }
 
 }

@@ -1,7 +1,7 @@
 package com.haruham.game.item;
 
 import com.badlogic.gdx.math.Vector3;
-import com.haruham.game.entity.Entity;
+import com.haruham.game.obj.Entity;
 import com.haruham.game.level.World;
 
 /**
