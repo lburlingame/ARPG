@@ -1,4 +1,4 @@
-package com.haruham.game.level;
+package com.haruham.game.util;
 
 /**
  * Created on 10/1/2015.
@@ -12,6 +12,7 @@ package com.haruham.game.level;
 // Player ui will be a GameEvent listener that is only registered for events relative to the player
 // get rid of EventManager and only have EventListener and Event classes, and then subclasses of those events/listener types
 
-public class EventManager {
+public interface Observer {
 
+    public void update(Subject o);
 }

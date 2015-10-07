@@ -14,7 +14,7 @@ public class DesktopLauncher {
         config.addIcon("assets/icon-32.png", FileType.Internal);
  */
 
-        boolean fullscreen = false;
+        boolean fullscreen = true;
         /*fullscreen = true;*/
 
         if (fullscreen) {
@@ -30,7 +30,7 @@ public class DesktopLauncher {
 
 
         config.title = GameApp.TITLE;
-        config.vSyncEnabled = false;
+        config.vSyncEnabled = true;
 
        // System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
 

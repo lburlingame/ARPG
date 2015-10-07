@@ -23,7 +23,7 @@ public class TileMap {
 
     private OrthographicCamera camera;
 
-    public static final double GRAVITY = -.3;
+    public static final double GRAVITY = -900f;
 
 	public TileMap(String path, OrthographicCamera camera){
 		//tiles = new ArrayList();

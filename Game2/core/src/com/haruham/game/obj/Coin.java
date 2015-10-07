@@ -1,4 +1,4 @@
-package com.haruham.game.entity;
+package com.haruham.game.obj;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,8 +10,7 @@ import java.util.ArrayList;
 /**
  * Created on 8/27/2015.
  */
-public class Coin extends Collidable
-{
+public class Coin extends Entity {
     private static Texture coin_tex = new Texture("effects/fireball.png");
     private static ArrayList<TextureRegion> coins;
 
@@ -41,7 +40,7 @@ public class Coin extends Collidable
     }
 
 
-    public void tick() {
+    public void update(float delta) {
         if (pos.z < 0 || vel.z < 0) {
             vel.z += 5;
             pos.z += vel.z;

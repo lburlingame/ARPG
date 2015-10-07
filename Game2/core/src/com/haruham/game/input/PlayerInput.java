@@ -1,9 +1,6 @@
 package com.haruham.game.input;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
-import com.haruham.game.GameApp;
-import com.haruham.game.entity.Entity;
 
 /**
  * Created on 3/26/2015.
@@ -37,12 +34,17 @@ public class PlayerInput extends InputComponent {
             }
         }
 
-        if (Inputs.isPressed(Inputs.SPACE)) {
+       /* if (Inputs.isPressed(Inputs.SPACE)) {
             character.jump();
-        }
+        }*/
 
         if (Inputs.isPressed(Inputs.M1)) {
             character.attack(new Vector3(Inputs.pos.x, Inputs.pos.y, 0));
+        }
+
+        if (Inputs.isPressed(Inputs.SPACE)) {
+            character.setX(Inputs.pos.x);
+            character.setY(Inputs.pos.y);
         }
 
        /* if (input.SHIFT.isPressed()) {

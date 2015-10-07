@@ -5,10 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.haruham.game.entity.Entity;
-import com.haruham.game.gfx.Block;
-import com.haruham.game.gfx.Light;
-import org.lwjgl.opengl.*;
+import com.haruham.game.obj.Character;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
@@ -26,8 +23,8 @@ public class LightRenderer {
 	public ArrayList<Light> lights = new ArrayList<Light>();
 	public ArrayList<Block> blocks = new ArrayList<Block>();
 
-    private ArrayList<Entity> lightEntities = new ArrayList<Entity>();
-    private ArrayList<Entity> blockEntities = new ArrayList<Entity>();
+    private ArrayList<Character> lightEntities = new ArrayList<Character>();
+    private ArrayList<Character> blockEntities = new ArrayList<Character>();
 
 	private int fragmentShader;
 	private int shaderProgram;
@@ -36,12 +33,12 @@ public class LightRenderer {
 
 	public void render(OrthographicCamera camera) {
 		//glClear(GL_COLOR_BUFFER_BIT);
-		for (Entity light : lightEntities) {
+		for (Character light : lightEntities) {
 			glColorMask(false, false, false, false);
 			glStencilFunc(GL_ALWAYS, 1, 1);
 			glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
-			for (Entity block : blockEntities) {
+			for (Character block : blockEntities) {
 				Vector2[] vertices = block.getVertices();
 				for (int i = 0; i < vertices.length; i++) {
 					Vector2 nextVertex = vertices[(i + 1) % vertices.length];
@@ -88,7 +85,7 @@ public class LightRenderer {
 			glClear(GL_STENCIL_BUFFER_BIT);
 		}
 		glColor3f(0, 0, 0);
-		for (Entity block : blockEntities) {
+		for (Character block : blockEntities) {
 			glBegin(GL_QUADS); {
 				for (Vector2 vertex : block.getVertices()) {
 					glVertex2f(vertex.x, vertex.y);
@@ -169,20 +166,20 @@ public class LightRenderer {
         cleanup();
     }
 
-    public void addLight(Entity entity) {
-        lightEntities.add(entity);
+    public void addLight(Character character) {
+        lightEntities.add(character);
     }
 
-    public void removeLight(Entity entity) {
-        lightEntities.remove(entity);
+    public void removeLight(Character character) {
+        lightEntities.remove(character);
     }
 
-    public void addBlock(Entity entity) {
-        blockEntities.add(entity);
+    public void addBlock(Character character) {
+        blockEntities.add(character);
     }
 
-    public void removeBlock(Entity entity) {
-        blockEntities.remove(entity);
+    public void removeBlock(Character character) {
+        blockEntities.remove(character);
     }
 
 

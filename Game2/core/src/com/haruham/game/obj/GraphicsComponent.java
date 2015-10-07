@@ -1,6 +1,4 @@
-package com.haruham.game.entity;
-
-import com.haruham.game.entity.Entity;
+package com.haruham.game.obj;
 
 
 /**
@@ -8,12 +6,12 @@ import com.haruham.game.entity.Entity;
  */
 public class GraphicsComponent {
 
-    private Entity character;
+    private Character character;
 
     private int frame = 0;
     private int animation_timer = 3;
 
-    public GraphicsComponent(Entity character) {
+    public GraphicsComponent(Character character) {
         this.character = character;
         frame = 0;
     }

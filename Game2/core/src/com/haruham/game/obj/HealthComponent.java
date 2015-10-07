@@ -1,6 +1,4 @@
-package com.haruham.game.entity;
-
-import com.haruham.game.item.Attack;
+package com.haruham.game.obj;
 
 /**
  * Created on 10/3/2015.
@@ -14,7 +12,7 @@ public abstract class HealthComponent {
 
     public abstract void takeHit(Attack attack);
 
-    private void takeDamage(int amount) {
+    protected void takeDamage(int amount) {
         currHealth = currHealth - amount;
         if (currHealth <= 0) {
             currHealth = 0;
@@ -29,6 +27,10 @@ public abstract class HealthComponent {
         }
     }
 
-    public abstract void die();
+    protected abstract void die();
+
+    public boolean isAlive() {
+        return alive;
+    }
 
 }

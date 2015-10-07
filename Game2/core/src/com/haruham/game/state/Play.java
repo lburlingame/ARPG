@@ -2,11 +2,7 @@ package com.haruham.game.state;
 
 
 
-import box2dLight.PointLight;
-import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.haruham.game.input.GameMenuInput;
 import com.haruham.game.input.Inputs;
-import com.haruham.game.level.Level;
+import com.haruham.game.level.World;
 
 import java.util.ArrayList;
 
@@ -29,27 +25,27 @@ public class Play extends GameState {
 
     private GameMenuInput gin;
 
-    private ArrayList<Level> levels;
+    private ArrayList<World> worlds;
 
     public Play(GameStateManager gsm) {
         super(gsm);
         //wavSound.loop(.4f, 1f,.1f);
         font = new BitmapFont();
         gin = new GameMenuInput(gsm);
-        levels = new ArrayList<>();
-        levels.add(new Level(this));
+        worlds = new ArrayList<>();
+        worlds.add(new World(this));
     }
 
 
     public void update(float delta) {
         gin.update();
-        levels.get(0).update(delta);
+        worlds.get(0).update(delta);
     }
 
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        levels.get(0).render();
+        worlds.get(0).render();
 
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
@@ -74,21 +70,21 @@ public class Play extends GameState {
     }
 
     public void renderDebug() {
-        levels.get(0).renderDebug();
+        worlds.get(0).renderDebug();
     }
 
     public void dispose() {
-        for (int i = 0; i < levels.size(); i++) {
-            levels.get(i).dispose();
+        for (int i = 0; i < worlds.size(); i++) {
+            worlds.get(i).dispose();
         }
     }
 
     public void start() {
-        levels.get(0).start();
+        worlds.get(0).start();
     }
 
     public void stop() {
-        levels.get(0).stop();
+        worlds.get(0).stop();
     }
 
 

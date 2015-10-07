@@ -1,6 +1,6 @@
 package com.haruham.game.item;
 
-import com.haruham.game.entity.Entity;
+import com.haruham.game.obj.Character;
 
 /**
  * Created on 9/15/2015.
@@ -26,7 +26,7 @@ public class Item {
         this.active = active;
     }
 
-    public void use(Entity user) {
+    public void use(Character user) {
         active.use(user);
     }
 

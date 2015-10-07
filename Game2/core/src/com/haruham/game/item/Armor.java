@@ -5,7 +5,7 @@ package com.haruham.game.item;
  */
 public class Armor extends Equipment {
 
-    public Armor(int itemID, String name, String flavorText, int levelReq, int quantity) {
-        super(itemID, name, flavorText, levelReq, quantity);
+    public Armor(int itemID, String name, String flavorText, int levelReq) {
+        super(itemID, name, flavorText, levelReq);
     }
 }

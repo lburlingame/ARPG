@@ -1,26 +1,20 @@
-package com.haruham.game.entity;
+package com.haruham.game.obj;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.gfx.TextureLoader;
 import com.haruham.game.input.InputComponent;
 import com.haruham.game.item.Weapon;
-import com.haruham.game.level.Level;
 import com.haruham.game.level.World;
-import com.haruham.game.state.Play;
-import com.haruham.game.util.Util;
-
-import java.awt.*;
 
 
 // enemy aggro could be cone based on vision, and circular based on noise, your noise level depends on whether you are running or walking or sprinting, and maybe even have a talent tree that reduces noise and stuff
 // vision is reduced in poorly lit areas
 
 //only calculates lighting on tiles that are either on _screen, or in between the player and an enemy that is in aggro range
-//death() function called when hp = 0, death behavior on death is then called, will have a boolean dead, if dead then on the next for loop, the entity will be removed from the arraylist, or maybe moved to another arraylist to have its body still remain ticking.
-public class Entity extends Collidable implements Comparable<Entity>{
+//death() function called when hp = 0, death behavior on death is then called, will have a boolean dead, if dead then on the next for loop, the obj will be removed from the arraylist, or maybe moved to another arraylist to have its body still remain ticking.
+public class Character extends Entity {
 
     private static int NEXT_UID = 0;
     public static final int STOPPED = 0;
@@ -39,22 +33,24 @@ public class Entity extends Collidable implements Comparable<Entity>{
 
     private float vmult = 1;  // velocity multiplier
 
-    private Level level;
+    private World world;
+    private HealthComponent health;
     private Weapon weapon;
     private InputComponent input;
 
     private int gold;
 
-    public Entity(Level level, int id, InputComponent input, float smult, Vector3 pos) {
+    public Character(World world, int id, InputComponent input, Vector3 pos) {
         input.setCharacter(this);
-        this.level = level;
+        this.world = world;
+        this.health = new PlayerHealth();
         this.id = id;
         this.UID = new Integer(NEXT_UID);
         NEXT_UID++;
-        this.weapon = new Weapon(1, "Hello World", "Hi there friend", 25, 1);
+        this.weapon = new Weapon(1, "Hello World", "Hi there friend", 25);
 
         this.input = input;
-        this.smult = smult;
+        this.smult = 1;
 
         this.pos = pos;
         this.dest = new Vector2(pos.x, pos.y);
@@ -63,7 +59,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
 
         this.dim = new Vector3(32 * smult, 32 * smult, 32 * smult);
 
-        this.hit = new HitCircle(new Vector3(0, dim.y*.3f, 0), dim.x / 3);
+        this.hit = new HitCircle(new Vector3(0, dim.y*.25f, 0), dim.x / 3);
 
         //this.hit = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
         gold = (int)(Math.random() * 58) + 5;
@@ -74,7 +70,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
         dim.x = 32 * smult;
         dim.y = 32 * smult;
         dim.z = 32 * smult;
-        hit = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
+        hit = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 4);
     }
 
     public void update(float delta) {
@@ -128,61 +124,6 @@ public class Entity extends Collidable implements Comparable<Entity>{
         batch.draw(TextureLoader.getSprite(id, id++), pos.x-dim.x/2, pos.y + pos.z, 32,32);
     }
 
-
-
-   /* public void draw(Graphics2D g, Camera camera){
-        Vector3 offset = camera.getOffset();
-        double scale = camera.getScale();
-
-
-        if (Game.debug || input instanceof PlayerInput) {
-
-            if (Game.debug)
-            {
-                drawDebug(g, camera);
-            }
-            if (Math.abs(vel.x) > 0 || Math.abs(vel.y) > 0) {
-          //      g.setColor(Color.green);
-         //       g.drawOval((int) ((dest.x - offset.x - 1.2) * scale), (int) ((dest.y - offset.y - .6) * scale), (int) (1.2 * scale * 2) + 1, (int) (1.2 * scale) + 1);
-            }
-            if (input instanceof PlayerInput) {
-                g.setColor(Color.white);
-               // Vector2 point = ((PlayerInput) input).getScreenLoc();
-                //g.drawString(point.x + ", " + point.y, 20, 70);
-               // float angle = Util.getAngle(new Vector2(pos.x, pos.y), point);
-                //g.drawString(angle + " ", 20, 100);
-                g.drawString(STATE + " ", 20, 130);
-            }
-        }
-
-
-        if (GameScreen.showhealth == true) {
-            g.setColor(Color.red);
-            g.fillRect((int) ((pos.x - offset.x - dim.x / 2) * scale), (int) ((pos.y - offset.y - dim.y + pos.z + (dim.y * scale * .05)) * scale), (int) (dim.x* scale), (int) (4 * scale));  // draws rect at character's "feet"
-
-            g.setColor(Color.green);
-            g.fillRect((int) ((pos.x - offset.x - dim.x / 2) * scale), (int) ((pos.y - offset.y - dim.y + pos.z + (dim.y * scale * .05)) * scale), (int) ((double) info.getCurrHealth() / info.getMaxHealth() * dim.x * scale), (int) (4 * scale));  // draws rect at character's "feet"
-        }
-    }*/
-
-    /*public void drawDebug(Graphics g, Camera camera) {
-        Vector3 offset = camera.getOffset();
-        double xOffset = offset.x;
-        double yOffset = offset.y;
-        double zOffset = offset.z;
-        double scale = camera.getScale();
-
-        g.setColor(Color.green);
-        //  g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * smult * scale), (int) (height * smult * scale)); //draws rectangle around char
-        g.fillRect((int) ((pos.x - xOffset) * scale), (int) ((pos.y - yOffset) * scale), 5, 5);  // draws rect at character's "feet"
-
-
-        //g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius()) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius()) * scale), (int)(hit.getRadius() * 2 * scale), (int)(hit.getRadius() * 2 * scale));
-        g.setColor(Color.red);
-        g.drawOval((int) ((pos.x + hit.getCenter().x - hit.getRadius() - xOffset) * scale), (int) ((pos.y + hit.getCenter().y - hit.getRadius() - yOffset) * scale), (int) (hit.getRadius() * 2 * scale), (int) (hit.getRadius() * 2 * scale));
-
-        //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * smult * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
-    }*/
 
 /*
     public void move(Vector2 dest)
@@ -298,15 +239,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
         return input;
     }
 
-    @Override
-    public int compareTo(Entity o) {
-        if (this.pos.y < o.getY()) {
-            return -1;
-        }else if (this.pos.y >  o.getY()) {
-            return 1;
-        }
-        return 0;
-    }
+
 
     public int getState() {
         return STATE;
@@ -338,7 +271,7 @@ public class Entity extends Collidable implements Comparable<Entity>{
     }
 
     public void attack(Vector3 target) {
-        weapon.attack(level, this, target);
+        weapon.attack(world, this, target);
     }
 }
 
