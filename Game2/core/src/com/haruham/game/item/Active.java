@@ -7,7 +7,11 @@ import com.haruham.game.obj.Character;
  */
 public abstract class Active {
 
-    public Active() {
+    private float cooldown;
+    private float current;
+
+    public Active(float cooldown) {
+
     }
 
     public abstract void use(Character target);

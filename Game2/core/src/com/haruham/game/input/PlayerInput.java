@@ -34,18 +34,17 @@ public class PlayerInput extends InputComponent {
             }
         }
 
-        if (Inputs.isPressed(Inputs.SPACE)) {
+       /* if (Inputs.isPressed(Inputs.SPACE)) {
             character.jump();
-        }
+        }*/
 
         if (Inputs.isPressed(Inputs.M1)) {
             character.attack(new Vector3(Inputs.pos.x, Inputs.pos.y, 0));
         }
 
-        if (Inputs.isPressed(Inputs.M3)) {
+        if (Inputs.isPressed(Inputs.SPACE)) {
             character.setX(Inputs.pos.x);
             character.setY(Inputs.pos.y);
-
         }
 
        /* if (input.SHIFT.isPressed()) {

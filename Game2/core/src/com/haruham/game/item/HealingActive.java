@@ -9,6 +9,7 @@ public class HealingActive extends Active {
 
     private int amount;
     public HealingActive(int amount) {
+        super(30000);
         this.amount = amount;
     }
 

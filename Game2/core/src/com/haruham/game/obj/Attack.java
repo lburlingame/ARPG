@@ -1,6 +1,7 @@
 package com.haruham.game.obj;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.obj.GameObject;
 import com.haruham.game.obj.Character;
@@ -19,38 +20,38 @@ import java.util.ArrayList;
 // TODO figure out how to add attack to level's arraylist
 // TODO multiple types of spells, using strategy?
 // laser spell would use a rectangle that is rotated based on mouse location, and is drawn using shaders
-public abstract class Attack extends GameObject {
+public class Attack extends GameObject {
 
     protected Character owner;
+    protected AttackType type;
     protected float duration;
-    protected boolean active;
 
+    protected boolean active;
     protected int damage;
     protected float stun;
-    protected float knockback;
 
+    protected float knockback;
     protected ArrayList<Integer> hitids;
+
     protected String name;
 
     protected Vector3 target;
 
-    protected AttackType type;
 
-
-    public Attack(Character owner, AttackType type, String name, Vector3 target) {
+    public Attack(Character owner, AttackType type, Vector3 target, String name, int damage) {
         this.owner = owner;
+        this.type = type;
         this.pos = owner.getPosition();
         pos.z = 10;
         this.target = target;
+        this.damage = damage;
         vel = new Vector3(0,0,0);
        // this.pos = new Vector3(target.x, target.y, target.z);
         this.name = name;
         hitids = new ArrayList<>(); // add casters hit id to this;
         hitids.add(owner.getUID());
-        init();
+        type.init(this);
     }
-
-    public abstract void init();
 
     public boolean hasHit(Character character) {
         return hitids.contains(character.getUID());
@@ -60,12 +61,32 @@ public abstract class Attack extends GameObject {
         hitids.add(character.getUID());
     }
 
-    public abstract boolean collidesWith(Entity o);
+    public boolean collidesWith(Entity other) {
+        return type.collidesWith(this, other);
+    }
+
+    public void update(float delta) {
+        type.update(this, delta);
+    }
+
+    public void draw(SpriteBatch batch) {
+        type.draw(this, batch);
+    }
+
+    public void drawDebug(ShapeRenderer shapeRenderer) {
+        type.drawDebug(this, shapeRenderer);
+    }
 
     public void reset() {
 
     }
 
 
+    public Vector3 getTarget() {
+        return target;
+    }
 
+    public int getDamage() {
+        return damage;
+    }
 }

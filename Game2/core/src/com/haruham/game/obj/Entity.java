@@ -12,9 +12,6 @@ public abstract class Entity extends GameObject {
 
     protected HitCircle hit;
 
-
-
-
     public HitCircle getHit() {
         return hit;
     }

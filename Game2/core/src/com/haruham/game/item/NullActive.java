@@ -8,7 +8,7 @@ import com.haruham.game.obj.Character;
 public class NullActive extends Active {
 
     public NullActive() {
-
+        super(-1);
     }
 
     public void use(Character target) {

@@ -8,9 +8,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  */
 public interface AttackType {
 
-
-    public abstract boolean collidesWith(Entity other);
-    public abstract void draw(SpriteBatch batch);
-    public abstract void drawDebug(ShapeRenderer shapeRenderer);
+    public void init(Attack attack);
+    public boolean collidesWith(Attack attack, Entity other);
+    public void update(Attack attack, float delta);
+    public void draw(Attack attack, SpriteBatch batch);
+    public void drawDebug(Attack attack, ShapeRenderer shapeRenderer);
 
 }

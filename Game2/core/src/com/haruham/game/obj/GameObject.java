@@ -28,9 +28,9 @@ public abstract class GameObject implements Comparable<GameObject>{
 
     @Override
     public int compareTo(GameObject o) {
-        if (this.pos.y < o.getY()) {
+        if (this.pos.y > o.getY()) {
             return -1;
-        }else if (this.pos.y >  o.getY()) {
+        }else if (this.pos.y < o.getY()) {
             return 1;
         }
         return 0;
@@ -61,5 +61,35 @@ public abstract class GameObject implements Comparable<GameObject>{
 
     public float getDy() {
         return vel.y;
+    }
+
+    public float getDz() {
+        return vel.z;
+    }
+
+    public void setDx(float dx) {
+        vel.x = dx;
+    }
+
+    public void setDy(float dy) {
+        vel.y = dy;
+    }
+
+    public void setDz(float dz) {
+        vel.z = dz;
+    }
+
+    public Vector3 getVelocity() {
+        return vel;
+    }
+    public void setX(float x) {
+        pos.x = x;
+    }
+
+    public void setY(float y) {
+        pos.y = y;
+    }
+    public void setZ(float z) {
+        pos.z = z;
     }
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.obj.Character;
+import com.haruham.game.obj.GameObject;
 import com.haruham.game.obj.Inventory;
 import com.haruham.game.gfx.particle.ParticleEmitter;
 import com.haruham.game.input.Inputs;
@@ -19,6 +20,7 @@ import com.haruham.game.item.Item;
 import com.haruham.game.state.Play;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created on 9/11/2015.
@@ -45,7 +47,11 @@ public class World {
 
     private Character player;
 
-    private ArrayList<Character> entities;
+    private ArrayList<GameObject> objects;  // all game objects are also in this list for sorting purposes
+
+    // these lists are for collision detections
+    private ArrayList<Character> characters;
+    private ArrayList<Character> neutral; // neutral characters, these are town npcs that cannot be attacked and will not attack, but can be interacted with
     private ArrayList<Attack> attacks;
     private ArrayList<Character> dead;
     private ArrayList<Item> items;
@@ -65,7 +71,9 @@ public class World {
 
         tmap = new TileMap("levels/test_map.txt", camera);
 
-        entities = new ArrayList<>();
+        objects = new ArrayList<>();
+
+        characters = new ArrayList<>();
         dead = new ArrayList<>();
         attacks = new ArrayList<>();
         items = new ArrayList<>();
@@ -73,8 +81,12 @@ public class World {
         emitter = new ParticleEmitter();
         player = new Character(this, 1, new PlayerInput(), new Vector3(300,300,0));
 
-        entities.add(player);
-        entities.add(new Character(this, 1, new NullInput(), new Vector3(600,600,0)));
+        characters.add(player);
+        objects.add(player);
+
+        Character temp = new Character(this, 1, new NullInput(), new Vector3(600, 600, 0));
+        characters.add(temp);
+        objects.add(temp);
       //  lights = new LightRenderer();
         //lights.addLight(player);
 
@@ -91,14 +103,14 @@ public class World {
             attacks.get(i).update(delta);
         }
 
-        for (int i = 0; i < entities.size(); i++) {
-            entities.get(i).update(delta);
+        for (int i = 0; i < characters.size(); i++) {
+            characters.get(i).update(delta);
 
             for (int j = 0; j < attacks.size(); j++) {
-                if (attacks.get(j).collidesWith(entities.get(i)) && !attacks.get(j).hasHit(entities.get(i))) {
-                    attacks.get(j).hit(entities.get(i));
+                if (attacks.get(j).collidesWith(characters.get(i)) && !attacks.get(j).hasHit(characters.get(i))) {
+                    attacks.get(j).hit(characters.get(i));
                     sizzle.play(1f);  /// .08
-                    emitter.bloodSpatter(entities.get(i).getPosition().add(entities.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.14f, attacks.get(j).getDy()*.1f,(float)Math.random() * 3 - 1.5f));
+                    emitter.bloodSpatter(characters.get(i).getPosition().add(characters.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.1f,(float)Math.random() * 180 - 90f));
                 }
             }
         }
@@ -119,13 +131,10 @@ public class World {
         batch.begin();*/
         emitter.draw(batch);
 
-        for (int i = 0; i < entities.size(); i++) {
-            entities.get(i).draw(batch);
-        }
+        Collections.sort(objects);
 
-
-        for (int i = 0; i < attacks.size(); i++) {
-            attacks.get(i).draw(batch);
+        for (int i = 0; i < objects.size(); i++) {
+            objects.get(i).draw(batch);
         }
 
         batch.end();
@@ -136,8 +145,8 @@ public class World {
         shapeRenderer.setAutoShapeType(true);
 
         shapeRenderer.begin();
-        for (int i = 0; i < entities.size(); i++) {
-            entities.get(i).drawDebug(shapeRenderer);
+        for (int i = 0; i < characters.size(); i++) {
+            characters.get(i).drawDebug(shapeRenderer);
         }
 
         for (int i = 0; i < attacks.size(); i++) {
@@ -169,6 +178,7 @@ public class World {
 
     public void addAttack(Attack attack) {
         attacks.add(attack);
+        objects.add(attack);
         cast.play(.2f, 1.25f, 0f);
     }
 

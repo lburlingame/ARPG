@@ -34,6 +34,7 @@ public class Character extends Entity {
     private float vmult = 1;  // velocity multiplier
 
     private World world;
+    private HealthComponent health;
     private Weapon weapon;
     private InputComponent input;
 
@@ -42,10 +43,11 @@ public class Character extends Entity {
     public Character(World world, int id, InputComponent input, Vector3 pos) {
         input.setCharacter(this);
         this.world = world;
+        this.health = new PlayerHealth();
         this.id = id;
         this.UID = new Integer(NEXT_UID);
         NEXT_UID++;
-        this.weapon = new Weapon(1, "Hello World", "Hi there friend", 25, 1);
+        this.weapon = new Weapon(1, "Hello World", "Hi there friend", 25);
 
         this.input = input;
         this.smult = 1;
