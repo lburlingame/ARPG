@@ -27,6 +27,8 @@ public class Play extends GameState {
 
     private ArrayList<World> worlds;
 
+    // sound manager needs to be here, observer to level
+
     public Play(GameStateManager gsm) {
         super(gsm);
         //wavSound.loop(.4f, 1f,.1f);
@@ -42,6 +44,10 @@ public class Play extends GameState {
         worlds.get(0).update(delta);
     }
 
+    /*
+        batch.setColor(new Color(.1f,1,.1f,1f));
+        will change color tints to create a certain effect
+    */
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

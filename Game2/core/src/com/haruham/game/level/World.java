@@ -8,15 +8,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.haruham.game.obj.Character;
-import com.haruham.game.obj.GameObject;
-import com.haruham.game.obj.Inventory;
+import com.haruham.game.gfx.LightRenderer;
+import com.haruham.game.obj.*;
 import com.haruham.game.gfx.particle.ParticleEmitter;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.input.NullInput;
 import com.haruham.game.input.PlayerInput;
-import com.haruham.game.obj.Attack;
 import com.haruham.game.item.Item;
+import com.haruham.game.obj.Character;
 import com.haruham.game.state.Play;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class World {
     private Sound ambient = Gdx.audio.newSound(Gdx.files.internal("audio/catacombs.wav"));
     private Sound cast = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/firebolt2.wav"));
     private Sound sizzle = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/sizzle2.wav"));
-  //  private LightRenderer lights;
+    private LightRenderer lights;
 
     private Inventory inventory = new Inventory(5);
 
@@ -67,7 +66,7 @@ public class World {
         shapeRenderer = playState.getShapeRenderer();
         batch = playState.getBatch();
 
-        ambient.loop(1f);
+        ambient.loop(2f);
 
         tmap = new TileMap("levels/test_map.txt", camera);
 
@@ -87,8 +86,8 @@ public class World {
         Character temp = new Character(this, 1, new NullInput(), new Vector3(600, 600, 0));
         characters.add(temp);
         objects.add(temp);
-      //  lights = new LightRenderer();
-        //lights.addLight(player);
+        lights = new LightRenderer();
+        lights.addLight(player);
 
 
         camera.position.set(player.getX() + player.getWidth()/2,player.getY() + player.getHeight()/2,0);
@@ -129,6 +128,7 @@ public class World {
         /*batch.end();
         lights.render(camera);
         batch.begin();*/
+
         emitter.draw(batch);
 
         Collections.sort(objects);
@@ -155,6 +155,9 @@ public class World {
         shapeRenderer.end();
     }
 
+
+    // lerps the game camera to position;
+    // need to change so that its called based on player pos
     public void lerp(Vector2 pos) {
         float lerp = .05f;//.0125f;
         Vector3 position = camera.position;
@@ -182,5 +185,19 @@ public class World {
         cast.play(.2f, 1.25f, 0f);
     }
 
+    public void addPickup(Pickup pickup) {
 
+    }
+
+    public void addCharacter(Character character) {
+
+    }
+
+    public void addNeutral(Character character) {
+
+    }
+
+    public void addItem(Item item) {
+        
+    }
 }

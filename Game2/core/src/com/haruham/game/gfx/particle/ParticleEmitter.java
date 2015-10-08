@@ -1,5 +1,6 @@
 package com.haruham.game.gfx.particle;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
@@ -42,5 +43,6 @@ public class ParticleEmitter {
         for (int i = 0; i < particles.size(); i++) {
             particles.get(i).draw(batch);
         }
+        //batch.setColor(new Color(1,1,1,1));
     }
 }
