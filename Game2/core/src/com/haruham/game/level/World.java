@@ -83,9 +83,12 @@ public class World {
         characters.add(player);
         objects.add(player);
 
-        Character temp = new Character(this, 1, new NullInput(), new Vector3(600, 600, 0));
-        characters.add(temp);
-        objects.add(temp);
+        addCharacter(new Character(this, 1, new NullInput(), new Vector3(600, 600, 0)));
+        addCharacter(new Character(this, 1, new NullInput(), new Vector3(580, 590, 0)));
+        addCharacter(new Character(this, 1, new NullInput(), new Vector3(620, 600, 0)));
+        addCharacter(new Character(this, 1, new NullInput(), new Vector3(590, 620, 0)));
+        addCharacter(new Character(this, 1, new NullInput(), new Vector3(610, 630, 0)));
+
         lights = new LightRenderer();
         lights.addLight(player);
 
@@ -190,7 +193,8 @@ public class World {
     }
 
     public void addCharacter(Character character) {
-
+        characters.add(character);
+        objects.add(character);
     }
 
     public void addNeutral(Character character) {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.obj.Attack;
 import com.haruham.game.obj.Character;
 import com.haruham.game.level.World;
+import com.haruham.game.obj.MeleeAttack;
 import com.haruham.game.obj.ProjectileAttack;
 
 /**
@@ -24,7 +25,7 @@ public class Weapon extends Equipment {
     }
 
     public void attack(World world, Character user, Vector3 target) {
-        world.addAttack(new Attack(user, new ProjectileAttack(16), target, name, damage));
+        world.addAttack(new Attack(user, new MeleeAttack(), target, name, damage));
         // based on distance from camera center
 
         /*world.addAttack(new Attack(user, "Melee attack", 16, target.add(50,50,0)));

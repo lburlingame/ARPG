@@ -2,6 +2,7 @@ package com.haruham.game.util;
 
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  * Created on 4/18/2015.
@@ -47,6 +48,16 @@ public class Util {
 
 
     public static float getAngle(Vector2 center, Vector2 target) {
+        float angle = (float) Math.toDegrees(Math.atan2(target.y - center.y, target.x - center.x));
+
+        if(angle < 0){
+            angle += 360;
+        }
+
+        return angle;
+    }
+
+    public static float getAngle(Vector3 center, Vector3 target) {
         float angle = (float) Math.toDegrees(Math.atan2(target.y - center.y, target.x - center.x));
 
         if(angle < 0){
