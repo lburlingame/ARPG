@@ -90,7 +90,7 @@ public class World {
         lights.addLight(player);
 
 
-        camera.position.set(player.getX() + player.getWidth()/2,player.getY() + player.getHeight()/2,0);
+       // camera.position.set(player.getX() + player.getWidth()/2,player.getY() + player.getHeight()/2,0);
 
     }
 
@@ -109,7 +109,7 @@ public class World {
                 if (attacks.get(j).collidesWith(characters.get(i)) && !attacks.get(j).hasHit(characters.get(i))) {
                     attacks.get(j).hit(characters.get(i));
                     sizzle.play(1f);  /// .08
-                    emitter.bloodSpatter(characters.get(i).getPosition().add(characters.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.1f,(float)Math.random() * 180 - 90f));
+                    emitter.bloodSpatter(characters.get(i).getPosition().add(characters.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f));
                 }
             }
         }
@@ -118,7 +118,7 @@ public class World {
     }
 
     public void render() {
-        lerp(new Vector2(0,0));
+        lerp(player.getPosition());
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -158,11 +158,11 @@ public class World {
 
     // lerps the game camera to position;
     // need to change so that its called based on player pos
-    public void lerp(Vector2 pos) {
+    public void lerp(Vector3 pos) {
         float lerp = .05f;//.0125f;
         Vector3 position = camera.position;
-        position.x += (player.getX() - position.x) * lerp;
-        position.y += (player.getY() + player.getHeight()/2 - position.y) * lerp * 1.5;
+        position.x += (pos.x - position.x) * lerp;
+        position.y += (pos.y - position.y) * lerp * 1.5;
         camera.update();
     }
 

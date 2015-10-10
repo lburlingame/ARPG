@@ -62,8 +62,15 @@ public class Play extends GameState {
         font.draw(batch, (camera.zoom+ " "), 10, Gdx.graphics.getHeight() - 80);
         //font.draw(batch, attacks.size() + "", 10, Gdx.graphics.getHeight() - 100);
 
+
         batch.end();
-/*
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setProjectionMatrix(hudCamera.combined);
+        shapeRenderer.line(hudCamera.viewportWidth / 2, hudCamera.viewportHeight * .3f, hudCamera.viewportWidth / 2, hudCamera.viewportHeight*.7f);
+        shapeRenderer.line(hudCamera.viewportWidth * .3f, hudCamera.viewportHeight / 2, hudCamera.viewportWidth * .7f, hudCamera.viewportHeight / 2);
+
+        shapeRenderer.end();
+        /*
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.setProjectionMatrix(hudCamera.combined);
