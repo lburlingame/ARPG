@@ -40,10 +40,9 @@ public class MeleeAttack implements AttackType {
 
         if (Util.findDistance((attack.getX() + hitCenter.x) - (opos.x + oCenter.x), (attack.getY() + hitCenter.y) - (opos.y + oCenter.y)) <= (hit.getRadius() + o.getRadius())) {
             float collisionangle = Util.getAngle(attack.pos, other.getPosition());
-            if (collisionangle < direction + angle  && collisionangle > direction - angle) {
+            if (collisionangle < (direction + angle) % 360  && collisionangle > ((direction + angle) % 360 - angle * 2)) {
                 return true;
             }
-
         }
 
         return false;

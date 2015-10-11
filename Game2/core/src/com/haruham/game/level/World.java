@@ -70,7 +70,7 @@ public class World {
 
         tmap = new TileMap("levels/test_map.txt", camera);
 
-        objects = new ArrayList<>();
+        objects = new ArrayList<>(); // list of all objects in world, for sorting/rendering purposes
 
         characters = new ArrayList<>();
         dead = new ArrayList<>();

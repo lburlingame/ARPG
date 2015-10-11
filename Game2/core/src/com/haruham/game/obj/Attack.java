@@ -24,6 +24,7 @@ public class Attack extends GameObject {
 
     protected Character owner;
     protected AttackType type;
+    protected CollisionBehavior collision;
     protected float duration;
 
     protected boolean active;
