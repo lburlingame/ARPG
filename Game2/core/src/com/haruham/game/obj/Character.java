@@ -59,7 +59,7 @@ public class Character extends Entity {
 
         this.dim = new Vector3(32 * smult, 32 * smult, 32 * smult);
 
-        this.hit = new HitCircle(new Vector3(0, dim.y*.25f, 0), dim.x / 3);
+        this.hit = new HitCircle(new Vector3(0, 0, 0), dim.x / 3);
 
         //this.hit = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
         gold = (int)(Math.random() * 58) + 5;
@@ -121,7 +121,7 @@ public class Character extends Entity {
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(TextureLoader.getSprite(id, id++), pos.x-dim.x/2, pos.y + pos.z, 32,32);
+        batch.draw(TextureLoader.getSprite(id, id++), pos.x-dim.x/2, pos.y - dim.y*.25f + pos.z, 32,32);
     }
 
 

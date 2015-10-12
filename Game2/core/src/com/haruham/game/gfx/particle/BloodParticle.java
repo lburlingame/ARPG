@@ -18,7 +18,7 @@ public class BloodParticle extends Particle {
 
     public BloodParticle(Vector3 pos, Vector3 vel) {
         super(pos, vel);
-        duration = (int)((Math.random() * 420) + 420); // 240  240
+        duration = (int)((Math.random() * 120) + 120); // 240  240  420
 
         if (blood == null) {
             blood = new ArrayList<>();

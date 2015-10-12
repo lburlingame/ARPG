@@ -24,6 +24,7 @@ public class Attack extends GameObject {
 
     protected Character owner;
     protected AttackType type;
+    protected CollisionBehavior collision;
     protected float duration;
 
     protected boolean active;
@@ -45,6 +46,7 @@ public class Attack extends GameObject {
         pos.z = 10;
         this.target = target;
         this.damage = damage;
+        this.duration = 1000;
         vel = new Vector3(0,0,0);
        // this.pos = new Vector3(target.x, target.y, target.z);
         this.name = name;
@@ -67,6 +69,9 @@ public class Attack extends GameObject {
 
     public void update(float delta) {
         type.update(this, delta);
+        if (duration > 0) {
+            duration--;
+        }
     }
 
     public void draw(SpriteBatch batch) {

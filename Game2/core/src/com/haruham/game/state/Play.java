@@ -3,6 +3,7 @@ package com.haruham.game.state;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -27,6 +28,8 @@ public class Play extends GameState {
 
     private ArrayList<World> worlds;
 
+    // sound manager needs to be here, observer to level
+
     public Play(GameStateManager gsm) {
         super(gsm);
         //wavSound.loop(.4f, 1f,.1f);
@@ -42,6 +45,10 @@ public class Play extends GameState {
         worlds.get(0).update(delta);
     }
 
+    /*
+        batch.setColor(new Color(.1f,1,.1f,1f));
+        will change color tints to create a certain effect
+    */
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -56,9 +63,15 @@ public class Play extends GameState {
         font.draw(batch, (camera.zoom+ " "), 10, Gdx.graphics.getHeight() - 80);
         //font.draw(batch, attacks.size() + "", 10, Gdx.graphics.getHeight() - 100);
 
+
         batch.end();
-/*
-        Gdx.gl.glEnable(GL20.GL_BLEND);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setProjectionMatrix(hudCamera.combined);
+        shapeRenderer.line(hudCamera.viewportWidth / 2, hudCamera.viewportHeight * .3f, hudCamera.viewportWidth / 2, hudCamera.viewportHeight*.7f);
+        shapeRenderer.line(hudCamera.viewportWidth * .3f, hudCamera.viewportHeight / 2, hudCamera.viewportWidth * .7f, hudCamera.viewportHeight / 2);
+
+        shapeRenderer.end();
+        /*Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.setProjectionMatrix(hudCamera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);

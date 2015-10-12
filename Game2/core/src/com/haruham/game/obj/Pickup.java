@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * Created on 10/5/2015.
  */
-public class Pickup extends Entity {
-
+public abstract class Pickup extends Entity {
 
     public void update(float delta) {
 
@@ -16,7 +15,6 @@ public class Pickup extends Entity {
 
     }
 
-    public int compareTo(GameObject o) {
-        return 0;
-    }
+    public abstract void pickup(Character character);
+
 }
