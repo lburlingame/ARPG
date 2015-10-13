@@ -12,7 +12,7 @@ public abstract class HealthComponent {
 
     public abstract void takeHit(Attack attack);
 
-    protected void takeDamage(int amount) {
+    public void takeDamage(int amount) {
         currHealth = currHealth - amount;
         if (currHealth <= 0) {
             currHealth = 0;

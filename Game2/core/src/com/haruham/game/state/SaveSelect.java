@@ -3,9 +3,9 @@ package com.haruham.game.state;
 /**
  * Created on 9/15/2015.
  */
-public class GameSelect extends GameState {
+public class SaveSelect extends GameState {
 
-    public GameSelect(GameStateManager gsm) {
+    public SaveSelect(GameStateManager gsm) {
         super(gsm);    
     }
 

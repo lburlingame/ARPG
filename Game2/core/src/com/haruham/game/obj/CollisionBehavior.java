@@ -5,7 +5,6 @@ package com.haruham.game.obj;
  */
 public interface CollisionBehavior {
 
-
     public void onCollision(Attack attack, Character character);
 
 }

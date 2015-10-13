@@ -273,6 +273,10 @@ public class Character extends Entity {
     public void attack(Vector3 target) {
         weapon.attack(world, this, target);
     }
+
+    public void takeDamage(int amount) {
+        health.takeDamage(amount);
+    }
 }
 
 

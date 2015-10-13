@@ -28,7 +28,6 @@ public class Attack extends GameObject {
     protected float duration;
 
     protected boolean active;
-    protected int damage;
     protected float stun;
 
     protected float knockback;
@@ -39,13 +38,13 @@ public class Attack extends GameObject {
     protected Vector3 target;
 
 
-    public Attack(Character owner, AttackType type, Vector3 target, String name, int damage) {
+    public Attack(Character owner, AttackType type, CollisionBehavior collision, Vector3 target, String name) {
         this.owner = owner;
         this.type = type;
+        this.collision = collision;
         this.pos = owner.getPosition();
         pos.z = 10;
         this.target = target;
-        this.damage = damage;
         this.duration = 1000;
         vel = new Vector3(0,0,0);
        // this.pos = new Vector3(target.x, target.y, target.z);
@@ -84,16 +83,8 @@ public class Attack extends GameObject {
         type.drawDebug(this, shapeRenderer);
     }
 
-    public void reset() {
-
-    }
-
-
     public Vector3 getTarget() {
         return target;
     }
 
-    public int getDamage() {
-        return damage;
-    }
 }
