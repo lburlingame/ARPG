@@ -49,22 +49,24 @@ public class Attack extends GameObject {
         this.duration = 1000;
         vel = new Vector3(0,0,0);
        // this.pos = new Vector3(target.x, target.y, target.z);
+
         this.name = name;
-        hitids = new ArrayList<>(); // add casters hit id to this;
+        hitids = new ArrayList<>(); // add casters onCollision id to this;
         hitids.add(owner.getUID());
         type.init(this);
     }
 
-    public boolean hasHit(Character character) {
+    public boolean hasCollided(Character character) {
         return hitids.contains(character.getUID());
     }
 
-    public void hit(Character character) {
+    public void onCollision(Character character) {
         hitids.add(character.getUID());
+        collision.onCollision(this, character);
     }
 
-    public boolean collidesWith(Entity other) {
-        return type.collidesWith(this, other);
+    public boolean collidesWith(Character character) {
+        return type.collidesWith(this, character);
     }
 
     public void update(float delta) {

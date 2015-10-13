@@ -92,11 +92,11 @@ public class Play extends GameState {
         }
     }
 
-    public void start() {
+    public void enter() {
         worlds.get(0).start();
     }
 
-    public void stop() {
+    public void exit() {
         worlds.get(0).stop();
     }
 

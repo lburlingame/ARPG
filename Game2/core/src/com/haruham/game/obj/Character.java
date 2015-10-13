@@ -61,7 +61,7 @@ public class Character extends Entity {
 
         this.hit = new HitCircle(new Vector3(0, 0, 0), dim.x / 3);
 
-        //this.hit = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
+        //this.onCollision = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
         gold = (int)(Math.random() * 58) + 5;
     }
 

@@ -64,11 +64,11 @@ public class Splash extends GameState {
 
     }
 
-    public void start() {
+    public void enter() {
 
     }
 
-    public void stop() {
+    public void exit() {
     }
 
     public void dispose() {
