@@ -11,6 +11,8 @@ public class PlayerInput extends InputComponent {
 
     }
 
+
+    int i = 0;
     public void update(float delta) {
 
         // TODO MAKE IT SO THE MOST RECENTLY ACTIVATED KEY GETS PRIORITY
@@ -38,8 +40,13 @@ public class PlayerInput extends InputComponent {
             character.jump();
         }*/
 
-        if (Inputs.isPressed(Inputs.M1)) {
+
+        if (Inputs.isDown(Inputs.M1)) {
+            if (i++ % 6 ==0)
             character.attack(new Vector3(Inputs.pos.x, Inputs.pos.y, 0));
+        }
+        if (Inputs.isReleased(Inputs.M1)) {
+            i = 0;
         }
 
         if (Inputs.isPressed(Inputs.SPACE)) {

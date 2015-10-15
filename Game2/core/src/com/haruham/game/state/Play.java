@@ -3,12 +3,14 @@ package com.haruham.game.state;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.haruham.game.gfx.Art;
 import com.haruham.game.input.PlayInput;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.level.World;
@@ -35,6 +37,14 @@ public class Play extends GameState {
         //wavSound.loop(.4f, 1f,.1f);
         font = new BitmapFont();
         pin = new PlayInput(gsm);
+
+        // Create assets manager
+        AssetManager assetManager = new AssetManager();
+        // create a new sprite batch to render the graphics
+        Art.load(assetManager);
+        assetManager.finishLoading();
+        Art.assignResource(assetManager);
+
         worlds = new ArrayList<>();
         worlds.add(new World(this));
     }

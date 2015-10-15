@@ -44,6 +44,7 @@ public class Attack extends GameObject {
         this.collision = collision;
         this.pos = owner.getPosition();
         pos.z = 10;
+        pos.y-=1;
         this.target = target;
         this.duration = 1000;
         vel = new Vector3(0,0,0);
