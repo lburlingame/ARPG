@@ -46,7 +46,9 @@ public class PlayerInput extends InputComponent {
             character.setX(Inputs.pos.x);
             character.setY(Inputs.pos.y);
         }
-
+        if (Inputs.isPressed(Inputs.N)) {
+            character.getWorld().getEmitter().clear();
+        }
        /* if (input.SHIFT.isPressed()) {
             character.sprint();
         }else if (input.CTRL.isPressed()) {

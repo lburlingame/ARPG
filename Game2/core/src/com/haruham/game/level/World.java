@@ -2,6 +2,7 @@ package com.haruham.game.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -117,10 +118,12 @@ public class World {
         }
 
         emitter.update(delta);
+
+        lerp(player.getPosition());
+
     }
 
     public void render() {
-        lerp(player.getPosition());
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -202,5 +205,9 @@ public class World {
 
     public void addItem(Item item) {
 
+    }
+
+    public ParticleEmitter getEmitter() {
+        return emitter;
     }
 }

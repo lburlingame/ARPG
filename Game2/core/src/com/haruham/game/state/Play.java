@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.haruham.game.input.GameMenuInput;
+import com.haruham.game.input.PlayInput;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.level.World;
 
@@ -24,7 +24,7 @@ public class Play extends GameState {
     private BitmapFont font;
 
 
-    private GameMenuInput gin;
+    private PlayInput pin;
 
     private ArrayList<World> worlds;
 
@@ -34,14 +34,14 @@ public class Play extends GameState {
         super(gsm);
         //wavSound.loop(.4f, 1f,.1f);
         font = new BitmapFont();
-        gin = new GameMenuInput(gsm);
+        pin = new PlayInput(gsm);
         worlds = new ArrayList<>();
         worlds.add(new World(this));
     }
 
 
     public void update(float delta) {
-        gin.update();
+        pin.update();
         worlds.get(0).update(delta);
     }
 
@@ -53,7 +53,9 @@ public class Play extends GameState {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         worlds.get(0).render();
+    }
 
+    public void renderDebug() {
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
         int fps = Gdx.graphics.getFramesPerSecond();
@@ -65,24 +67,14 @@ public class Play extends GameState {
 
 
         batch.end();
+
+        shapeRenderer.setColor(new Color(1,1,1,1));
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(hudCamera.combined);
         shapeRenderer.line(hudCamera.viewportWidth / 2, hudCamera.viewportHeight * .3f, hudCamera.viewportWidth / 2, hudCamera.viewportHeight*.7f);
         shapeRenderer.line(hudCamera.viewportWidth * .3f, hudCamera.viewportHeight / 2, hudCamera.viewportWidth * .7f, hudCamera.viewportHeight / 2);
 
         shapeRenderer.end();
-        /*Gdx.gl.glEnable(GL20.GL_BLEND);
-        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        shapeRenderer.setProjectionMatrix(hudCamera.combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0, 0, 0, 0.85f));
-        shapeRenderer.rect(0,0,hudCamera.viewportWidth, hudCamera.viewportHeight);
-        shapeRenderer.end();
-        Gdx.gl.glDisable(GL20.GL_BLEND);*/
-
-    }
-
-    public void renderDebug() {
         worlds.get(0).renderDebug();
     }
 

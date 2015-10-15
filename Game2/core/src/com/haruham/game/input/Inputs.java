@@ -13,7 +13,7 @@ public class Inputs {
     public static boolean[] keys;
     public static boolean[] pkeys;
 
-    public static final int NUM_KEYS = 10;
+    public static final int NUM_KEYS = 11;
 
     public static final int W = 0;
     public static final int S = 1;
@@ -24,6 +24,7 @@ public class Inputs {
 
     public static final int ESCAPE = 5;
     public static final int I = 6;
+    public static final int N = 10;
 
     public static final int M1 = 7;
     public static final int M2 = 8;
@@ -89,6 +90,10 @@ public class Inputs {
 
         if (i == Input.Buttons.RIGHT) {
             keys[M3] = b;
+        }
+
+        if (i == Input.Keys.N) {
+            keys[N] = b;
         }
     }
 

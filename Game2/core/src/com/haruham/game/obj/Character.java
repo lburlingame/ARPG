@@ -277,6 +277,10 @@ public class Character extends Entity {
     public void takeDamage(int amount) {
         health.takeDamage(amount);
     }
+
+    public World getWorld() {
+        return world;
+    }
 }
 
 

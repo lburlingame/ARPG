@@ -45,4 +45,9 @@ public class ParticleEmitter {
         }
         //batch.setColor(new Color(1,1,1,1));
     }
+
+    public void clear() {
+        System.out.println(particles.size());
+        particles.clear();
+    }
 }
