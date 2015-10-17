@@ -1,6 +1,7 @@
 package com.haruham.game.gfx;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -33,7 +34,7 @@ public class Line {
         Color prevColor = spriteBatch.getColor();
         spriteBatch.setColor(tint);
         int blfn = spriteBatch.getBlendDstFunc();
-        spriteBatch.setBlendFunction(spriteBatch.getBlendSrcFunc(), Pixmap.Blending.SourceOver.ordinal());
+        spriteBatch.setBlendFunction(spriteBatch.getBlendSrcFunc(), GL20.GL_ONE);
                 //Pixmap.Blending.SourceOver.ordinal());
 
         spriteBatch.draw(Art.LightningSegment, A.x, A.y, 0,Thickness/2, getLength(), Thickness, 1,1, theta);

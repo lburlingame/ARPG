@@ -174,7 +174,7 @@ public class Lightning implements AttackType {
 
 
     public void init(Attack attack) {
-        init(attack.getPosition(), attack.getTarget(), new Color(.7f,.9f,1,1));
+        init(attack.getPosition(), attack.getTarget(), new Color((float)(Math.random()*.2f) + .4f,(float)(Math.random()*.3f) + .5f,(float)(Math.random()*.3f) + .7f,1));
     }
 
     public boolean collidesWith(Attack attack, Entity other) {
