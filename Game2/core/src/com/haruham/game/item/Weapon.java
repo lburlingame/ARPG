@@ -27,10 +27,11 @@ public class Weapon extends Equipment {
     }
 
     public void attack(World world, Character user, Vector3 target) {
-        world.addAttack(new Attack(user, new Lightning(), new BasicCollision(damage), target, name));
-        world.addAttack(new Attack(user, new Lightning(), new BasicCollision(damage), target, name));
-        world.addAttack(new Attack(user, new Lightning(), new BasicCollision(damage), target, name));
-        world.addAttack(new Attack(user, new Lightning(), new BasicCollision(damage), target, name));
+        target = new Vector3(target);
+        world.addAttack(new AttackObject(user, new Lightning(), new BasicCollision(damage), target, name));
+        world.addAttack(new AttackObject(user, new Lightning(), new BasicCollision(damage), target, name));
+        world.addAttack(new AttackObject(user, new Lightning(), new BasicCollision(damage), target, name));
+        world.addAttack(new AttackObject(user, new Lightning(), new BasicCollision(damage), target, name));
 
 
 

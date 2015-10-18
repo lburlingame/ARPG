@@ -10,7 +10,7 @@ public abstract class HealthComponent {
 
     protected boolean alive;
 
-    public abstract void takeHit(Attack attack);
+    public abstract void takeHit(AttackObject attack);
 
     public void takeDamage(int amount) {
         currHealth = currHealth - amount;

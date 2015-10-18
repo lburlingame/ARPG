@@ -2,7 +2,6 @@ package com.haruham.game.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -51,7 +50,7 @@ public class World {
     // these lists are for collision detections
     private ArrayList<Character> characters;
     private ArrayList<Character> neutral; // neutral characters, these are town npcs that cannot be attacked and will not attack, but can be interacted with
-    private ArrayList<Attack> attacks;
+    private ArrayList<AttackObject> attacks;
     private ArrayList<Character> dead;
     private ArrayList<Item> items;
     private ArrayList<Item> coins;
@@ -184,7 +183,7 @@ public class World {
     }
 
 
-    public void addAttack(Attack attack) {
+    public void addAttack(AttackObject attack) {
         attacks.add(attack);
         objects.add(attack);
         cast.play(.2f, 1.25f, 0f);

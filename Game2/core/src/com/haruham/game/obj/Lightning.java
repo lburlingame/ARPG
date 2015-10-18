@@ -80,7 +80,7 @@ public class Lightning implements AttackType {
         tint = color;
         alpha = 1f;
         alphaMultiplier = 1;
-        fadeOutRate = 0.04f; //.03f
+        fadeOutRate = 0.03f; //.03f
 
         hit = new HitCircle(new Vector3(0,0,0), 8);
 
@@ -101,7 +101,7 @@ public class Lightning implements AttackType {
 
         Collections.sort(positions);
 
-        float Sway = 20;
+        float Sway = 25;
         float Jaggedness = 1 / Sway;
 
         Vector3 prevPoint = source;
@@ -173,11 +173,11 @@ public class Lightning implements AttackType {
     }
 
 
-    public void init(Attack attack) {
+    public void init(AttackObject attack) {
         init(attack.getPosition(), attack.getTarget(), new Color((float)(Math.random()*.2f) + .4f,(float)(Math.random()*.3f) + .5f,(float)(Math.random()*.3f) + .7f,1));
     }
 
-    public boolean collidesWith(Attack attack, Entity other) {
+    public boolean collidesWith(AttackObject attack, Entity other) {
         Vector3 hitCenter = hit.getCenter();
 
         Vector3 opos = other.getPosition();
@@ -191,11 +191,11 @@ public class Lightning implements AttackType {
         return false;
     }
 
-    public void update(Attack attack, float delta) {
+    public void update(AttackObject attack, float delta) {
         alpha -= fadeOutRate;
     }
 
-    public void draw(Attack attack, SpriteBatch batch) {
+    public void draw(AttackObject attack, SpriteBatch batch) {
         if (alpha <= 0)
             return;
         for(int i=0; i<Segments.size(); i++){
@@ -204,7 +204,7 @@ public class Lightning implements AttackType {
         }
     }
 
-    public void drawDebug(Attack attack, ShapeRenderer shapeRenderer) {
+    public void drawDebug(AttackObject attack, ShapeRenderer shapeRenderer) {
 
     }
 }

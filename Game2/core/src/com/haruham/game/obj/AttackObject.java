@@ -3,12 +3,6 @@ package com.haruham.game.obj;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
-import com.haruham.game.obj.GameObject;
-import com.haruham.game.obj.Character;
-import com.haruham.game.obj.HitCircle;
-import com.haruham.game.gfx.TextureLoader;
-import com.haruham.game.util.Direction;
-import com.haruham.game.util.Util;
 
 import java.util.ArrayList;
 
@@ -20,7 +14,7 @@ import java.util.ArrayList;
 // TODO figure out how to add attack to level's arraylist
 // TODO multiple types of spells, using strategy?
 // laser spell would use a rectangle that is rotated based on mouse location, and is drawn using shaders
-public class Attack extends GameObject {
+public class AttackObject extends GameObject {
 
     protected Character owner;
     protected AttackType type;
@@ -38,7 +32,7 @@ public class Attack extends GameObject {
     protected Vector3 target;
 
 
-    public Attack(Character owner, AttackType type, CollisionBehavior collision, Vector3 target, String name) {
+    public AttackObject(Character owner, AttackType type, CollisionBehavior collision, Vector3 target, String name) {
         this.owner = owner;
         this.type = type;
         this.collision = collision;

@@ -43,7 +43,7 @@ public class PlayerInput extends InputComponent {
 
         if (Inputs.isDown(Inputs.M1)) {
             if (i++ % 6 ==0)
-            character.attack(new Vector3(Inputs.pos.x, Inputs.pos.y, 0));
+            character.attack(Inputs.pos);
         }
         if (Inputs.isReleased(Inputs.M1)) {
             i = 0;

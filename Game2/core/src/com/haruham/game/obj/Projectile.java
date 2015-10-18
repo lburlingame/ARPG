@@ -2,7 +2,6 @@ package com.haruham.game.obj;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.gfx.TextureLoader;
 import com.haruham.game.util.Direction;
@@ -21,7 +20,7 @@ public class Projectile implements AttackType {
         hit = new HitCircle(new Vector3(0,0,0), radius * .6f);
     }
 
-    public void init(Attack attack) {
+    public void init(AttackObject attack) {
         Vector3 target = attack.getTarget();
         Vector3 vel = new Vector3(0,0,0);
         Direction dir = Util.findSlope(attack.getX(), attack.getY(), target.x, target.y);
@@ -40,7 +39,7 @@ public class Projectile implements AttackType {
     }
 
 
-    public boolean collidesWith(Attack attack, Entity other) {
+    public boolean collidesWith(AttackObject attack, Entity other) {
         Vector3 hitCenter = hit.getCenter();
 
         Vector3 opos = other.getPosition();
@@ -54,17 +53,17 @@ public class Projectile implements AttackType {
         return false;
     }
 
-    public void update(Attack attack, float delta) {
+    public void update(AttackObject attack, float delta) {
         attack.setX(attack.getX() + attack.getDx() * delta);
         attack.setY(attack.getY() + attack.getDy() * delta);
         attack.setZ(attack.getZ() + attack.getDz() * delta);
     }
 
-    public void draw(Attack attack, SpriteBatch batch) {
+    public void draw(AttackObject attack, SpriteBatch batch) {
         batch.draw(TextureLoader.getSprite(2, 1), attack.getX()-radius, attack.getY() + attack.getZ() - radius, radius * 2, radius * 2);
     }
 
-    public void drawDebug(Attack attack, ShapeRenderer renderer) {
+    public void drawDebug(AttackObject attack, ShapeRenderer renderer) {
         renderer.circle(attack.getX() + hit.getCenter().x, attack.getY() + hit.getCenter().y, hit.getRadius());
     }
 }
