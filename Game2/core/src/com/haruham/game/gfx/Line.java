@@ -29,7 +29,7 @@ public class Line {
     {
         Vector2 tangent = new Vector2(B).sub(new Vector2(A));
         float theta = (float)Math.toDegrees(Math.atan2(tangent.y, tangent.x));
-
+        //Thickness *=1.03;
         float scale = Thickness / Art.HalfCircle.getRegionHeight();
         Color prevColor = spriteBatch.getColor();
         spriteBatch.setColor(tint);

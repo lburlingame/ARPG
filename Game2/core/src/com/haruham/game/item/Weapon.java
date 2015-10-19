@@ -38,6 +38,7 @@ public class Weapon extends Equipment {
 
 
 
+
       /*  world.addAttack(new Attack(user, new Projectile(48), new BasicCollision(damage),  target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0)), name));
         world.addAttack(new Attack(user, new Projectile(48), new BasicCollision(damage),  target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0)), name));
         world.addAttack(new Attack(user, new Projectile(48), new BasicCollision(damage),  target.add(new Vector3((float)Math.random()*-100,(float)Math.random()*100f,0)), name));

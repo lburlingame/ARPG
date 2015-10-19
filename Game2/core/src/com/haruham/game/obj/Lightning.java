@@ -78,7 +78,7 @@ public class Lightning implements AttackType {
     private void init(Vector3 source, Vector3 dest, Color color){
         Segments = CreateBolt(source, dest, 10);
         tint = color;
-        alpha = 1f;
+        alpha = 1.2f;
         alphaMultiplier = 1;
         fadeOutRate = 0.03f; //.03f
 
