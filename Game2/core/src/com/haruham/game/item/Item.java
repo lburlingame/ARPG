@@ -5,6 +5,8 @@ import com.haruham.game.obj.Character;
 /**
  * Created on 9/15/2015.
  */
+
+/* Extends GameObject, and has its own pos and velocities */
 public class Item {
 
 

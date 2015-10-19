@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.gfx.LightRenderer;
 import com.haruham.game.obj.*;
@@ -51,7 +50,7 @@ public class World {
     // these lists are for collision detections
     private ArrayList<Character> characters;
     private ArrayList<Character> neutral; // neutral characters, these are town npcs that cannot be attacked and will not attack, but can be interacted with
-    private ArrayList<Attack> attacks;
+    private ArrayList<AttackObject> attacks;
     private ArrayList<Character> dead;
     private ArrayList<Item> items;
     private ArrayList<Item> coins;
@@ -109,8 +108,8 @@ public class World {
             characters.get(i).update(delta);
 
             for (int j = 0; j < attacks.size(); j++) {
-                if (attacks.get(j).collidesWith(characters.get(i)) && !attacks.get(j).hasHit(characters.get(i))) {
-                    attacks.get(j).hit(characters.get(i));
+                if (attacks.get(j).collidesWith(characters.get(i)) && !attacks.get(j).hasCollided(characters.get(i))) {
+                    attacks.get(j).onCollision(characters.get(i));
                     sizzle.play(1f);  /// .08
                     emitter.bloodSpatter(characters.get(i).getPosition().add(characters.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f));
                 }
@@ -118,10 +117,12 @@ public class World {
         }
 
         emitter.update(delta);
+
+        lerp(player.getPosition());
+
     }
 
     public void render() {
-        lerp(player.getPosition());
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -182,7 +183,7 @@ public class World {
     }
 
 
-    public void addAttack(Attack attack) {
+    public void addAttack(AttackObject attack) {
         attacks.add(attack);
         objects.add(attack);
         cast.play(.2f, 1.25f, 0f);
@@ -203,5 +204,9 @@ public class World {
 
     public void addItem(Item item) {
 
+    }
+
+    public ParticleEmitter getEmitter() {
+        return emitter;
     }
 }

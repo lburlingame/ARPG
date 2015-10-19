@@ -118,13 +118,13 @@ public class MainMenu extends GameState {
         table.drawDebug(shapeRenderer); // This is optional, but enables debug lines for tables.
     }
 
-    //change to start()/end()
-    public void stop() {
+    //change to enter()/end()
+    public void exit() {
         game.getInputs().removeProcessor(stage);
         mmg.pause();
     }
 
-    public void start() {
+    public void enter() {
         game.getInputs().addProcessor(stage);
         mmg.play();
     }

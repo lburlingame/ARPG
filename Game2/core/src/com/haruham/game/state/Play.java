@@ -3,13 +3,17 @@ package com.haruham.game.state;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.haruham.game.input.GameMenuInput;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
+import com.haruham.game.gfx.Art;
+import com.haruham.game.input.PlayInput;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.level.World;
 
@@ -24,7 +28,7 @@ public class Play extends GameState {
     private BitmapFont font;
 
 
-    private GameMenuInput gin;
+    private PlayInput pin;
 
     private ArrayList<World> worlds;
 
@@ -34,14 +38,22 @@ public class Play extends GameState {
         super(gsm);
         //wavSound.loop(.4f, 1f,.1f);
         font = new BitmapFont();
-        gin = new GameMenuInput(gsm);
+        pin = new PlayInput(gsm);
+
+        // Create assets manager
+        AssetManager assetManager = new AssetManager();
+        // create a new sprite batch to render the graphics
+        Art.load(assetManager);
+        assetManager.finishLoading();
+        Art.assignResource(assetManager);
+
         worlds = new ArrayList<>();
         worlds.add(new World(this));
     }
 
 
     public void update(float delta) {
-        gin.update();
+        pin.update();
         worlds.get(0).update(delta);
     }
 
@@ -52,8 +64,19 @@ public class Play extends GameState {
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        /*Rectangle scissors = new Rectangle(); use this to clip the screen for rendering, maybe to give focus on a certain element
+        Rectangle clipBounds = new Rectangle(camera.position.x-camera.viewportWidth/2, camera.position.y-camera.viewportHeight/2, camera.viewportWidth, camera.viewportHeight);
+        ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
+        ScissorStack.pushScissors(scissors);
+        batch.flush();
+        ScissorStack.popScissors();*/
+
         worlds.get(0).render();
 
+    }
+
+    public void renderDebug() {
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
         int fps = Gdx.graphics.getFramesPerSecond();
@@ -65,24 +88,14 @@ public class Play extends GameState {
 
 
         batch.end();
+
+        shapeRenderer.setColor(new Color(1,1,1,1));
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(hudCamera.combined);
         shapeRenderer.line(hudCamera.viewportWidth / 2, hudCamera.viewportHeight * .3f, hudCamera.viewportWidth / 2, hudCamera.viewportHeight*.7f);
         shapeRenderer.line(hudCamera.viewportWidth * .3f, hudCamera.viewportHeight / 2, hudCamera.viewportWidth * .7f, hudCamera.viewportHeight / 2);
 
         shapeRenderer.end();
-        /*Gdx.gl.glEnable(GL20.GL_BLEND);
-        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        shapeRenderer.setProjectionMatrix(hudCamera.combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0, 0, 0, 0.85f));
-        shapeRenderer.rect(0,0,hudCamera.viewportWidth, hudCamera.viewportHeight);
-        shapeRenderer.end();
-        Gdx.gl.glDisable(GL20.GL_BLEND);*/
-
-    }
-
-    public void renderDebug() {
         worlds.get(0).renderDebug();
     }
 
@@ -92,11 +105,11 @@ public class Play extends GameState {
         }
     }
 
-    public void start() {
+    public void enter() {
         worlds.get(0).start();
     }
 
-    public void stop() {
+    public void exit() {
         worlds.get(0).stop();
     }
 

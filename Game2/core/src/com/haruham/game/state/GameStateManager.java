@@ -11,17 +11,19 @@ public class GameStateManager {
 
     private GameApp game;
 
-    private Stack<GameState> gameStates;
+    private Stack<GameState> states;
 
     private Play play;
 
     public static final int SPLASH = 0;
     public static final int MAINMENU = 1;
     public static final int PLAY = 2;
+    public static final int GAMEMENU = 3;
+    public static final int OPTIONS = 4;
 
     public GameStateManager(GameApp game) {
         this.game = game;
-        gameStates = new Stack<GameState>();
+        states = new Stack<GameState>();
         pushState(SPLASH);
     }
 
@@ -30,13 +32,20 @@ public class GameStateManager {
     }
 
     public void update(float delta) {
-        gameStates.peek().update(delta);
+        states.peek().update(delta);
     }
 
     public void render() {
-        gameStates.peek().render();
+        /*states.peek().render();
         if (game.debug) {
-            gameStates.peek().renderDebug();
+            states.peek().renderDebug();
+        }*/
+
+        for (int i = 0; i < states.size(); i++) {
+            states.get(i).render();
+        }
+        if (game.debug) {
+            states.peek().renderDebug();
         }
     }
 
@@ -49,6 +58,8 @@ public class GameStateManager {
             }
             return play;
         }
+        if (state == GAMEMENU) return new GameMenu(this);
+        if (state == OPTIONS) return new Options(this);
 
         return null;
     }
@@ -59,22 +70,22 @@ public class GameStateManager {
     }
 
     public void pushState(int state) {
-        if (gameStates.size() > 0) {
-            gameStates.peek().stop();
+        if (states.size() > 0) {
+            states.peek().exit();
         }
         GameState gameState = getState(state);
-        gameState.start();
-        gameStates.push(gameState);
+        gameState.enter();
+        states.push(gameState);
     }
 
     public void popState(boolean dispose) {
-        GameState gameState = gameStates.pop();
-        gameState.stop();
+        GameState gameState = states.pop();
+        gameState.exit();
         if (dispose) {
             gameState.dispose();
         }
-        if (gameStates.size() > 0) {
-            gameStates.peek().start();
+        if (states.size() > 0) {
+            states.peek().enter();
         }
     }
 
@@ -86,8 +97,8 @@ public class GameStateManager {
     }
 
     public void dispose() {
-        while (gameStates.size() > 0) {
-            gameStates.pop().dispose();
+        while (states.size() > 0) {
+            states.pop().dispose();
         }
     }
 

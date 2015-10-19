@@ -61,7 +61,7 @@ public class Character extends Entity {
 
         this.hit = new HitCircle(new Vector3(0, 0, 0), dim.x / 3);
 
-        //this.hit = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
+        //this.onCollision = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
         gold = (int)(Math.random() * 58) + 5;
     }
 
@@ -272,6 +272,14 @@ public class Character extends Entity {
 
     public void attack(Vector3 target) {
         weapon.attack(world, this, target);
+    }
+
+    public void takeDamage(int amount) {
+        health.takeDamage(amount);
+    }
+
+    public World getWorld() {
+        return world;
     }
 }
 
