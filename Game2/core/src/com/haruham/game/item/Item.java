@@ -1,13 +1,16 @@
 package com.haruham.game.item;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.haruham.game.obj.Character;
+import com.haruham.game.obj.GameObject;
 
 /**
  * Created on 9/15/2015.
  */
 
 /* Extends GameObject, and has its own pos and velocities */
-public class Item {
+public class Item extends GameObject {
 
 
     // pos and velocity too
@@ -33,4 +36,15 @@ public class Item {
     }
 
 
+    public void update(float delta) {
+
+    }
+
+    public void draw(SpriteBatch batch) {
+
+    }
+
+    public void drawDebug(ShapeRenderer shapeRenderer) {
+
+    }
 }

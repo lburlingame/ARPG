@@ -45,7 +45,7 @@ public class AttackObject extends GameObject {
        // this.pos = new Vector3(target.x, target.y, target.z);
 
         this.name = name;
-        hitids = new ArrayList<>(); // add casters onCollision id to this;
+        hitids = new ArrayList<Integer>(); // add casters onCollision id to this;
         hitids.add(owner.getUID());
         type.init(this);
     }

@@ -47,7 +47,7 @@ public class Play extends GameState {
         assetManager.finishLoading();
         Art.assignResource(assetManager);
 
-        worlds = new ArrayList<>();
+        worlds = new ArrayList<World>();
         worlds.add(new World(this));
     }
 

@@ -15,7 +15,7 @@ public class ParticleEmitter {
     private ArrayList<Particle> particles;
     private Random rand = new Random();
     public ParticleEmitter() {
-        particles = new ArrayList<>();
+        particles = new ArrayList<Particle>();
     }
 
     public void bloodSpatter(Vector3 pos, Vector3 vel) {

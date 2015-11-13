@@ -34,7 +34,7 @@ public class PlayInput {
         }
 
         int amount = Inputs.amount;
-        if ((camera.viewportHeight > 250 && amount < 0) || (camera.viewportHeight < 1000 && amount > 0)) {
+        if ((camera.viewportHeight > 250 && amount < 0) || (camera.viewportHeight < 5000 && amount > 0)) {
             camera.viewportWidth += 100 * amount;
             camera.viewportHeight += 56.25 * amount;
             //camera.zoom = 1.5f;

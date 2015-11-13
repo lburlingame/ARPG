@@ -69,12 +69,12 @@ public class World {
 
         tmap = new TileMap("levels/test_map.txt", camera);
 
-        objects = new ArrayList<>(); // list of all objects in world, for sorting/rendering purposes
+        objects = new ArrayList<GameObject>(); // list of all objects in world, for sorting/rendering purposes
 
-        characters = new ArrayList<>();
-        dead = new ArrayList<>();
-        attacks = new ArrayList<>();
-        items = new ArrayList<>();
+        characters = new ArrayList<Character>();
+        dead = new ArrayList<Character>();
+        attacks = new ArrayList<AttackObject>();
+        items = new ArrayList<Item>();
 
         emitter = new ParticleEmitter();
         player = new Character(this, 1, new PlayerInput(), new Vector3(300,300,0));

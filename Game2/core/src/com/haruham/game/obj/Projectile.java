@@ -25,12 +25,12 @@ public class Projectile implements AttackType {
         Vector3 vel = new Vector3(0,0,0);
         Direction dir = Util.findSlope(attack.getX(), attack.getY(), target.x, target.y);
 
-        vel.x = Util.findX(30000f + 0, dir.slope) * dir.xdir;  ///800
+        vel.x = Util.findX(1000f + 0, dir.slope) * dir.xdir;  ///800
         vel.y = dir.slope * vel.x;
 
         if (dir.slope == 200000 || dir.slope == -200000)
         {
-            vel.y = 30000 * dir.slope / Math.abs(dir.slope);
+            vel.y = 1000 * dir.slope / Math.abs(dir.slope);
         }
 
         attack.setDx(vel.x);

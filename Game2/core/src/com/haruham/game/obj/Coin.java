@@ -21,7 +21,7 @@ public class Coin extends Entity {
     public Coin(Vector3 pos, Vector3 vel, int amount) {
         if (coins == null)
         {
-            coins = new ArrayList<>();
+            coins = new ArrayList<TextureRegion>();
             for (int i = 0; i < 7; i++) {
                 coins.add(new TextureRegion(coin_tex,i*16,0,16,16));
             }
