@@ -3,6 +3,7 @@ package com.haruham.game;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -11,6 +12,9 @@ import com.haruham.game.input.InputHandler;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.state.GameStateManager;
 import org.lwjgl.openal.AL;
+
+import java.io.BufferedReader;
+import java.io.Writer;
 
 public class GameApp implements ApplicationListener {
 
@@ -34,6 +38,22 @@ public class GameApp implements ApplicationListener {
     public boolean debug = true;
 
     public void create() {
+        try {
+
+            FileHandle file = Gdx.files.local("log/runcount.txt");
+            BufferedReader br = file.reader(1);
+
+
+            String curLine = br.readLine();
+            br.close();
+            int current = Integer.parseInt(curLine);
+            current++;
+            System.out.println(current + " ");
+            file.writeString(current + "", false);
+        }catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         camera = new OrthographicCamera();

@@ -110,7 +110,7 @@ public class World {
             for (int j = 0; j < attacks.size(); j++) {
                 if (attacks.get(j).collidesWith(characters.get(i)) && !attacks.get(j).hasCollided(characters.get(i))) {
                     attacks.get(j).onCollision(characters.get(i));
-                    sizzle.play(1f);  /// .08
+                    sizzle.play(.2f);  /// .08
                     emitter.bloodSpatter(characters.get(i).getPosition().add(characters.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f));
                 }
             }
@@ -186,7 +186,7 @@ public class World {
     public void addAttack(AttackObject attack) {
         attacks.add(attack);
         objects.add(attack);
-        cast.play(.2f, 1.25f, 0f);
+        cast.play(.1f, 1.25f, 0f);
     }
 
     public void addPickup(Pickup pickup) {

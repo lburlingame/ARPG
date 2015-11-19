@@ -4,6 +4,7 @@ package com.haruham.game.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,6 +18,8 @@ import com.haruham.game.input.PlayInput;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.level.World;
 
+import java.io.BufferedReader;
+import java.io.Writer;
 import java.util.ArrayList;
 
 
@@ -36,6 +39,10 @@ public class Play extends GameState {
 
     public Play(GameStateManager gsm) {
         super(gsm);
+
+
+
+
         //wavSound.loop(.4f, 1f,.1f);
         font = new BitmapFont();
         pin = new PlayInput(gsm);

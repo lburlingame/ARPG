@@ -56,7 +56,6 @@ public class Splash extends GameState {
             splash.draw(batch);
         }
         batch.end();
-
         frames++;
     }
 
@@ -65,10 +64,11 @@ public class Splash extends GameState {
     }
 
     public void enter() {
-
+        Gdx.input.setCursorCatched(true);
     }
 
     public void exit() {
+        Gdx.input.setCursorCatched(false);
     }
 
     public void dispose() {
