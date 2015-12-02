@@ -53,7 +53,7 @@ public class MeleeAttack implements AttackType {
     }
 
     public void draw(AttackObject attack, SpriteBatch batch) {
-        //batch.draw(TextureLoader.getSprite(2, 1), attack.getX()-radius, attack.getY() + attack.getZ() - radius, radius * 2, radius * 2);
+        //batch.draw(TextureLoader.getSprite(2, 1), release.getX()-radius, release.getY() + release.getZ() - radius, radius * 2, radius * 2);
     }
 
     public void drawDebug(AttackObject attack, ShapeRenderer renderer) {

@@ -39,11 +39,8 @@ public class GameApp implements ApplicationListener {
 
     public void create() {
         try {
-
             FileHandle file = Gdx.files.local("log/runcount.txt");
             BufferedReader br = file.reader(1);
-
-
             String curLine = br.readLine();
             br.close();
             int current = Integer.parseInt(curLine);

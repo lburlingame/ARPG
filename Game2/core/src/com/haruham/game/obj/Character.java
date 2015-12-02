@@ -271,7 +271,7 @@ public class Character extends Entity {
     }
 
     public void attack(Vector3 target) {
-        weapon.attack(world, this, target);
+        weapon.release(world, this, target);
     }
 
     public void takeDamage(int amount) {
@@ -284,7 +284,7 @@ public class Character extends Entity {
 }
 
 
-/* attack(Entity target)
+/* release(Entity target)
 
     target.takeDamage(AttackReport rep)
 

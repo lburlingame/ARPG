@@ -49,7 +49,7 @@ public class World {
 
     // these lists are for collision detections
     private ArrayList<Character> characters;
-    private ArrayList<Character> neutral; // neutral characters, these are town npcs that cannot be attacked and will not attack, but can be interacted with
+    private ArrayList<Character> neutral; // neutral characters, these are town npcs that cannot be attacked and will not release, but can be interacted with
     private ArrayList<AttackObject> attacks;
     private ArrayList<Character> dead;
     private ArrayList<Item> items;

@@ -2,7 +2,6 @@ package com.haruham.game.item;
 
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.level.World;
-import com.haruham.game.obj.*;
 import com.haruham.game.obj.Character;
 
 /**
@@ -11,11 +10,11 @@ import com.haruham.game.obj.Character;
 public class ContinuousMethod implements AttackMethod {
 
 
-    public void charge(World world, com.haruham.game.obj.Character user, Vector3 target) {
+    public void charge(AttackBehavior behavior, World world, Character user, Vector3 target) {
 
     }
 
-    public void release(World world, Character user, Vector3 target) {
+    public void release(AttackBehavior behavior, World world, Character user, Vector3 target) {
 
     }
 

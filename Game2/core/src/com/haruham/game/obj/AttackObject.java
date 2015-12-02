@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 
 // TODO object pooling
-// TODO figure out how to add attack to level's arraylist
+// TODO figure out how to add release to level's arraylist
 // TODO multiple types of spells, using strategy?
 // laser spell would use a rectangle that is rotated based on mouse location, and is drawn using shaders
 public class AttackObject extends GameObject {
