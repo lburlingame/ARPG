@@ -27,6 +27,9 @@ public class Character extends Entity {
     private int PREV_STATE = 0; // ??
 
     private int id;
+    private int frame = 0;
+    private int animation_timer = 3;
+
     private Integer UID;
 
     private Vector2 dest;  //destination
@@ -118,10 +121,28 @@ public class Character extends Entity {
         }else if (STATE != JUMPING){
             STATE = STOPPED;
         }
+
+        if (STATE > 0) {
+            animation_timer--;
+            if (animation_timer == 0) {
+                if (STATE == 1) {
+                    animation_timer = 8;
+                }else if (STATE == 2){
+                    animation_timer = 3;
+                }else if (STATE == 3) {
+                    animation_timer = 2;
+                }
+
+                frame++;
+                frame = frame % 8;  // limit here to sprites frame count, only change when sprite id is changed
+            }
+        }else{
+            frame = 0;
+        }
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(TextureLoader.getSprite(id, id++), pos.x-dim.x/2, pos.y - dim.y*.25f + pos.z, 32,32);
+        batch.draw(TextureLoader.getSprite(id, frame), pos.x-dim.x/2, pos.y - dim.y*.25f + pos.z, 32,32);
     }
 
 
@@ -271,7 +292,7 @@ public class Character extends Entity {
     }
 
     public void attack(Vector3 target) {
-        weapon.attack(world, this, target);
+        weapon.release(world, this, target);
     }
 
     public void takeDamage(int amount) {
@@ -284,7 +305,7 @@ public class Character extends Entity {
 }
 
 
-/* attack(Entity target)
+/* release(Entity target)
 
     target.takeDamage(AttackReport rep)
 

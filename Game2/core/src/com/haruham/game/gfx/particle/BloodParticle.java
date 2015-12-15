@@ -21,7 +21,7 @@ public class BloodParticle extends Particle {
         duration = (int)((Math.random() * 120) + 120); // 240  240  420
 
         if (blood == null) {
-            blood = new ArrayList<>();
+            blood = new ArrayList<TextureRegion>();
             blood.add(new TextureRegion(blood_tex,0,0,16,16));
             blood.add(new TextureRegion(blood_tex,16,0,16,16));
             blood.add(new TextureRegion(blood_tex,32,0,16,16));

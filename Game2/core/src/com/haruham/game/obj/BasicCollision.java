@@ -12,7 +12,7 @@ public class BasicCollision implements CollisionBehavior {
     }
 
 
-    // maybe send an attack report instead, containing information such as knockback and stuff
+    // maybe send an release report instead, containing information such as knockback and stuff
     public void onCollision(AttackObject attack, Character character) {
         character.takeDamage(damage);
     }

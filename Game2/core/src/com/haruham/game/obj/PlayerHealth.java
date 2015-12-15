@@ -6,7 +6,7 @@ package com.haruham.game.obj;
 public class PlayerHealth extends HealthComponent {
 
     public void takeHit(AttackObject attack) {
-       /// takeDamage(attack.getDamage());
+       /// takeDamage(release.getDamage());
     }
 
     protected void die() {

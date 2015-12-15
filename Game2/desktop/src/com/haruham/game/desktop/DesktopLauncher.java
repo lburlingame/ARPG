@@ -1,11 +1,17 @@
 package com.haruham.game.desktop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.files.FileHandle;
 import com.haruham.game.GameApp;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.Writer;
+
 public class DesktopLauncher {
-	public static void main (String[] arg) {
+	public static void main (String[] arg) throws Exception {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 /*
 
@@ -38,6 +44,9 @@ public class DesktopLauncher {
         config.backgroundFPS = 0;*/
 
 
-        new LwjglApplication(new GameApp(), config);
+
+        LwjglApplication lwjgl = new LwjglApplication(new GameApp(), config);
+
+
 	}
 }

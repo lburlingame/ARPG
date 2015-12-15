@@ -25,6 +25,7 @@ public class HealthGlobe extends Entity {
     public HealthGlobe(Vector3 pos, Vector3 vel, int amount) {
         if (globes == null)
         {
+            globes = new ArrayList<TextureRegion>();
             globes.add(new TextureRegion(globe_tex,0,0,16,16));
         }
 

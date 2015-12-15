@@ -23,6 +23,8 @@ import java.util.Collections;
 /**
  * Created on 9/11/2015.
  */
+
+// abstract class world, all worlds extend from it, and all collision handlng and sound effects and whatnot will be handled in the abstract super class
 public class World {
 
     private Play playState;
@@ -49,7 +51,7 @@ public class World {
 
     // these lists are for collision detections
     private ArrayList<Character> characters;
-    private ArrayList<Character> neutral; // neutral characters, these are town npcs that cannot be attacked and will not attack, but can be interacted with
+    private ArrayList<Character> neutral; // neutral characters, these are town npcs that cannot be attacked and will not release, but can be interacted with
     private ArrayList<AttackObject> attacks;
     private ArrayList<Character> dead;
     private ArrayList<Item> items;
@@ -57,6 +59,10 @@ public class World {
 
     private ParticleEmitter emitter;
     //other drops;
+
+    //temp control variable
+    private float collisionsound = 0;
+    private static final float collisionreset = .15f;
 
     public World(Play playState) {
         this.playState = playState;
@@ -69,12 +75,12 @@ public class World {
 
         tmap = new TileMap("levels/test_map.txt", camera);
 
-        objects = new ArrayList<>(); // list of all objects in world, for sorting/rendering purposes
+        objects = new ArrayList<GameObject>(); // list of all objects in world, for sorting/rendering purposes
 
-        characters = new ArrayList<>();
-        dead = new ArrayList<>();
-        attacks = new ArrayList<>();
-        items = new ArrayList<>();
+        characters = new ArrayList<Character>();
+        dead = new ArrayList<Character>();
+        attacks = new ArrayList<AttackObject>();
+        items = new ArrayList<Item>();
 
         emitter = new ParticleEmitter();
         player = new Character(this, 1, new PlayerInput(), new Vector3(300,300,0));
@@ -82,11 +88,10 @@ public class World {
         characters.add(player);
         objects.add(player);
 
-        addCharacter(new Character(this, 1, new NullInput(), new Vector3(600, 600, 0)));
-        addCharacter(new Character(this, 1, new NullInput(), new Vector3(580, 590, 0)));
-        addCharacter(new Character(this, 1, new NullInput(), new Vector3(620, 600, 0)));
-        addCharacter(new Character(this, 1, new NullInput(), new Vector3(590, 620, 0)));
-        addCharacter(new Character(this, 1, new NullInput(), new Vector3(610, 630, 0)));
+
+        for (int i = 0; i < 500; i++) {
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 400 + 200), (float) (Math.random() * 400 + 200), 0)));
+        }
 
         lights = new LightRenderer();
         lights.addLight(player);
@@ -110,7 +115,10 @@ public class World {
             for (int j = 0; j < attacks.size(); j++) {
                 if (attacks.get(j).collidesWith(characters.get(i)) && !attacks.get(j).hasCollided(characters.get(i))) {
                     attacks.get(j).onCollision(characters.get(i));
-                    sizzle.play(1f);  /// .08
+                    if (collisionsound <= 0) {
+                        sizzle.play(.2f);  /// .08
+                        collisionsound = collisionreset;
+                    }
                     emitter.bloodSpatter(characters.get(i).getPosition().add(characters.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f));
                 }
             }
@@ -120,6 +128,9 @@ public class World {
 
         lerp(player.getPosition());
 
+        if (collisionsound > 0) {
+            collisionsound -= delta;
+        }
     }
 
     public void render() {
@@ -186,7 +197,7 @@ public class World {
     public void addAttack(AttackObject attack) {
         attacks.add(attack);
         objects.add(attack);
-        cast.play(.2f, 1.25f, 0f);
+        cast.play(.1f, 1.25f, 0f);
     }
 
     public void addPickup(Pickup pickup) {
