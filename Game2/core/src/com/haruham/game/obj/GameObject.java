@@ -92,4 +92,13 @@ public abstract class GameObject implements Comparable<GameObject>{
     public void setZ(float z) {
         pos.z = z;
     }
+
+    public float getDimx() {
+        return dim.x;
+    }
+
+
+    public float getDimy() {
+        return dim.y;
+    }
 }

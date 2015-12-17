@@ -26,12 +26,12 @@ public class Projectile implements AttackType {
         Vector3 vel = new Vector3(0,0,0);
         Direction dir = Util.findSlope(attack.getX(), attack.getY(), target.x, target.y);
 
-        vel.x = Util.findX(50f + 0, dir.slope) * dir.xdir;  ///800
+        vel.x = Util.findX(500, dir.slope) * dir.xdir;  ///800
         vel.y = dir.slope * vel.x;
 
         if (dir.slope == 200000 || dir.slope == -200000)
         {
-            vel.y = 50 * dir.slope / Math.abs(dir.slope);
+            vel.y = 500 * dir.slope / Math.abs(dir.slope);
         }
 
         attack.setDx(vel.x);
@@ -65,8 +65,9 @@ public class Projectile implements AttackType {
     }
 
     public void drawDebug(AttackObject attack, ShapeRenderer renderer) {
-        renderer.setColor(Color.RED);
+        Color prev = renderer.getColor();
+        renderer.setColor(Color.GREEN);
         renderer.circle(attack.getX() + hit.getCenter().x, attack.getY() + hit.getCenter().y, hit.getRadius());
-        renderer.setColor(Color.WHITE);
+        renderer.setColor(prev);
     }
 }

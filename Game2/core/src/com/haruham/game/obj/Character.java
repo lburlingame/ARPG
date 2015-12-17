@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.gfx.TextureLoader;
+import com.haruham.game.gfx.GraphicsComponent;
+
 import com.haruham.game.input.InputComponent;
 import com.haruham.game.item.Weapon;
 import com.haruham.game.level.World;
@@ -25,10 +27,10 @@ public class Character extends Entity {
     public static final int JUMPING = -1;
     private int STATE = 0;
     private int PREV_STATE = 0; // ??
+    private GraphicsComponent gfx;
+
 
     private int id;
-    private int frame = 0;
-    private int animation_timer = 3;
 
     private Integer UID;
 
@@ -45,6 +47,7 @@ public class Character extends Entity {
 
     public Character(World world, int id, InputComponent input, Vector3 pos) {
         input.setCharacter(this);
+        this.gfx = new GraphicsComponent();
         this.world = world;
         this.health = new PlayerHealth();
         this.id = id;
@@ -122,27 +125,11 @@ public class Character extends Entity {
             STATE = STOPPED;
         }
 
-        if (STATE > 0) {
-            animation_timer--;
-            if (animation_timer == 0) {
-                if (STATE == 1) {
-                    animation_timer = 8;
-                }else if (STATE == 2){
-                    animation_timer = 3;
-                }else if (STATE == 3) {
-                    animation_timer = 2;
-                }
-
-                frame++;
-                frame = frame % 8;  // limit here to sprites frame count, only change when sprite id is changed
-            }
-        }else{
-            frame = 0;
-        }
+        gfx.update(this);
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(TextureLoader.getSprite(id, frame), pos.x-dim.x/2, pos.y - dim.y*.25f + pos.z, 32,32);
+        gfx.draw(batch, this);
     }
 
 

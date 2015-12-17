@@ -16,6 +16,7 @@ import com.haruham.game.input.PlayerInput;
 import com.haruham.game.item.Item;
 import com.haruham.game.obj.Character;
 import com.haruham.game.state.Play;
+import com.haruham.game.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,7 +91,7 @@ public class World {
 
 
         for (int i = 0; i < 500; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 400 + 200), (float) (Math.random() * 400 + 200), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 1000 + 200), (float) (Math.random() * 1000 + 200), 0)));
         }
 
         lights = new LightRenderer();
@@ -112,15 +113,40 @@ public class World {
         for (int i = 0; i < characters.size(); i++) {
             characters.get(i).update(delta);
 
+            float maxVol = 0;
+            float maxPan = 0;
+            // add sound effects to a queue, play a couple every update?
             for (int j = 0; j < attacks.size(); j++) {
                 if (attacks.get(j).collidesWith(characters.get(i)) && !attacks.get(j).hasCollided(characters.get(i))) {
                     attacks.get(j).onCollision(characters.get(i));
-                    if (collisionsound <= 0) {
-                        sizzle.play(.2f);  /// .08
-                        collisionsound = collisionreset;
-                    }
+                 //   if (collisionsound <= 0) {
+                        float distance = Util.findDistance(camera.position, characters.get(i).getPosition());
+                        float xdist = camera.position.x - characters.get(i).getX();
+
+                        float pan = xdist / -100;
+                        if (pan > 1) pan = 1;
+                        if (pan < -1) pan = -1;
+
+                        if (distance < 100) distance = 100;
+                        float volume = 100 / distance;
+                        volume*=volume * .4f;
+
+                        if (volume > maxVol) {
+                            maxVol = volume;
+                            maxPan = pan;
+                        }
+
+
+
+                        System.out.println(distance + ", volume: " + volume + ", pan: " + pan);
+                    //}
                     emitter.bloodSpatter(characters.get(i).getPosition().add(characters.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f));
                 }
+            }
+
+            if (maxVol > .01) {
+                sizzle.play(maxVol, (float) (Math.random() * .15 + .85), maxPan);
+                collisionsound = (float) (Math.random() * collisionreset + .15f);
             }
         }
 

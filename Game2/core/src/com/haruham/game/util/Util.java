@@ -13,6 +13,10 @@ public class Util {
     public static float findDistance(float x, float y) {
         return (float)Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
+    public static float findDistance(Vector3 o, Vector3 d) {
+        return (float)Math.sqrt(Math.pow(d.x - o.x, 2) + Math.pow(d.y - o.y, 2));
+    }
+
     public static float findSquareDistance(float x, float y) {
         return x * x + y * y;
     }
