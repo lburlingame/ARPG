@@ -84,7 +84,7 @@ public class World {
         items = new ArrayList<Item>();
 
         emitter = new ParticleEmitter();
-        player = new Character(this, 1, new PlayerInput(), new Vector3(300,300,0));
+        player = new Character(this, 1, new PlayerInput(), new Vector3(0,0,0));
 
         characters.add(player);
         objects.add(player);
@@ -129,7 +129,7 @@ public class World {
 
                         if (distance < 100) distance = 100;
                         float volume = 100 / distance;
-                        volume*=volume * .4f;
+                        volume =volume * .4f;
 
                         if (volume > maxVol) {
                             maxVol = volume;
