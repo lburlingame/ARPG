@@ -96,7 +96,7 @@ public class Character extends Entity {
             pos.z += vel.z;
         }
 
-        if (pos.z <= 0 && STATE == JUMPING) {
+        if (pos.z <= 0) { //&& STATE == JUMPING) {
             pos.z = 0;
             vel.z = 0;
             STATE = PREV_STATE;

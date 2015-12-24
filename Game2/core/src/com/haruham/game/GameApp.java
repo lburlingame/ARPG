@@ -36,6 +36,7 @@ public class GameApp implements ApplicationListener {
     private InputMultiplexer inputs = new InputMultiplexer();
     private InputHandler inputHandler;
     public boolean debug = true;
+    public boolean mute = false;
 
     public void create() {
         try {

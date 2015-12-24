@@ -64,11 +64,11 @@ public class Splash extends GameState {
     }
 
     public void enter() {
-        Gdx.input.setCursorCatched(true);
+        //Gdx.input.setCursorCatched(true);
     }
 
     public void exit() {
-        Gdx.input.setCursorCatched(false);
+       // Gdx.input.setCursorCatched(false);
     }
 
     public void dispose() {

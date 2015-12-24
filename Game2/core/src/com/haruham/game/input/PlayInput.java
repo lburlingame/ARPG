@@ -1,9 +1,16 @@
 package com.haruham.game.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.haruham.game.GameApp;
 import com.haruham.game.state.GameStateManager;
+import com.haruham.game.util.Util;
+
+import javax.print.attribute.standard.DateTimeAtProcessing;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created on 3/26/2015.
@@ -31,6 +38,13 @@ public class PlayInput {
 
         if (Inputs.isPressed(Inputs.I)) {
             game.debug = !game.debug;
+        }
+
+        if (Inputs.isPressed(Inputs.M)) {
+
+            Util.saveScreenshot();
+
+            game.mute = !game.mute;
         }
 
         int amount = Inputs.amount;

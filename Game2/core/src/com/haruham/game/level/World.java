@@ -64,6 +64,7 @@ public class World {
     //temp control variable
     private float collisionsound = 0;
     private static final float collisionreset = .15f;
+    private static final float dropoff = 150;
 
     public World(Play playState) {
         this.playState = playState;
@@ -84,13 +85,13 @@ public class World {
         items = new ArrayList<Item>();
 
         emitter = new ParticleEmitter();
-        player = new Character(this, 1, new PlayerInput(), new Vector3(0,0,0));
+        player = new Character(this, 1, new PlayerInput(), new Vector3(100,100,0));
 
         characters.add(player);
         objects.add(player);
 
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 200; i++) {
             addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 1000 + 200), (float) (Math.random() * 1000 + 200), 0)));
         }
 
@@ -127,9 +128,9 @@ public class World {
                         if (pan > 1) pan = 1;
                         if (pan < -1) pan = -1;
 
-                        if (distance < 100) distance = 100;
-                        float volume = 100 / distance;
-                        volume =volume * .4f;
+                        if (distance < dropoff) distance = dropoff;
+                        float volume = dropoff / distance;
+                        volume *= volume * .4f;
 
                         if (volume > maxVol) {
                             maxVol = volume;
@@ -137,8 +138,6 @@ public class World {
                         }
 
 
-
-                        System.out.println(distance + ", volume: " + volume + ", pan: " + pan);
                     //}
                     emitter.bloodSpatter(characters.get(i).getPosition().add(characters.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f));
                 }

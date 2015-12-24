@@ -26,5 +26,4 @@ public class MusicManager {
     public void dispose() {
         music.dispose();
     }
-    // pan method, pans over a duration for a given sound pan("fireball", 5.0f);
 }
