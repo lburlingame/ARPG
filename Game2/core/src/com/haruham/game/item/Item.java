@@ -44,6 +44,8 @@ public class Item extends GameObject {
 
     }
 
+
+    // standard white - green - blue - purple - gold
     public void drawDebug(ShapeRenderer shapeRenderer) {
 
     }

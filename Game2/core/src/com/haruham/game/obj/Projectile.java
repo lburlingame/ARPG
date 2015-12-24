@@ -66,7 +66,7 @@ public class Projectile implements AttackType {
 
     public void drawDebug(AttackObject attack, ShapeRenderer renderer) {
         Color prev = renderer.getColor();
-        renderer.setColor(Color.GREEN);
+        renderer.setColor(Color.RED);
         renderer.circle(attack.getX() + hit.getCenter().x, attack.getY() + hit.getCenter().y, hit.getRadius());
         renderer.setColor(prev);
     }

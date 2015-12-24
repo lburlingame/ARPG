@@ -56,7 +56,8 @@ public class World {
     private ArrayList<AttackObject> attacks;
     private ArrayList<Character> dead;
     private ArrayList<Item> items;
-    private ArrayList<Item> coins;
+    private ArrayList<Coin> coins;
+    private ArrayList<HealthGlobe> globes;
 
     private ParticleEmitter emitter;
     //other drops;
@@ -77,12 +78,14 @@ public class World {
 
         tmap = new TileMap("levels/test_map.txt", camera);
 
-        objects = new ArrayList<GameObject>(); // list of all objects in world, for sorting/rendering purposes
+        objects = new ArrayList<>(); // list of all objects in world, for sorting/rendering purposes
 
-        characters = new ArrayList<Character>();
-        dead = new ArrayList<Character>();
-        attacks = new ArrayList<AttackObject>();
-        items = new ArrayList<Item>();
+        characters = new ArrayList<>();
+        dead = new ArrayList<>();
+        attacks = new ArrayList<>();
+        items = new ArrayList<>();
+        coins = new ArrayList<>();
+        globes = new ArrayList<>();
 
         emitter = new ParticleEmitter();
         player = new Character(this, 1, new PlayerInput(), new Vector3(100,100,0));
@@ -91,7 +94,7 @@ public class World {
         objects.add(player);
 
 
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 500; i++) {
             addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 1000 + 200), (float) (Math.random() * 1000 + 200), 0)));
         }
 
@@ -140,8 +143,18 @@ public class World {
 
                     //}
                     emitter.bloodSpatter(characters.get(i).getPosition().add(characters.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f));
+
+                    //if (!alive) {
+                        addCoin(new Coin(characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180-90), (float) (Math.random() * 360 - 180)), characters.get(i).getGold()));
+                        if (Math.random() < .05f) {
+                            addHealthGlobe(new HealthGlobe(characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 360 - 180)), 100));
+                        }
+                        //chars.remove(j);
+                    //}
+
                 }
             }
+
 
             if (maxVol > .01) {
                 sizzle.play(maxVol, (float) (Math.random() * .15 + .85), maxPan);
@@ -149,6 +162,25 @@ public class World {
             }
         }
 
+        for (int i = 0; i < coins.size(); i++) {
+            coins.get(i).update(delta);
+            if (coins.get(i).collidesWith(player)) {
+                player.grabGold(coins.get(i).getAmount());
+                objects.remove(coins.get(i));
+                coins.remove(i);
+                i--;
+            }
+        }
+
+        for (int i = 0; i < globes.size(); i++) {
+            globes.get(i).update(delta);
+            if (globes.get(i).collidesWith(player)) {
+                player.heal(200);
+                objects.remove(globes.get(i));
+                globes.remove(i);
+                i--;
+            }
+        }
         emitter.update(delta);
 
         lerp(player.getPosition());
@@ -185,12 +217,21 @@ public class World {
         shapeRenderer.setAutoShapeType(true);
 
         shapeRenderer.begin();
+        // abstract draw debug method in gameobject
         for (int i = 0; i < characters.size(); i++) {
             characters.get(i).drawDebug(shapeRenderer);
         }
 
         for (int i = 0; i < attacks.size(); i++) {
             attacks.get(i).drawDebug(shapeRenderer);
+        }
+
+        for (int i = 0; i < coins.size(); i++) {
+            coins.get(i).drawDebug(shapeRenderer);
+        }
+
+        for (int i = 0; i < globes.size(); i++) {
+            globes.get(i).drawDebug(shapeRenderer);
         }
         shapeRenderer.end();
     }
@@ -242,7 +283,21 @@ public class World {
 
     }
 
+    public void addCoin(Coin coin) {
+        coins.add(coin);
+        objects.add(coin);
+    }
+
+    public void addHealthGlobe(HealthGlobe globe) {
+        globes.add(globe);
+        objects.add(globe);
+    }
+
     public ParticleEmitter getEmitter() {
         return emitter;
+    }
+
+    public ArrayList<GameObject> getObjects() {
+        return objects;
     }
 }

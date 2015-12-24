@@ -1,6 +1,8 @@
 package com.haruham.game.obj;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.gfx.TextureLoader;
@@ -96,7 +98,7 @@ public class Character extends Entity {
             pos.z += vel.z;
         }
 
-        if (pos.z <= 0) { //&& STATE == JUMPING) {
+        if (pos.z < 0) { //&& STATE == JUMPING) {
             pos.z = 0;
             vel.z = 0;
             STATE = PREV_STATE;
@@ -288,6 +290,14 @@ public class Character extends Entity {
 
     public World getWorld() {
         return world;
+    }
+
+    @Override
+    public void drawDebug(ShapeRenderer renderer) {
+        Color color = renderer.getColor();
+        renderer.setColor(Color.GREEN);
+        renderer.circle(pos.x + hit.getCenter().x, pos.y + hit.getCenter().y, hit.getRadius());
+        renderer.setColor(color);
     }
 }
 

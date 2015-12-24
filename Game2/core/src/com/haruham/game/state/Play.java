@@ -36,7 +36,8 @@ public class Play extends GameState {
     private ArrayList<World> worlds;
 
     // sound manager needs to be here, observer to level
-
+    // create player character in charactercreation/selection state, and pass to play state, then pass that to world objects that are newly created
+    // hud information can be gathered from that chracter object
     public Play(GameStateManager gsm) {
         super(gsm);
 
@@ -91,6 +92,7 @@ public class Play extends GameState {
         font.draw(batch, Inputs.posScreen.x + ", " + Inputs.posScreen.y, 10, Gdx.graphics.getHeight() - 40);
         font.draw(batch, (Inputs.pos.x) + ", " + (Inputs.pos.y), 10, Gdx.graphics.getHeight() - 60);
         font.draw(batch, (camera.zoom+ " "), 10, Gdx.graphics.getHeight() - 80);
+        font.draw(batch, worlds.get(0).getObjects().size() + " ", 10, Gdx.graphics.getHeight() - 100);
         //font.draw(batch, attacks.size() + "", 10, Gdx.graphics.getHeight() - 100);
 
 
