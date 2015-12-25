@@ -298,6 +298,10 @@ public class Character extends Entity {
         renderer.circle(pos.x + hit.getCenter().x, pos.y + hit.getCenter().y, hit.getRadius());
         renderer.setColor(color);
     }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
 }
 
 

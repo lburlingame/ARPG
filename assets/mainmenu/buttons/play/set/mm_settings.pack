@@ -1,19 +1,19 @@
 
-mm_play.png
+mm_settings.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-play0
+settings0
   rotate: false
   xy: 1, 1
-  size: 192, 64
-  orig: 192, 64
+  size: 256, 64
+  orig: 256, 64
   offset: 0, 0
   index: -1
-play1
+settings1
   rotate: false
-  xy: 195, 1
-  size: 192, 64
-  orig: 192, 64
+  xy: 259, 1
+  size: 256, 64
+  orig: 256, 64
   offset: 0, 0
   index: -1

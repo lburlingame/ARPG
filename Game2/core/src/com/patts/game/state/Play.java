@@ -10,10 +10,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector3;
 import com.patts.game.gfx.Art;
 import com.patts.game.input.PlayInput;
 import com.patts.game.input.Inputs;
+import com.patts.game.input.PlayerInput;
 import com.patts.game.level.World;
+import com.patts.game.obj.*;
+import com.patts.game.obj.Character;
 
 import java.util.ArrayList;
 
@@ -33,8 +37,11 @@ public class Play extends GameState {
     // sound manager needs to be here, observer to level
     // create player character in charactercreation/selection state, and pass to play state, then pass that to world objects that are newly created
     // hud information can be gathered from that chracter object
+    private Character player;
+
     public Play(GameStateManager gsm) {
         super(gsm);
+        player = new Character(null, 1, new PlayerInput(), new Vector3(100,100,0));
 
 
 
@@ -88,6 +95,7 @@ public class Play extends GameState {
         font.draw(batch, (Inputs.pos.x) + ", " + (Inputs.pos.y), 10, Gdx.graphics.getHeight() - 60);
         font.draw(batch, (camera.zoom+ " "), 10, Gdx.graphics.getHeight() - 80);
         font.draw(batch, worlds.get(0).getObjects().size() + " ", 10, Gdx.graphics.getHeight() - 100);
+        font.draw(batch, player.getGold() +  " " , 10, Gdx.graphics.getHeight() - 120);
         //font.draw(batch, attacks.size() + "", 10, Gdx.graphics.getHeight() - 100);
 
 
@@ -128,5 +136,9 @@ public class Play extends GameState {
 
     public OrthographicCamera getCamera() {
         return camera;
+    }
+
+    public Character getPlayer() {
+        return player;
     }
 }

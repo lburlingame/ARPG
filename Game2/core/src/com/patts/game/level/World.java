@@ -70,6 +70,9 @@ public class World {
     public World(Play playState) {
         this.playState = playState;
 
+        player = playState.getPlayer();
+        player.setWorld(this);
+
         camera = playState.getCamera();
         shapeRenderer = playState.getShapeRenderer();
         batch = playState.getBatch();
@@ -88,14 +91,14 @@ public class World {
         globes = new ArrayList<>();
 
         emitter = new ParticleEmitter();
-        player = new Character(this, 1, new PlayerInput(), new Vector3(100,100,0));
+
 
         characters.add(player);
         objects.add(player);
 
 
         for (int i = 0; i < 500; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 800 + 200), (float) (Math.random() * 800 + 200), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 200 + 200), (float) (Math.random() * 200 + 200), 0)));
         }
 
         lights = new LightRenderer();

@@ -2,11 +2,14 @@ package com.patts.game.state;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -25,33 +28,42 @@ public class MainMenu extends GameState {
 
     private Stage stage;
     private Table table;
-    private Skin skin;
-    private TextButton play;
-    private TextButton exit;
 
     private TextureAtlas playAtlas;
     private Skin playSkin;
-    private ImageButton imgtest;
-    private ImageButton play_b;
+    private TextButton play;
+
+    private TextureAtlas settingsAtlas;
+    private Skin settingsSkin;
+    private TextButton settings;
+
+    private TextureAtlas quitAtlas;
+    private Skin quitSkin;
+    private TextButton quit;
+
 
     private ShapeRenderer shapeRenderer;
+
+
     private Texture background;
     private Texture title;
 
-    private Texture button0;
-    private Texture button1;
-
     private MainMenuInput min;
     private MusicManager mmg;
+    private Music rainloop;
+    private Sound boop;
 
     public MainMenu(GameStateManager gsm) {
         super(gsm);
         background = new Texture(Gdx.files.internal("other/tempback1.jpg"));
         title = new Texture(Gdx.files.internal("other/TITLE.png"));
 
-        button0 = new Texture(Gdx.files.internal("menu/main/play0s.png"));
-        button1 = new Texture(Gdx.files.internal("menu/main/play1s.png"));
+        rainloop = Gdx.audio.newMusic(Gdx.files.internal("audio/rainloop.ogg"));
+        rainloop.setLooping(true);
+        rainloop.setVolume(1f);
+        rainloop.play();
 
+        boop = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/boop.ogg"));
         /*FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/myfont.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
         parameter.size = 12;
@@ -60,60 +72,87 @@ public class MainMenu extends GameState {
 
         mmg = new MusicManager();//use observer for sound, but check to see if it happened on screenahh
         mmg.play();
+        mmg.pause();
+
 
         min = new MainMenuInput(gsm);
 
         stage = new Stage();
 
         table = new Table();
-        table.setFillParent(true);
+       // table.setFillParent(true);
         table.setSize(400, 400);
-        table.center();
-        table.setPosition(table.getX(), table.getY());
+        table.left().center();
+       /// table.center();
+        table.setPosition(75, 175);
         stage.addActor(table);
-
-/*
-        skin = new Skin(Gdx.files.internal("menu/scene2d/uiskin.json"), new TextureAtlas("menu/scene2d/uiskin.atlas"));
-
-
-
-        exit = new TextButton("Exit",  skin);
-        exit.addListener(new ClickListener() {
-            */
-/*  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                  return true;
-              }
-              public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                  Gdx.app.exit();
-              }*//*
-
-            public void clicked(InputEvent event, float x, float y) {
-                game.dispose();
-            }
-        });
-*/
-
-        // imgtest = new ImageButton(skin,
-        table.row().colspan(1);
-        table.add(exit).width(400).height(66);
-
 
         playAtlas = new TextureAtlas("menu/main/mm_play.pack");
         playSkin = new Skin();
         playSkin.addRegions(playAtlas);
 
-        TextButtonStyle style = new TextButtonStyle();
-        style.up = playSkin.getDrawable("play0s");
-        style.over = playSkin.getDrawable("play1s");
-        style.font = font;
+        TextButtonStyle playStyle = new TextButtonStyle();
+        playStyle.up = playSkin.getDrawable("play0");
+        playStyle.over = playSkin.getDrawable("play1");
+        playStyle.font = font;
 
-        play = new TextButton("",  style);
+        play = new TextButton("",  playStyle);
         play.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 playClicked();
             }
+
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                boop.play(.5f);
+            }
         });
-        table.add(play).width(button0.getWidth()).height(button0.getHeight());
+        table.row().colspan(1);
+        table.add(play).width(192).height(64);
+
+
+        settingsAtlas = new TextureAtlas("menu/main/mm_settings.pack");
+        settingsSkin = new Skin();
+        settingsSkin.addRegions(settingsAtlas);
+
+        TextButtonStyle settingsStyle = new TextButtonStyle();
+        settingsStyle.up = settingsSkin.getDrawable("settings0");
+        settingsStyle.over = settingsSkin.getDrawable("settings1");
+        settingsStyle.font = font;
+
+        settings = new TextButton("",  settingsStyle);
+        settings.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                playClicked();
+            }
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                boop.play(.5f);
+            }
+        });
+        table.row().colspan(1);
+        table.add(settings).width(256).height(64).padLeft(64);
+
+
+        quitAtlas = new TextureAtlas("menu/main/mm_quit.pack");
+        quitSkin = new Skin();
+        quitSkin.addRegions(quitAtlas);
+
+        TextButtonStyle quitStyle = new TextButtonStyle();
+        quitStyle.up = quitSkin.getDrawable("quit0");
+        quitStyle.over = quitSkin.getDrawable("quit1");
+        quitStyle.font = font;
+
+        quit = new TextButton("",  quitStyle);
+        quit.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                game.dispose();
+            }
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                boop.play(.5f);
+            }
+        });
+        table.row().colspan(1);
+        table.add(quit).width(192).height(64);
+
 
 
 
@@ -150,12 +189,12 @@ public class MainMenu extends GameState {
     //change to enter()/end()
     public void exit() {
         game.getInputs().removeProcessor(stage);
-        mmg.pause();
+        //mmg.pause();
     }
 
     public void enter() {
         game.getInputs().addProcessor(stage);
-        mmg.play();
+        //mmg.play();
     }
 
     @Override
@@ -167,9 +206,7 @@ public class MainMenu extends GameState {
         stage.dispose();
         background.dispose();
         title.dispose();
-        button0.dispose();
-        button1.dispose();
-        skin.dispose();
+//        skin.dispose();
         mmg.dispose();
     }
       /*  TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
