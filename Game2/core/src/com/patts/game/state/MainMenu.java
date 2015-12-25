@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.patts.game.audio.MusicManager;
 import com.patts.game.input.MainMenuInput;
@@ -27,11 +28,18 @@ public class MainMenu extends GameState {
     private Skin skin;
     private TextButton play;
     private TextButton exit;
+
+    private TextureAtlas playAtlas;
+    private Skin playSkin;
+    private ImageButton imgtest;
     private ImageButton play_b;
 
     private ShapeRenderer shapeRenderer;
     private Texture background;
     private Texture title;
+
+    private Texture button0;
+    private Texture button1;
 
     private MainMenuInput min;
     private MusicManager mmg;
@@ -40,6 +48,9 @@ public class MainMenu extends GameState {
         super(gsm);
         background = new Texture(Gdx.files.internal("other/tempback1.jpg"));
         title = new Texture(Gdx.files.internal("other/TITLE.png"));
+
+        button0 = new Texture(Gdx.files.internal("menu/main/play0s.png"));
+        button1 = new Texture(Gdx.files.internal("menu/main/play1s.png"));
 
         /*FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/myfont.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
@@ -61,31 +72,49 @@ public class MainMenu extends GameState {
         table.setPosition(table.getX(), table.getY());
         stage.addActor(table);
 
+/*
         skin = new Skin(Gdx.files.internal("menu/scene2d/uiskin.json"), new TextureAtlas("menu/scene2d/uiskin.atlas"));
 
-        play = new TextButton("Play",  skin);
 
+
+        exit = new TextButton("Exit",  skin);
+        exit.addListener(new ClickListener() {
+            */
+/*  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                  return true;
+              }
+              public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                  Gdx.app.exit();
+              }*//*
+
+            public void clicked(InputEvent event, float x, float y) {
+                game.dispose();
+            }
+        });
+*/
+
+        // imgtest = new ImageButton(skin,
+        table.row().colspan(1);
+        table.add(exit).width(400).height(66);
+
+
+        playAtlas = new TextureAtlas("menu/main/mm_play.pack");
+        playSkin = new Skin();
+        playSkin.addRegions(playAtlas);
+
+        TextButtonStyle style = new TextButtonStyle();
+        style.up = playSkin.getDrawable("play0s");
+        style.over = playSkin.getDrawable("play1s");
+        style.font = font;
+
+        play = new TextButton("",  style);
         play.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 playClicked();
             }
         });
-        table.add(play).width(400).height(66);
+        table.add(play).width(button0.getWidth()).height(button0.getHeight());
 
-        exit = new TextButton("Exit",  skin);
-        exit.addListener(new ClickListener() {
-            /*  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                  return true;
-              }
-              public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                  Gdx.app.exit();
-              }*/
-            public void clicked(InputEvent event, float x, float y) {
-                game.dispose();
-            }
-        });
-        table.row().colspan(1);
-        table.add(exit).width(400).height(66);
 
 
         //play_b = new ImageButton(new Texture("menu/play.png"));
@@ -104,13 +133,14 @@ public class MainMenu extends GameState {
     }
 
     public void render() {
-        Gdx.gl20.glClearColor(0,0,0,1);
+        Gdx.gl20.glClearColor(.15f,.15f,.15f,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.setProjectionMatrix(hudCamera.combined);
+       // batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
-        batch.draw(background, 0, 0, hudCamera.viewportWidth, hudCamera.viewportHeight);
-        batch.draw(title, hudCamera.viewportWidth/2 - title.getWidth() * hudCamera.viewportWidth / 1920 / 2, hudCamera.viewportHeight - title.getHeight() * hudCamera.viewportHeight / 1080 * 2f, title.getWidth() * hudCamera.viewportWidth / 1920, title.getHeight() * hudCamera.viewportHeight / 1080);
+       // batch.draw(background, 0, 0, hudCamera.viewportWidth, hudCamera.viewportHeight);
+        //batch.draw(title, hudCamera.viewportWidth/2 - title.getWidth() * hudCamera.viewportWidth / 1920 / 2, hudCamera.viewportHeight - title.getHeight() * hudCamera.viewportHeight / 1080 * 2f, title.getWidth() * hudCamera.viewportWidth / 1920, title.getHeight() * hudCamera.viewportHeight / 1080);
+        //batch.draw(button0,hudCamera.viewportWidth/2 - button1.getWidth() * hudCamera.viewportWidth / 1920 / 2, hudCamera.viewportHeight - button1.getHeight() * hudCamera.viewportHeight / 1080 * 2f, button1.getWidth(), button1.getHeight());
         batch.end();
 
         stage.draw();
@@ -136,6 +166,9 @@ public class MainMenu extends GameState {
     public void dispose() {
         stage.dispose();
         background.dispose();
+        title.dispose();
+        button0.dispose();
+        button1.dispose();
         skin.dispose();
         mmg.dispose();
     }

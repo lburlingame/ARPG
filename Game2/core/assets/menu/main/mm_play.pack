@@ -1,0 +1,19 @@
+
+mm_play.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+play0s
+  rotate: false
+  xy: 1, 1
+  size: 192, 96
+  orig: 192, 96
+  offset: 0, 0
+  index: -1
+play1s
+  rotate: false
+  xy: 195, 1
+  size: 192, 96
+  orig: 192, 96
+  offset: 0, 0
+  index: -1
