@@ -28,7 +28,7 @@ public class GameMenuInput {
         }
 
         if (Inputs.isPressed(Inputs.M1)) {
-            gsm.pushState(GameStateManager.OPTIONS);
+            //gsm.pushState(GameStateManager.OPTIONS);
         }
         /*if ((camera.zoom > .5 && amount < 0) || (camera.zoom < 2 && amount > 0)) {
             camera.zoom = camera.zoom + amount * .1f;

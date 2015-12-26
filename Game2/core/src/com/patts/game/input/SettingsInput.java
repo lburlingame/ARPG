@@ -7,14 +7,14 @@ import com.patts.game.state.GameStateManager;
 /**
  * Created on 10/14/2015.
  */
-public class OptionsInput {
+public class SettingsInput {
 
     private GameStateManager gsm;
     private GameApp game;
     private OrthographicCamera camera;
     private OrthographicCamera hudCamera;
 
-    public OptionsInput(GameStateManager gsm) {
+    public SettingsInput(GameStateManager gsm) {
         this.gsm = gsm;
         game = gsm.getGame();
         camera = game.getCamera();

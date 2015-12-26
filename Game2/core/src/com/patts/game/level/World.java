@@ -98,7 +98,7 @@ public class World {
 
 
         for (int i = 0; i < 500; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 200 + 200), (float) (Math.random() * 200 + 200), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 50 + 200), (float) (Math.random() * 50 + 200), 0)));
         }
 
         lights = new LightRenderer();

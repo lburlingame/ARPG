@@ -1,20 +1,20 @@
 package com.patts.game.state;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.patts.game.input.OptionsInput;
+import com.patts.game.input.SettingsInput;
 
 /**
  * Created on 10/13/2015.
  */
-public class Options extends GameState {
+public class Settings extends GameState {
 
-    private OptionsInput oin;
+    private SettingsInput oin;
     private BitmapFont font;
 
 
-    public Options(GameStateManager gsm) {
+    public Settings(GameStateManager gsm) {
         super(gsm);
-        oin = new OptionsInput(gsm);
+        oin = new SettingsInput(gsm);
         font = new BitmapFont();
     }
 

@@ -19,7 +19,7 @@ public class GameStateManager {
     public static final int MAINMENU = 1;
     public static final int PLAY = 2;
     public static final int GAMEMENU = 3;
-    public static final int OPTIONS = 4;
+    public static final int SETTINGS = 4;
 
     public GameStateManager(GameApp game) {
         this.game = game;
@@ -59,7 +59,7 @@ public class GameStateManager {
             return play;
         }
         if (state == GAMEMENU) return new GameMenu(this);
-        if (state == OPTIONS) return new Options(this);
+        if (state == SETTINGS) return new Settings(this);
 
         return null;
     }
