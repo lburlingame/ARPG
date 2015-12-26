@@ -97,7 +97,7 @@ public class World {
         objects.add(player);
 
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 1; i++) {
             addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 50 + 200), (float) (Math.random() * 50 + 200), 0)));
         }
 
@@ -302,5 +302,9 @@ public class World {
 
     public ArrayList<GameObject> getObjects() {
         return objects;
+    }
+
+    public ArrayList<AttackObject> getAttacks() {
+        return attacks;
     }
 }

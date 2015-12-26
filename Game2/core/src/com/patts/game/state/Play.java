@@ -101,13 +101,13 @@ public class Play extends GameState {
 
         batch.end();
 
-        shapeRenderer.setColor(new Color(1,1,1,1));
+    /*    shapeRenderer.setColor(new Color(1,1,1,1));
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setProjectionMatrix(hudCamera.combined);
         shapeRenderer.line(hudCamera.viewportWidth / 2, hudCamera.viewportHeight * .3f, hudCamera.viewportWidth / 2, hudCamera.viewportHeight*.7f);
         shapeRenderer.line(hudCamera.viewportWidth * .3f, hudCamera.viewportHeight / 2, hudCamera.viewportWidth * .7f, hudCamera.viewportHeight / 2);
 
-        shapeRenderer.end();
+        shapeRenderer.end();*/
         worlds.get(0).renderDebug();
     }
 

@@ -29,21 +29,13 @@ public class MainMenu extends GameState {
     private Stage stage;
     private Table table;
 
-    private TextureAtlas playAtlas;
-    private Skin playSkin;
+    private TextureAtlas atlas;
+    private Skin skin;
     private TextButton play;
-
-    private TextureAtlas settingsAtlas;
-    private Skin settingsSkin;
     private TextButton settings;
-
-    private TextureAtlas quitAtlas;
-    private Skin quitSkin;
     private TextButton quit;
 
-
     private ShapeRenderer shapeRenderer;
-
 
     private Texture background;
     private Texture title;
@@ -87,13 +79,15 @@ public class MainMenu extends GameState {
         table.setPosition(75, 175);
         stage.addActor(table);
 
-        playAtlas = new TextureAtlas("menu/main/mm_play.pack");
-        playSkin = new Skin();
-        playSkin.addRegions(playAtlas);
+        atlas = new TextureAtlas("menu/main/mm.pack");
+        skin = new Skin();
+        skin.addRegions(atlas);
+
+
 
         TextButtonStyle playStyle = new TextButtonStyle();
-        playStyle.up = playSkin.getDrawable("play0");
-        playStyle.over = playSkin.getDrawable("play1");
+        playStyle.up = skin.getDrawable("play0");
+        playStyle.over = skin.getDrawable("play1");
         playStyle.font = font;
 
         play = new TextButton("",  playStyle);
@@ -110,13 +104,9 @@ public class MainMenu extends GameState {
         table.add(play).width(192).height(64);
 
 
-        settingsAtlas = new TextureAtlas("menu/main/mm_settings.pack");
-        settingsSkin = new Skin();
-        settingsSkin.addRegions(settingsAtlas);
-
         TextButtonStyle settingsStyle = new TextButtonStyle();
-        settingsStyle.up = settingsSkin.getDrawable("settings0");
-        settingsStyle.over = settingsSkin.getDrawable("settings1");
+        settingsStyle.up = skin.getDrawable("settings0");
+        settingsStyle.over = skin.getDrawable("settings1");
         settingsStyle.font = font;
 
         settings = new TextButton("",  settingsStyle);
@@ -132,13 +122,9 @@ public class MainMenu extends GameState {
         table.add(settings).width(256).height(64).padLeft(64);
 
 
-        quitAtlas = new TextureAtlas("menu/main/mm_quit.pack");
-        quitSkin = new Skin();
-        quitSkin.addRegions(quitAtlas);
-
         TextButtonStyle quitStyle = new TextButtonStyle();
-        quitStyle.up = quitSkin.getDrawable("quit0");
-        quitStyle.over = quitSkin.getDrawable("quit1");
+        quitStyle.up = skin.getDrawable("quit0");
+        quitStyle.over = skin.getDrawable("quit1");
         quitStyle.font = font;
 
         quit = new TextButton("",  quitStyle);
@@ -206,8 +192,11 @@ public class MainMenu extends GameState {
         stage.dispose();
         background.dispose();
         title.dispose();
-//        skin.dispose();
+        skin.dispose();
+        atlas.dispose();
         mmg.dispose();
+        boop.dispose();
+        rainloop.dispose();
     }
       /*  TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = skin.newDrawable("white");

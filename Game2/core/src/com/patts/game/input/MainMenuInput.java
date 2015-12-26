@@ -24,11 +24,7 @@ public class MainMenuInput {
     public void update() {
 
         if (Inputs.isPressed(Inputs.ESCAPE)) {
-            if (gsm.isPlaying()) {
-                gsm.pushState(GameStateManager.PLAY);
-            }else{
-                game.dispose();
-            }
+
         }
     }
 }

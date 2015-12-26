@@ -15,6 +15,8 @@ public class InputHandler extends InputAdapter {
 
 
     public InputHandler() {
+        Gdx.graphics.setCursor(cursorUp);
+
     }
 
 

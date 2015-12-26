@@ -12,18 +12,18 @@ public class MeleeAttack implements AttackType {
 
     private HitCircle hit;
     private float radius;
-    private float direction;
+    private Vector3 direction;
     private float angle;
 
     public MeleeAttack() {
         this.radius = 48;
-        angle = 45;
+        angle = 135;
         hit = new HitCircle(new Vector3(0,0,0), radius);
     }
 
     public void init(AttackObject attack) {
         Vector3 target = attack.getTarget();
-        direction = Util.getAngle(attack.pos, target);
+        direction = attack.getTarget().sub(attack.getPosition());
         attack.setDx(0);
         attack.setDy(0);
     }
@@ -37,8 +37,9 @@ public class MeleeAttack implements AttackType {
         Vector3 oCenter = o.getCenter();
 
         if (Util.findDistance((attack.getX() + hitCenter.x) - (opos.x + oCenter.x), (attack.getY() + hitCenter.y) - (opos.y + oCenter.y)) <= (hit.getRadius() + o.getRadius())) {
-            float collisionangle = Util.getAngle(attack.pos, other.getPosition());
-            if (collisionangle < (direction + angle) % 360  && collisionangle > ((direction + angle) % 360 - angle * 2)) {
+            float collisionangle = Util.getAngle(other.getPosition().sub(attack.getPosition()), direction);
+            //if (collisionangle < (direction + angle)  && collisionangle > ((direction - angle))) {
+            if (Math.abs(collisionangle) < angle/2) {
                 return true;
             }
         }

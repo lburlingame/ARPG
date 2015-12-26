@@ -64,8 +64,8 @@ public class GameMenu extends GameState {
         skin.addRegions(atlas);
 
         TextButton.TextButtonStyle resumeStyle = new TextButton.TextButtonStyle();
-        resumeStyle.up = skin.getDrawable("return0");
-        resumeStyle.over = skin.getDrawable("return1");
+        resumeStyle.up = skin.getDrawable("resume0");
+        resumeStyle.over = skin.getDrawable("resume1");
         resumeStyle.font = font;
 
         resume = new TextButton("",  resumeStyle);
@@ -79,7 +79,7 @@ public class GameMenu extends GameState {
             }
         });
         table.row().colspan(1);
-        table.add(resume).width(512).height(64);
+        table.add(resume).width(512).height(48);
 
         TextButton.TextButtonStyle settingsStyle = new TextButton.TextButtonStyle();
         settingsStyle.up = skin.getDrawable("settings0");
@@ -96,7 +96,7 @@ public class GameMenu extends GameState {
             }
         });
         table.row().colspan(1);
-        table.add(settings).width(512).height(64);
+        table.add(settings).width(512).height(48);
 
         TextButton.TextButtonStyle exitStyle = new TextButton.TextButtonStyle();
         exitStyle.up = skin.getDrawable("exit0");
@@ -114,7 +114,7 @@ public class GameMenu extends GameState {
             }
         });
         table.row().colspan(1);
-        table.add(exit).width(512).height(64);
+        table.add(exit).width(512).height(48);
 
     }
 
@@ -164,6 +164,12 @@ public class GameMenu extends GameState {
     }
 
     public void dispose() {
+        boop.dispose();
+        skin.dispose();
+        atlas.dispose();
+        stage.dispose();
+        font.dispose();
+
 
     }
 }

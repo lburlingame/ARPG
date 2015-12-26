@@ -71,13 +71,41 @@ public class Util {
         return angle;
     }
 
-    public static float getAngle(Vector3 center, Vector3 target) {
-        float angle = (float) Math.toDegrees(Math.atan2(target.y - center.y, target.x - center.x));
+/*    public static float getAngle(Vector3 center, Vector3 target) {
+        float angle = (float)Math.toDegrees(Math.atan2(target.y - center.y, target.x - center.x));
 
-        if(angle < 0){
-            angle += 360;
+        if(angle > 180){
+            angle = angle - 360;
         }
+        if (angle < -180) {
+            angle = angle + 360;
+        }
+        return angle;
+    }*/
+  /*  public static float getAngle(Vector3 center, Vector3 target) {
+        float angle = (float)Math.toDegrees(Math.atan2(target.y, target.x) - Math.atan2(center.y, center.x));
 
+        if(angle > 180){
+            angle = angle - 360;
+        }
+        if (angle < -180) {
+            angle = angle + 360;
+        }
+        return angle;
+    }*/
+    public static float getAngle(Vector3 target0, Vector3 target1) {
+        //float angle = (float)Math.toDegrees(Math.atan2(tar1.y - tar0.y, tar1.x - tar0.x));
+
+        float angle = (float)Math.toDegrees(Math.atan2(target1.y, target1.x) - Math.atan2(target0.y, target0.x));
+
+
+        if(angle > 180){
+            angle = angle - 360;
+        }
+        if (angle < -180) {
+            angle = angle + 360;
+        }
+        System.out.println(target0.x + ", " + target0.y + "       :          " + target1.x + ", " + target1.y + "    ========  " + angle);
         return angle;
     }
 

@@ -54,6 +54,10 @@ public class PlayerInput extends InputComponent {
         if (Inputs.isPressed(Inputs.N)) {
             character.getWorld().getEmitter().clear();
         }
+
+        if (Inputs.isPressed(Inputs.N)) {
+            character.getWorld().getAttacks().clear();
+        }
        /* if (input.SHIFT.isPressed()) {
             character.sprint();
         }else if (input.CTRL.isPressed()) {
