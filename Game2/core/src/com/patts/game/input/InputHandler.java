@@ -1,11 +1,17 @@
 package com.patts.game.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 
 /**
  * Created on 5/16/2015.
  */
 public class InputHandler extends InputAdapter {
+
+    Cursor cursorUp = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("gui/cursor_up.png")), 0, 4);
+    Cursor cursorDown = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("gui/cursor_down.png")), 0, 4);
 
 
     public InputHandler() {
@@ -25,12 +31,14 @@ public class InputHandler extends InputAdapter {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Inputs.setKey(button, true);
+        Gdx.graphics.setCursor(cursorDown);
         return super.touchDown(screenX, screenY, pointer, button);
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         Inputs.setKey(button, false);
+        Gdx.graphics.setCursor(cursorUp);
         return super.touchUp(screenX, screenY, pointer, button);
     }
 
