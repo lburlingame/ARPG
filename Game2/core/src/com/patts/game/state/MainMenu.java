@@ -31,9 +31,9 @@ public class MainMenu extends GameState {
 
     private TextureAtlas atlas;
     private Skin skin;
-    private TextButton play;
-    private TextButton settings;
-    private TextButton quit;
+    private ImageButton play;
+    private ImageButton settings;
+    private ImageButton quit;
 
     private ShapeRenderer shapeRenderer;
 
@@ -83,57 +83,44 @@ public class MainMenu extends GameState {
         skin = new Skin();
         skin.addRegions(atlas);
 
-
-
-        TextButtonStyle playStyle = new TextButtonStyle();
-        playStyle.up = skin.getDrawable("play0");
-        playStyle.over = skin.getDrawable("play1");
-        playStyle.font = font;
-
-        play = new TextButton("",  playStyle);
+        play = new ImageButton(skin.getDrawable("play0"));
+        play.getStyle().over = skin.getDrawable("play1");
         play.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 playClicked();
             }
 
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                boop.play(.5f);
+                boop.play(.125f);
             }
         });
         table.row().colspan(1);
         table.add(play).width(192).height(64);
 
 
-        TextButtonStyle settingsStyle = new TextButtonStyle();
-        settingsStyle.up = skin.getDrawable("settings0");
-        settingsStyle.over = skin.getDrawable("settings1");
-        settingsStyle.font = font;
+        settings = new ImageButton(skin.getDrawable("settings0"));
+        settings.getStyle().over = skin.getDrawable("settings1");
 
-        settings = new TextButton("",  settingsStyle);
         settings.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 playClicked();
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                boop.play(.5f);
+                boop.play(.125f);
             }
         });
         table.row().colspan(1);
         table.add(settings).width(256).height(64).padLeft(64);
 
 
-        TextButtonStyle quitStyle = new TextButtonStyle();
-        quitStyle.up = skin.getDrawable("quit0");
-        quitStyle.over = skin.getDrawable("quit1");
-        quitStyle.font = font;
-
-        quit = new TextButton("",  quitStyle);
+        quit = new ImageButton(skin.getDrawable("quit0"));
+        quit.getStyle().over = skin.getDrawable("quit1");
         quit.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 game.dispose();
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                boop.play(.5f);
+                boop.play(.125f);
             }
         });
         table.row().colspan(1);

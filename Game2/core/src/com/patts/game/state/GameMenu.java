@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -27,7 +28,6 @@ public class GameMenu extends GameState {
 
     private BitmapFont font = new BitmapFont();
 
-
     private GameMenuInput gmin;
 
     private Stage stage;
@@ -36,16 +36,15 @@ public class GameMenu extends GameState {
     private TextureAtlas atlas;
     private Skin skin;
 
-    private TextButton resume;
-    private TextButton settings;
-    private TextButton exit;
+    private ImageButton resume;
+    private ImageButton settings;
+    private ImageButton exit;
 
     private Sound boop;
 
     public GameMenu(GameStateManager gsm) {
         super(gsm);
         gmin = new GameMenuInput(gsm);
-
 
         boop = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/boop.ogg"));
 
@@ -63,54 +62,45 @@ public class GameMenu extends GameState {
         skin = new Skin();
         skin.addRegions(atlas);
 
-        TextButton.TextButtonStyle resumeStyle = new TextButton.TextButtonStyle();
-        resumeStyle.up = skin.getDrawable("resume0");
-        resumeStyle.over = skin.getDrawable("resume1");
-        resumeStyle.font = font;
+        resume = new ImageButton(skin.getDrawable("resume0"));
+        resume.getStyle().over = skin.getDrawable("resume1");
 
-        resume = new TextButton("",  resumeStyle);
         resume.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 resumeClicked();
             }
 
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                boop.play(.5f);
+                boop.play(.125f);
             }
         });
         table.row().colspan(1);
         table.add(resume).width(512).height(48);
 
-        TextButton.TextButtonStyle settingsStyle = new TextButton.TextButtonStyle();
-        settingsStyle.up = skin.getDrawable("settings0");
-        settingsStyle.over = skin.getDrawable("settings1");
-        settingsStyle.font = font;
+        settings = new ImageButton(skin.getDrawable("settings0"));
+        settings.getStyle().over = skin.getDrawable("settings1");
 
-        settings = new TextButton("",  settingsStyle);
         settings.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 settingsClicked();
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                boop.play(.5f);
+                boop.play(.125f);
             }
         });
         table.row().colspan(1);
         table.add(settings).width(512).height(48);
 
-        TextButton.TextButtonStyle exitStyle = new TextButton.TextButtonStyle();
-        exitStyle.up = skin.getDrawable("exit0");
-        exitStyle.over = skin.getDrawable("exit1");
-        exitStyle.font = font;
+        exit = new ImageButton(skin.getDrawable("exit0"));
+        exit.getStyle().over = skin.getDrawable("exit1");
 
-        exit = new TextButton("",  exitStyle);
         exit.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 exitClicked();
             }
 
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                boop.play(.5f);
+                boop.play(.125f);
             }
         });
         table.row().colspan(1);
