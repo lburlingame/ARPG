@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.haruham.game.input.InputHandler;
@@ -33,8 +34,11 @@ public class GameApp implements ApplicationListener {
 
     private InputMultiplexer inputs = new InputMultiplexer();
     private InputHandler inputHandler;
-    public boolean debug = true;
+    public boolean debug = false;
     public boolean mute = false;
+
+    private BitmapFont font;
+
 
     public void create() {
         try {
@@ -65,6 +69,7 @@ public class GameApp implements ApplicationListener {
 
         gsm = new GameStateManager(this);
 
+        font = new BitmapFont();
         inputHandler = new InputHandler();
         inputs.addProcessor(inputHandler);
         Gdx.input.setInputProcessor(inputs);
@@ -91,6 +96,12 @@ public class GameApp implements ApplicationListener {
 
         gsm.update(Gdx.graphics.getDeltaTime());
         gsm.render();
+        batch.begin(); // begin - fps counter will be a setting that can be toggled
+
+        int fps = Gdx.graphics.getFramesPerSecond();
+        font.draw(batch, fps + " ", 10, Gdx.graphics.getHeight() - 20);
+
+        batch.end(); // end
         Inputs.update();
     }
 

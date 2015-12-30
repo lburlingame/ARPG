@@ -300,7 +300,7 @@ public class World {
 
         int bdest = batch.getBlendDstFunc();
 
-        batch.setBlendFunction(batch.getBlendSrcFunc(), GL20.GL_ONE);     //GL_ONE_MINUS_SRC_ALPHA);
+        batch.setBlendFunction(batch.getBlendSrcFunc(), GL20.GL_ONE);
         float lightSize = lightOscillate? (400 + 4.5f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):400;
         batch.draw(light, player.getX() - lightSize*0.5f + 0.5f,player.getY() + 0.5f - lightSize*0.5f, lightSize, lightSize);
 

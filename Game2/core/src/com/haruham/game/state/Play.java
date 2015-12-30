@@ -90,8 +90,6 @@ public class Play extends GameState {
     public void renderDebug() {
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
-        int fps = Gdx.graphics.getFramesPerSecond();
-        font.draw(batch, fps + " ", 10, Gdx.graphics.getHeight() - 20);
         font.draw(batch, Inputs.posScreen.x + ", " + Inputs.posScreen.y, 10, Gdx.graphics.getHeight() - 40);
         font.draw(batch, (Inputs.pos.x) + ", " + (Inputs.pos.y), 10, Gdx.graphics.getHeight() - 60);
         font.draw(batch, (camera.zoom+ " "), 10, Gdx.graphics.getHeight() - 80);
