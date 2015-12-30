@@ -122,7 +122,7 @@ public class GameMenu extends GameState {
     }
 
     public void render() {
-        shapeRenderer.setColor(new Color(0, 0, 0, 0.85f));
+        shapeRenderer.setColor(new Color(0, 0, 0, 0.7f));
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.setProjectionMatrix(hudCamera.combined);

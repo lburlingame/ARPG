@@ -16,7 +16,7 @@ public class SplashInput {
 
     public void update() {
         for (int i = 0; i < Inputs.keys.length; i++) {
-            if (Inputs.keys[i]) {
+            if (Inputs.keys[i] && !Inputs.isPressed(Inputs.M)) {
                 gsm.setState(GameStateManager.MAINMENU);
             }
         }

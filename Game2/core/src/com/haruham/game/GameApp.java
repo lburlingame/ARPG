@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.haruham.game.input.InputHandler;
 import com.haruham.game.input.Inputs;
+import com.haruham.game.input.ProgramInput;
 import com.haruham.game.state.GameStateManager;
 import org.lwjgl.openal.AL;
 
@@ -34,6 +35,8 @@ public class GameApp implements ApplicationListener {
 
     private InputMultiplexer inputs = new InputMultiplexer();
     private InputHandler inputHandler;
+    private ProgramInput pin;
+
     public boolean debug = false;
     public boolean mute = false;
 
@@ -74,6 +77,7 @@ public class GameApp implements ApplicationListener {
         inputs.addProcessor(inputHandler);
         Gdx.input.setInputProcessor(inputs);
 
+        pin = new ProgramInput();
 
 
     }
@@ -102,6 +106,7 @@ public class GameApp implements ApplicationListener {
         font.draw(batch, fps + " ", 10, Gdx.graphics.getHeight() - 20);
 
         batch.end(); // end
+        pin.update();
         Inputs.update();
     }
 

@@ -75,7 +75,7 @@ public class World {
 
     /*
 
-    LIGHT STUFF
+    LIGHT STUFF  -- LIGHTQUALITY, use lower resolution tex if it actually helps fps on laptop
      */
 
     public enum ShaderSelection{
@@ -88,7 +88,7 @@ public class World {
     //used for drawing
     private boolean	lightMove = false;
     public boolean lightOscillate = true;
-    private Texture light = new Texture("lighttest/light2.png");
+    private Texture light = new Texture("lighttest/light3.png");
     ;
     private FrameBuffer fbo;
 
@@ -102,7 +102,7 @@ public class World {
 
     //values passed to the shader
     public static final float ambientIntensity = .7f;
-    public static final Vector3 ambientColor = new Vector3(.2f, .2f, .6f);
+    public static final Vector3 ambientColor = new Vector3(.2f, .2f, .4f);
 
     //used to make the light flicker
     public float zAngle;
@@ -181,8 +181,8 @@ public class World {
         objects.add(player);
 
 
-        for (int i = 0; i < 125; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 200 + 200), (float) (Math.random() * 200 + 200), 0)));
+        for (int i = 0; i < 1000; i++) {
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 600 + 200), (float) (Math.random() * 600 + 200), 0)));
         }
 
         lights = new LightRenderer();
@@ -207,8 +207,8 @@ public class World {
         for (int i = 0; i < attacks.size(); i++) {
             attacks.get(i).update(delta);
             if (!attacks.get(i).isActive()) {
-                removeAttack(attacks.get(i));
-                i--;
+              //  removeAttack(attacks.get(i));
+               // i--;
             }
         }
 
@@ -301,7 +301,9 @@ public class World {
         int bdest = batch.getBlendDstFunc();
 
         batch.setBlendFunction(batch.getBlendSrcFunc(), GL20.GL_ONE);
-        float lightSize = lightOscillate? (400 + 4.5f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):400;
+        float lightSize = lightOscillate? (700 + 10f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):700;
+        //        float lightSize = lightOscillate? (400 + 4.5f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):400;
+
         batch.draw(light, player.getX() - lightSize*0.5f + 0.5f,player.getY() + 0.5f - lightSize*0.5f, lightSize, lightSize);
 
         for (int i = 0; i < attacks.size(); i++) {

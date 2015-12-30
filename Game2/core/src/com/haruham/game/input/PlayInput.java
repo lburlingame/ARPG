@@ -37,12 +37,6 @@ public class PlayInput {
             game.debug = !game.debug;
         }
 
-        if (Inputs.isPressed(Inputs.M)) {
-
-            Util.saveScreenshot();
-
-            game.mute = !game.mute;
-        }
 
         if (Inputs.isPressed(Inputs.P)) {
             play.paused = !play.paused;
