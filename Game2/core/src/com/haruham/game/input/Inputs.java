@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector3;
  */
 public class Inputs {
 
-    public static final int NUM_KEYS = 16;
+    public static final int NUM_KEYS = 17;
 
     public static boolean[] keys = new boolean[NUM_KEYS];
     public static boolean[] pkeys = new boolean[NUM_KEYS];
@@ -26,6 +26,8 @@ public class Inputs {
 
     public static final int ESCAPE = 5;
     public static final int I = 6;
+    public static final int P = 16;
+
     public static final int N = 10;
     public static final int M = 11;
 
@@ -116,6 +118,9 @@ public class Inputs {
         }
         if (i == Input.Keys.NUM_4) {
             keys[FOUR] = b;
+        }
+        if (i == Input.Keys.P) {
+            keys[P] = b;
         }
     }
 

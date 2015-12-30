@@ -31,11 +31,12 @@ public class Play extends GameState {
     private PlayInput pin;
 
     private ArrayList<World> worlds;
+    public boolean paused = false;
 
     // sound manager needs to be here, observer to level
     // create player character in charactercreation/selection state, and pass to play state, then pass that to world objects that are newly created
     // hud information can be gathered from that chracter object
-    private com.haruham.game.obj.Character player;
+    private Character player;
 
     public Play(GameStateManager gsm) {
         super(gsm);
@@ -46,7 +47,7 @@ public class Play extends GameState {
 
         //wavSound.loop(.4f, 1f,.1f);
         font = new BitmapFont();
-        pin = new PlayInput(gsm);
+        pin = new PlayInput(gsm, this);
 
         // Create assets manager
         AssetManager assetManager = new AssetManager();
@@ -62,7 +63,9 @@ public class Play extends GameState {
 
     public void update(float delta) {
         pin.update();
-        worlds.get(0).update(delta);
+        if (!paused) {
+            worlds.get(0).update(delta);
+        }
     }
 
     /*
@@ -94,6 +97,7 @@ public class Play extends GameState {
         font.draw(batch, (camera.zoom+ " "), 10, Gdx.graphics.getHeight() - 80);
         font.draw(batch, worlds.get(0).getObjects().size() + " ", 10, Gdx.graphics.getHeight() - 100);
         font.draw(batch, player.getGold() +  " " , 10, Gdx.graphics.getHeight() - 120);
+
         //font.draw(batch, attacks.size() + "", 10, Gdx.graphics.getHeight() - 100);
 
 
@@ -138,5 +142,9 @@ public class Play extends GameState {
 
     public Character getPlayer() {
         return player;
+    }
+
+    public OrthographicCamera getHudCamera() {
+        return hudCamera;
     }
 }

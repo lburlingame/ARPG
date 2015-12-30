@@ -63,7 +63,7 @@ public class PlayerInput extends InputComponent {
             System.out.println("set default");
         }
         if (Inputs.isPressed(Inputs.TWO)) {
-            character.getWorld().setShader(World.ShaderSelection.Ambiant);
+            character.getWorld().setShader(World.ShaderSelection.Ambient);
             System.out.println("set ambiant");
 
         }
@@ -77,8 +77,8 @@ public class PlayerInput extends InputComponent {
             System.out.println("set final");
 
         }
-        if (Inputs.isPressed(Inputs.SPACE)) {
-           // character.getWorld().lightOscillate = !character.getWorld().lightOscillate;
+        if (Inputs.isPressed(Inputs.M3)) {
+            character.getWorld().lightOscillate = !character.getWorld().lightOscillate;
         }
 
        /* if (input.SHIFT.isPressed()) {

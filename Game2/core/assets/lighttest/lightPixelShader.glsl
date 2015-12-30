@@ -13,11 +13,11 @@ uniform sampler2D u_texture; //diffuse map
 uniform sampler2D u_lightmap;   //light map
 
 //resolution of screen
-uniform vec2 resolution; 
+uniform vec2 resolution;
 
 void main() {
-	vec2 lighCoord = (gl_FragCoord.xy / resolution.xy);
-	vec4 Light = texture2D(u_lightmap, lighCoord);
-	
+	vec2 lightCoord = (gl_FragCoord.xy / resolution.xy);
+	vec4 Light = texture2D(u_lightmap, lightCoord);
+
 	gl_FragColor = vColor * Light;
 }
