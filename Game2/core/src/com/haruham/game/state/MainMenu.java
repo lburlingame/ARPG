@@ -62,7 +62,6 @@ public class MainMenu extends GameState {
 
         mmg = new MusicManager();//use observer for sound, but check to see if it happened on screenahh
         mmg.play();
-        mmg.pause();
 
 
         min = new MainMenuInput(gsm);
@@ -159,12 +158,14 @@ public class MainMenu extends GameState {
 
     public void enter() {
         game.getInputs().addProcessor(stage);
+        mmg.play();
         rainloop.play();
     }
 
     //change to enter()/end()
     public void exit() {
         game.getInputs().removeProcessor(stage);
+        mmg.pause();
         rainloop.pause();
     }
 

@@ -91,6 +91,7 @@ public class GameStateManager {
 
     public void leavePlay() {
         if (play != null) {
+            states.remove(play);
             play.dispose();
             play = null;
         }
@@ -104,5 +105,9 @@ public class GameStateManager {
 
     public boolean isPlaying() {
         return play != null;
+    }
+
+    public int getSize() {
+        return states.size();
     }
 }

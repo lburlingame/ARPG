@@ -111,7 +111,7 @@ public class GameMenu extends GameState {
     }
     public void exitClicked() {
         gsm.leavePlay();
-        gsm.setState(GameStateManager.MAINMENU);
+        gsm.popState(true);
 
     }
 

@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.gfx.particle.ParticleEmitter;
 import com.haruham.game.obj.*;
-import com.haruham.game.gfx.LightRenderer;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.input.NullInput;
 import com.haruham.game.item.Item;
@@ -46,7 +45,6 @@ public class World {
     private Sound ambient = Gdx.audio.newSound(Gdx.files.internal("audio/catacombs.wav"));
     private Sound cast = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/firebolt2.wav"));
     private Sound sizzle = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/sizzle2.wav"));
-    private LightRenderer lights;
 
     private Inventory inventory = new Inventory(5);
 
@@ -120,9 +118,6 @@ public class World {
     public World(Play playState) {
         this.playState = playState;
 
-        player = playState.getPlayer();
-        player.setWorld(this);
-
         camera = playState.getCamera();
         hudCamera = playState.getHudCamera();
         shapeRenderer = playState.getShapeRenderer();
@@ -155,11 +150,11 @@ public class World {
         finalShader.end();
 
         lightShader.begin();
-        lightShader.setUniformf("resolution", (int)camera.viewportWidth*2, (int)camera.viewportHeight*2);
+        lightShader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         lightShader.end();
 
         finalShader.begin();
-        finalShader.setUniformf("resolution", (int)camera.viewportWidth*2, (int)camera.viewportHeight*2);
+        finalShader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         finalShader.end();
 
 
@@ -177,16 +172,16 @@ public class World {
 
         emitter = new ParticleEmitter();
 
+        player = playState.getPlayer();
+        player.setWorld(this);
+
         characters.add(player);
         objects.add(player);
 
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 2000; i++) {
             addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 600 + 200), (float) (Math.random() * 600 + 200), 0)));
         }
-
-        lights = new LightRenderer();
-        lights.addLight(player);
 
 
        // camera.position.set(player.getX() + player.getWidth()/2,player.getY() + player.getHeight()/2,0);
@@ -207,8 +202,8 @@ public class World {
         for (int i = 0; i < attacks.size(); i++) {
             attacks.get(i).update(delta);
             if (!attacks.get(i).isActive()) {
-              //  removeAttack(attacks.get(i));
-               // i--;
+                removeAttack(attacks.get(i));
+                i--;
             }
         }
 
@@ -294,9 +289,7 @@ public class World {
         batch.setShader(defaultShader);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-       // batch.setBlendFunction(gl.BLEND_SRC_ALPHA,gl.BLEND_ONE_MINUS_SRC_ALPHA);
         batch.begin();
-        //batch.enableBlending();
 
         int bdest = batch.getBlendDstFunc();
 
@@ -380,6 +373,16 @@ public class World {
     }
 
     public void dispose() {
+        fbo.dispose();
+        ambientShader.dispose();
+       // defaultShader.dispose();
+        finalShader.dispose();
+        lightShader.dispose();
+        light.dispose();
+        ambient.dispose();
+        sizzle.dispose();
+        wavSound.dispose();
+        font.dispose();
 
     }
 

@@ -91,8 +91,7 @@ public class Play extends GameState {
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
         font.draw(batch, Inputs.posScreen.x + ", " + Inputs.posScreen.y, 10, Gdx.graphics.getHeight() - 40);
-        font.draw(batch, (Inputs.pos.x) + ", " + (Inputs.pos.y), 10, Gdx.graphics.getHeight() - 60);
-        font.draw(batch, (camera.zoom+ " "), 10, Gdx.graphics.getHeight() - 80);
+        font.draw(batch, player.getX() + ", " + player.getY(), 10, Gdx.graphics.getHeight()-60);
         font.draw(batch, worlds.get(0).getObjects().size() + " ", 10, Gdx.graphics.getHeight() - 100);
         font.draw(batch, player.getGold() +  " " , 10, Gdx.graphics.getHeight() - 120);
 

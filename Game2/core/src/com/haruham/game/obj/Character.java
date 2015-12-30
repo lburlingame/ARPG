@@ -278,12 +278,6 @@ public class Character extends Entity{
 
     }
 
-    public Vector2[] getVertices() {
-        return new Vector2[] {
-                new Vector2(pos.x, pos.y),
-                new Vector2(pos.x + dim.x, pos.y),
-        };
-    }
 
     public void attack(Vector3 target) {
         weapon.release(world, this, target);
