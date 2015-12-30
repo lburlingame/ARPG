@@ -2,10 +2,14 @@ package com.haruham.game.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.gfx.particle.ParticleEmitter;
 import com.haruham.game.obj.*;
@@ -66,6 +70,51 @@ public class World {
     private static final float collisionreset = .15f;
     private static final float dropoff = 150;
 
+
+    /*
+
+    LIGHT STUFF
+     */
+
+    public enum ShaderSelection{
+        Default,
+        Ambiant,
+        Light,
+        Final
+    };
+
+    //used for drawing
+    private boolean	lightMove = false;
+    public boolean lightOscillate = true;
+    private Texture light = new Texture("lighttest/light2.png");
+    ;
+    private FrameBuffer fbo;
+
+    //out different shaders. currentShader is just a pointer to the 4 others
+    private ShaderSelection	shaderSelection = ShaderSelection.Final;
+    private ShaderProgram currentShader;
+    private ShaderProgram defaultShader;
+    private ShaderProgram ambientShader;
+    private ShaderProgram lightShader;
+    private ShaderProgram finalShader;
+
+    //values passed to the shader
+    public static final float ambientIntensity = .4f;
+    public static final Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
+
+    //used to make the light flicker
+    public float zAngle;
+    public static final float zSpeed = 15.0f;
+    public static final float PI2 = 3.1415926535897932384626433832795f * 2.0f;
+
+    //read our shader files
+    final String vertexShader = new FileHandle("lighttest/vertexShader.glsl").readString();
+    final String defaultPixelShader = new FileHandle("lighttest/defaultPixelShader.glsl").readString();
+    final String ambientPixelShader = new FileHandle("lighttest/ambientPixelShader.glsl").readString();
+    final String lightPixelShader =  new FileHandle("lighttest/lightPixelShader.glsl").readString();
+    final String finalPixelShader =  new FileHandle("lighttest/pixelShader.glsl").readString();
+
+
     public World(Play playState) {
         this.playState = playState;
 
@@ -76,12 +125,46 @@ public class World {
         shapeRenderer = playState.getShapeRenderer();
         batch = playState.getBatch();
 
+        fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)camera.viewportWidth, (int)camera.viewportHeight, false);
+
+        ShaderProgram.pedantic = false;
+        defaultShader = new ShaderProgram(vertexShader, defaultPixelShader);
+        ambientShader = new ShaderProgram(vertexShader, ambientPixelShader);
+        lightShader = new ShaderProgram(vertexShader, lightPixelShader);
+        finalShader = new ShaderProgram(vertexShader, finalPixelShader);
+        setShader(shaderSelection);
+
+
+        ambientShader.begin();
+        ambientShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
+                ambientColor.z, ambientIntensity);
+        ambientShader.end();
+
+
+        lightShader.begin();
+        lightShader.setUniformi("u_lightmap", 1);
+        lightShader.end();
+
+        finalShader.begin();
+        finalShader.setUniformi("u_lightmap", 1);
+        finalShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
+                ambientColor.z, ambientIntensity);
+        finalShader.end();
+
+        lightShader.begin();
+        lightShader.setUniformf("resolution", (int)camera.viewportWidth*2, (int)camera.viewportHeight*2);
+        lightShader.end();
+
+        finalShader.begin();
+        finalShader.setUniformf("resolution", (int)camera.viewportWidth*2, (int)camera.viewportHeight*2);
+        finalShader.end();
+
+
         ambient.loop(2f);
 
         tmap = new TileMap("levels/test_map.txt", camera);
 
         objects = new ArrayList<>(); // list of all objects in world, for sorting/rendering purposes
-
         characters = new ArrayList<>();
         dead = new ArrayList<>();
         attacks = new ArrayList<>();
@@ -90,7 +173,6 @@ public class World {
         globes = new ArrayList<>();
 
         emitter = new ParticleEmitter();
-
 
         characters.add(player);
         objects.add(player);
@@ -110,6 +192,13 @@ public class World {
 
     public void update(float delta) {
         camera.unproject(Inputs.pos);
+
+        zAngle += delta * zSpeed;
+        while(zAngle > PI2)
+            zAngle -= PI2;
+
+
+
         tmap.update(delta);
 
         for (int i = 0; i < attacks.size(); i++) {
@@ -197,23 +286,36 @@ public class World {
     }
 
     public void render() {
+        fbo.begin();
+        batch.setProjectionMatrix(camera.combined);
+        batch.setShader(defaultShader);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.begin();
+        float lightSize = lightOscillate? (400 + 4.5f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):400;
+        batch.draw(light, player.getX() - lightSize*0.5f + 0.5f,player.getY() + 0.5f - lightSize*0.5f, lightSize, lightSize);
+
+        for (int i = 0; i < attacks.size(); i++) {
+            batch.draw(light,  attacks.get(i).getX()- lightSize*0.5f + 0.5f, attacks.get(i).getY() + 0.5f - lightSize*0.5f, lightSize, lightSize);
+        }
+        batch.end();
+        fbo.end();
+
 
         batch.setProjectionMatrix(camera.combined);
+        batch.setShader(currentShader);
         batch.begin();
 
+        fbo.getColorBufferTexture().bind(1); //this is important! bind the FBO to the 2nd texture unit
+        light.bind(0);
+
         tmap.draw(batch);
-
-        /*batch.end();
-        lights.render(camera);
-        batch.begin();*/
-
         emitter.draw(batch);
-
         Collections.sort(objects);
-
         for (int i = 0; i < objects.size(); i++) {
             objects.get(i).draw(batch);
         }
+        batch.setShader(defaultShader);
 
         batch.end();
     }
@@ -320,6 +422,24 @@ public class World {
         for (int i = 0; i < attacks.size(); i++) {
             removeAttack(attacks.get(i));
             i--;
+        }
+    }
+
+    public void setShader(ShaderSelection ss){
+        shaderSelection = ss;
+
+        if(ss == ShaderSelection.Final){
+            currentShader = finalShader;
+        }
+        else if(ss == ShaderSelection.Ambiant){
+            currentShader = ambientShader;
+        }
+        else if(ss == ShaderSelection.Light){
+            currentShader = lightShader;
+        }
+        else{
+            ss = ShaderSelection.Default;
+            currentShader = defaultShader;
         }
     }
 }

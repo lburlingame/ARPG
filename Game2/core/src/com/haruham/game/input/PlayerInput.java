@@ -1,5 +1,7 @@
 package com.haruham.game.input;
 
+import com.haruham.game.level.World;
+
 /**
  * Created on 3/26/2015.
  */
@@ -54,6 +56,29 @@ public class PlayerInput extends InputComponent {
         if (Inputs.isPressed(Inputs.N)) {
             character.getWorld().getEmitter().clear();
             character.getWorld().clearAttacks();
+        }
+
+        if (Inputs.isPressed(Inputs.ONE)) {
+            character.getWorld().setShader(World.ShaderSelection.Default);
+            System.out.println("set default");
+        }
+        if (Inputs.isPressed(Inputs.TWO)) {
+            character.getWorld().setShader(World.ShaderSelection.Ambiant);
+            System.out.println("set ambiant");
+
+        }
+        if (Inputs.isPressed(Inputs.THREE)) {
+            character.getWorld().setShader(World.ShaderSelection.Light);
+            System.out.println("set light");
+
+        }
+        if (Inputs.isPressed(Inputs.FOUR)) {
+            character.getWorld().setShader(World.ShaderSelection.Final);
+            System.out.println("set final");
+
+        }
+        if (Inputs.isPressed(Inputs.SPACE)) {
+           // character.getWorld().lightOscillate = !character.getWorld().lightOscillate;
         }
 
        /* if (input.SHIFT.isPressed()) {
