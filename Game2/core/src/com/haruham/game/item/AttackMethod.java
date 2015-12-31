@@ -9,7 +9,7 @@ import com.haruham.game.obj.Character;
  */
 public interface AttackMethod {
 
-    public void charge(AttackBehavior behavior, World world, com.haruham.game.obj.Character user, Vector3 target);
+    public void charge(AttackBehavior behavior, World world, Character user, Vector3 target);
     public void release(AttackBehavior behavior, World world, Character user, Vector3 target);
     public void update(float delta);
 }

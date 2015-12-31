@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.haruham.game.input.PlayInput;
 import com.haruham.game.level.World;
 import com.haruham.game.obj.Character;
@@ -76,14 +78,20 @@ public class Play extends GameState {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        /*Rectangle scissors = new Rectangle(); use this to clip the screen for rendering, maybe to give focus on a certain element
-        Rectangle clipBounds = new Rectangle(camera.position.x-camera.viewportWidth/2, camera.position.y-camera.viewportHeight/2, camera.viewportWidth, camera.viewportHeight);
+/*
+        // use for cinematic like effects
+        Rectangle scissors = new Rectangle(); //use this to clip the screen for rendering, maybe to give focus on a certain element
+        Rectangle clipBounds = new Rectangle(camera.position.x-camera.viewportWidth/2, camera.position.y-camera.viewportHeight/4, camera.viewportWidth, camera.viewportHeight/2); // issue on camera zooming and new scissors being created with altered camera viewports, in final release of game where zooming is not allowed it should be fine
         ScissorStack.calculateScissors(camera, batch.getTransformMatrix(), clipBounds, scissors);
         ScissorStack.pushScissors(scissors);
+
+        //render in here somewhere...
         batch.flush();
-        ScissorStack.popScissors();*/
+        ScissorStack.popScissors();
+*/
 
         worlds.get(0).render();
+
 
     }
 
@@ -143,5 +151,9 @@ public class Play extends GameState {
 
     public OrthographicCamera getHudCamera() {
         return hudCamera;
+    }
+
+    public World getWorld() {
+        return worlds.get(0);
     }
 }

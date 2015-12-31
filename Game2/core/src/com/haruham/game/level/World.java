@@ -40,7 +40,7 @@ public class World {
 
     private BitmapFont font = new BitmapFont();
 
-    private Sound wavSound = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/pickup1.wav"));
+  //  private Sound coinpickup = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/coins1.wav"));
 
     private Sound ambient = Gdx.audio.newSound(Gdx.files.internal("audio/catacombs.wav"));
     private Sound cast = Gdx.audio.newSound(Gdx.files.internal("audio/sfx/firebolt2.wav"));
@@ -99,8 +99,8 @@ public class World {
     private ShaderProgram finalShader;
 
     //values passed to the shader
-    public static final float ambientIntensity = .7f;
-    public static final Vector3 ambientColor = new Vector3(.2f, .2f, .4f);
+    public static final float ambientIntensity = 0f;
+    public static final Vector3 ambientColor = new Vector3(.3f, .3f, .7f);
 
     //used to make the light flicker
     public float zAngle;
@@ -179,8 +179,8 @@ public class World {
         objects.add(player);
 
 
-        for (int i = 0; i < 2000; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 600 + 200), (float) (Math.random() * 600 + 200), 0)));
+        for (int i = 0; i < 200; i++) {
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 200), (float) (Math.random() * 300 + 200), 0)));
         }
 
 
@@ -202,8 +202,8 @@ public class World {
         for (int i = 0; i < attacks.size(); i++) {
             attacks.get(i).update(delta);
             if (!attacks.get(i).isActive()) {
-                removeAttack(attacks.get(i));
-                i--;
+             /*   removeAttack(attacks.get(i));
+                i--;*/
             }
         }
 
@@ -284,6 +284,8 @@ public class World {
     }
 
     public void render() {
+        camera.update();
+
         fbo.begin();
         batch.setProjectionMatrix(camera.combined);
         batch.setShader(defaultShader);
@@ -361,7 +363,6 @@ public class World {
         Vector3 position = camera.position;
         position.x += (pos.x - position.x) * lerp;
         position.y += (pos.y - position.y) * lerp * 1.5;
-        camera.update();
     }
 
     public void start() {
@@ -381,7 +382,6 @@ public class World {
         light.dispose();
         ambient.dispose();
         sizzle.dispose();
-        wavSound.dispose();
         font.dispose();
 
     }
@@ -473,6 +473,25 @@ public class World {
     }
 
 }
+
+
+
+/*
+
+                    float opacity = 1.0f;
+                    if (player != null) {
+                        double distance = Util.findDistance(x - player.x, y - player.y);
+                        opacity = (float)(distance/cycle.getLightDist());
+                        if (opacity > cycle.getMaxDarkness()) {
+                            opacity = cycle.getMaxDarkness();
+                        }
+                    }
+                    if (opacity != 0) {
+
+
+
+
+ */
 
 
 /*

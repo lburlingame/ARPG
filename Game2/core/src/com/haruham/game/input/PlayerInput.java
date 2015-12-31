@@ -7,6 +7,8 @@ import com.haruham.game.level.World;
  */
 public class PlayerInput extends InputComponent {
 
+    private float cooldown = .1f;
+
     public PlayerInput() {
 
     }
@@ -42,44 +44,21 @@ public class PlayerInput extends InputComponent {
 
 
         if (Inputs.isDown(Inputs.M1)) {
-            if (i++ % 6 ==0)
-            character.attack(Inputs.pos);
+            cooldown -= delta;
+            if (cooldown <= 0) {
+                character.attack(Inputs.pos);
+                cooldown = .1f + cooldown;
+            }
         }
         if (Inputs.isReleased(Inputs.M1)) {
-            i = 0;
+            cooldown = 0;
         }
 
         if (Inputs.isPressed(Inputs.SPACE)) {
             character.setX(Inputs.pos.x);
             character.setY(Inputs.pos.y);
         }
-        if (Inputs.isPressed(Inputs.N)) {
-            character.getWorld().getEmitter().clear();
-            character.getWorld().clearAttacks();
-        }
 
-        if (Inputs.isPressed(Inputs.ONE)) {
-            character.getWorld().setShader(World.ShaderSelection.Default);
-            System.out.println("set default");
-        }
-        if (Inputs.isPressed(Inputs.TWO)) {
-            character.getWorld().setShader(World.ShaderSelection.Ambient);
-            System.out.println("set ambiant");
-
-        }
-        if (Inputs.isPressed(Inputs.THREE)) {
-            character.getWorld().setShader(World.ShaderSelection.Light);
-            System.out.println("set light");
-
-        }
-        if (Inputs.isPressed(Inputs.FOUR)) {
-            character.getWorld().setShader(World.ShaderSelection.Final);
-            System.out.println("set final");
-
-        }
-        if (Inputs.isPressed(Inputs.M3)) {
-            character.getWorld().lightOscillate = !character.getWorld().lightOscillate;
-        }
 
        /* if (input.SHIFT.isPressed()) {
             character.sprint();
