@@ -106,7 +106,7 @@ public class GameApp implements ApplicationListener {
 
         int fps = Gdx.graphics.getFramesPerSecond();
         font.draw(batch, fps + " ", 10, Gdx.graphics.getHeight() - 20);
-        font.draw(batch, gsm.getSize() + " ", hudCamera.viewportWidth - 100, Gdx.graphics.getHeight() - 40);
+        font.draw(batch, gsm.getSize() + " ", hudCamera.viewportWidth - 100, Gdx.graphics.getHeight() - 60);
 
         batch.end(); // end
 

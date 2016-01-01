@@ -99,8 +99,8 @@ public class World {
     private ShaderProgram finalShader;
 
     //values passed to the shader
-    public static final float ambientIntensity = 0f;
-    public static final Vector3 ambientColor = new Vector3(.3f, .3f, .7f);
+    public static final float ambientIntensity = .25f;
+    public static final Vector3 ambientColor = new Vector3(.5f, .5f, .7f);
 
     //used to make the light flicker
     public float zAngle;
@@ -296,13 +296,15 @@ public class World {
         int bdest = batch.getBlendDstFunc();
 
         batch.setBlendFunction(batch.getBlendSrcFunc(), GL20.GL_ONE);
-        float lightSize = lightOscillate? (700 + 10f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):700;
-        //        float lightSize = lightOscillate? (400 + 4.5f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):400;
+        //float lightSize = lightOscillate? (700 + 10f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):700;
+        float lightSize = lightOscillate? (350 + 4f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):350;
+        batch.draw(light, 1000- lightSize*0.5f,1000-lightSize*0.5f, lightSize, lightSize);
 
-        batch.draw(light, player.getX() - lightSize*0.5f + 0.5f,player.getY() + 0.5f - lightSize*0.5f, lightSize, lightSize);
+        batch.draw(light, player.getX() - lightSize*0.5f,player.getY()- lightSize*0.5f, lightSize, lightSize);
+        lightSize = lightOscillate? (600 + 7f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):600;
 
         for (int i = 0; i < attacks.size(); i++) {
-            batch.draw(light,  attacks.get(i).getX()- lightSize*0.5f + 0.5f, attacks.get(i).getY() + 0.5f - lightSize*0.5f, lightSize, lightSize);
+            batch.draw(light,  attacks.get(i).getX()- lightSize*0.5f, attacks.get(i).getY() - lightSize*0.5f, lightSize, lightSize);
         }
 
         batch.setBlendFunction(batch.getBlendSrcFunc(), bdest);
@@ -328,7 +330,19 @@ public class World {
         batch.setShader(defaultShader);
         batch.setProjectionMatrix(hudCamera.combined);
         font.draw(batch, getAmbientIntensity() + " ," + getAmbientColor(), hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 20);
+
+
+
+        shapeRenderer.setColor(new Color(.0f, .0f, .05f, 0.4f));
+        font.draw(batch, shapeRenderer.getColor().r + ", " + shapeRenderer.getColor().g + ", " + shapeRenderer.getColor().b + ", " + shapeRenderer.getColor().a, hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 40);
         batch.end();
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        shapeRenderer.setProjectionMatrix(hudCamera.combined);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.rect(0, 0, hudCamera.viewportWidth, hudCamera.viewportHeight);
+        shapeRenderer.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
     public void renderDebug() {
