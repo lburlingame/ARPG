@@ -56,20 +56,40 @@ public class PlayInput {
         }
 
         if (Inputs.isPressed(Inputs.ONE)) {
-            play.getWorld().setShader(World.ShaderSelection.Default);
+            play.setShader(Play.ShaderSelection.Default);
         }
         if (Inputs.isPressed(Inputs.TWO)) {
-            play.getWorld().setShader(World.ShaderSelection.Ambient);
+            play.setShader(Play.ShaderSelection.Ambient);
         }
         if (Inputs.isPressed(Inputs.THREE)) {
-            play.getWorld().setShader(World.ShaderSelection.Light);
+            play.setShader(Play.ShaderSelection.Light);
         }
         if (Inputs.isPressed(Inputs.FOUR)) {
-            play.getWorld().setShader(World.ShaderSelection.Final);
+            play.setShader(Play.ShaderSelection.Final);
 
         }
         if (Inputs.isPressed(Inputs.M3)) {
             play.getWorld().lightOscillate = !play.getWorld().lightOscillate;
+        }
+
+
+        if (Inputs.isPressed(Inputs.UP)) {
+            play.lightrgb[play.lightix] += .05f;
+            play.updateShader();
+        }
+        if (Inputs.isPressed(Inputs.DOWN)) {
+            play.lightrgb[play.lightix] -= .05f;
+            play.updateShader();
+        }
+        if (Inputs.isPressed(Inputs.LEFT)) {
+            play.lightix--;
+            if (play.lightix < 0) {
+                play.lightix = play.lightrgb.length - 1;
+            }
+        }
+        if (Inputs.isPressed(Inputs.RIGHT)) {
+            play.lightix++;
+            play.lightix = play.lightix % play.lightrgb.length;
         }
 
         /*if ((camera.zoom > .5 && amount < 0) || (camera.zoom < 2 && amount > 0)) {

@@ -1,0 +1,6 @@
+Dota 2 stable: Program Files (x86)\Steam\SteamApps\common\dota 2 beta\dota\resource\cursor
+
+Dota 2 reborn: Program Files (x86)\Steam\SteamApps\common\dota 2 beta\game\dota_imported\resource\cursor
+
+Dota 2 reborn interface (only for small cursor): Program Files (x86)\Steam\SteamApps\common\dota 2 beta\game\dota\resource\cursor
+

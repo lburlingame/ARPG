@@ -2,15 +2,14 @@ package com.haruham.game.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
+import com.haruham.game.gfx.Art;
 import com.haruham.game.gfx.particle.ParticleEmitter;
 import com.haruham.game.obj.*;
 import com.haruham.game.input.Inputs;
@@ -31,10 +30,11 @@ import java.util.Collections;
 public class World {
 
     private OrthographicCamera hudCamera;
-    private Play playState;
+    private Play play;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
-
+    private FrameBuffer fbo;
+    
     private OrthographicCamera camera;
     private TileMap tmap;
 
@@ -76,86 +76,30 @@ public class World {
     LIGHT STUFF  -- LIGHTQUALITY, use lower resolution tex if it actually helps fps on laptop
      */
 
-    public enum ShaderSelection{
-        Default,
-        Ambient,
-        Light,
-        Final
-    };
-
     //used for drawing
     private boolean	lightMove = false;
     public boolean lightOscillate = true;
-    private Texture light = new Texture("lighttest/light3.png");
-    ;
-    private FrameBuffer fbo;
 
-    //out different shaders. currentShader is just a pointer to the 4 others
-    private ShaderSelection	shaderSelection = ShaderSelection.Final;
-    private ShaderProgram currentShader;
-    private ShaderProgram defaultShader;
-    private ShaderProgram ambientShader;
-    private ShaderProgram lightShader;
-    private ShaderProgram finalShader;
 
     //values passed to the shader
-    public static final float ambientIntensity = .25f;
-    public static final Vector3 ambientColor = new Vector3(.5f, .5f, .7f);
+
 
     //used to make the light flicker
     public float zAngle;
     public static final float zSpeed = 12.0f;
     public static final float PI2 = 3.1415926535897932384626433832795f * 2.0f;
 
-    //read our shader files
-    final String vertexShader = new FileHandle("lighttest/vertexShader.glsl").readString();
-    final String defaultPixelShader = new FileHandle("lighttest/defaultPixelShader.glsl").readString();
-    final String ambientPixelShader = new FileHandle("lighttest/ambientPixelShader.glsl").readString();
-    final String lightPixelShader =  new FileHandle("lighttest/lightPixelShader.glsl").readString();
-    final String finalPixelShader =  new FileHandle("lighttest/pixelShader.glsl").readString();
 
 
-    public World(Play playState) {
-        this.playState = playState;
+    public World(Play play) {
+        this.play
+                = play;
 
-        camera = playState.getCamera();
-        hudCamera = playState.getHudCamera();
-        shapeRenderer = playState.getShapeRenderer();
-        batch = playState.getBatch();
-
-        fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)camera.viewportWidth*2, (int)camera.viewportHeight*2, false);
-
-        ShaderProgram.pedantic = false;
-        defaultShader = new ShaderProgram(vertexShader, defaultPixelShader);
-        ambientShader = new ShaderProgram(vertexShader, ambientPixelShader);
-        lightShader = new ShaderProgram(vertexShader, lightPixelShader);
-        finalShader = new ShaderProgram(vertexShader, finalPixelShader);
-        setShader(shaderSelection);
-
-
-        ambientShader.begin();
-        ambientShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
-                ambientColor.z, ambientIntensity);
-        ambientShader.end();
-
-
-        lightShader.begin();
-        lightShader.setUniformi("u_lightmap", 1);
-        lightShader.end();
-
-        finalShader.begin();
-        finalShader.setUniformi("u_lightmap", 1);
-        finalShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
-                ambientColor.z, ambientIntensity);
-        finalShader.end();
-
-        lightShader.begin();
-        lightShader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        lightShader.end();
-
-        finalShader.begin();
-        finalShader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        finalShader.end();
+        camera = play.getCamera();
+        hudCamera = play.getHudCamera();
+        shapeRenderer = play.getShapeRenderer();
+        batch = play.getBatch();
+        fbo = play.getFBO();
 
 
         ambient.loop(2f);
@@ -172,7 +116,7 @@ public class World {
 
         emitter = new ParticleEmitter();
 
-        player = playState.getPlayer();
+        player = play.getPlayer();
         player.setWorld(this);
 
         characters.add(player);
@@ -288,7 +232,7 @@ public class World {
 
         fbo.begin();
         batch.setProjectionMatrix(camera.combined);
-        batch.setShader(defaultShader);
+        batch.setShader(play.getDefaultShader());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
@@ -298,13 +242,13 @@ public class World {
         batch.setBlendFunction(batch.getBlendSrcFunc(), GL20.GL_ONE);
         //float lightSize = lightOscillate? (700 + 10f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):700;
         float lightSize = lightOscillate? (350 + 4f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):350;
-        batch.draw(light, 1000- lightSize*0.5f,1000-lightSize*0.5f, lightSize, lightSize);
+        batch.draw(Art.light, 1000- lightSize*0.5f,1000-lightSize*0.5f, lightSize, lightSize);
 
-        batch.draw(light, player.getX() - lightSize*0.5f,player.getY()- lightSize*0.5f, lightSize, lightSize);
+        batch.draw(Art.light, player.getX() - lightSize * 0.5f, player.getY() - lightSize * 0.5f, lightSize, lightSize);
         lightSize = lightOscillate? (600 + 7f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):600;
 
         for (int i = 0; i < attacks.size(); i++) {
-            batch.draw(light,  attacks.get(i).getX()- lightSize*0.5f, attacks.get(i).getY() - lightSize*0.5f, lightSize, lightSize);
+            batch.draw(Art.light,  attacks.get(i).getX()- lightSize*0.5f, attacks.get(i).getY() - lightSize*0.5f, lightSize, lightSize);
         }
 
         batch.setBlendFunction(batch.getBlendSrcFunc(), bdest);
@@ -314,7 +258,7 @@ public class World {
 
 
         batch.setProjectionMatrix(camera.combined);
-        batch.setShader(currentShader);
+        batch.setShader(play.getCurrentShader());
         batch.begin();
         fbo.getColorBufferTexture().bind(1); //this is important! bind the FBO to the 2nd texture unit
         Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
@@ -327,9 +271,9 @@ public class World {
         }
 
 
-        batch.setShader(defaultShader);
+        batch.setShader(play.getDefaultShader());
         batch.setProjectionMatrix(hudCamera.combined);
-        font.draw(batch, getAmbientIntensity() + " ," + getAmbientColor(), hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 20);
+        font.draw(batch, play.format.format(play.lightrgb[3]) + ", (" + play.format.format(play.lightrgb[0]) + ", " + play.format.format(play.lightrgb[1]) + ", " + play.format.format(play.lightrgb[2]) + ")", hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 20);
 
 
 
@@ -389,11 +333,7 @@ public class World {
 
     public void dispose() {
         fbo.dispose();
-        ambientShader.dispose();
-       // defaultShader.dispose();
-        finalShader.dispose();
-        lightShader.dispose();
-        light.dispose();
+
         ambient.dispose();
         sizzle.dispose();
         font.dispose();
@@ -458,33 +398,9 @@ public class World {
         }
     }
 
-    public void setShader(ShaderSelection ss){
-        shaderSelection = ss;
-
-        if(ss == ShaderSelection.Final){
-            currentShader = finalShader;
-        }
-        else if(ss == ShaderSelection.Ambient){
-            currentShader = ambientShader;
-        }
-        else if(ss == ShaderSelection.Light){
-            currentShader = lightShader;
-        }
-        else{
-            ss = ShaderSelection.Default;
-            currentShader = defaultShader;
-        }
-    }
-
 
     // remove this stuff later
-    public float getAmbientIntensity() {
-        return ambientIntensity;
-    }
 
-    public Vector3 getAmbientColor() {
-        return ambientColor;
-    }
 
 }
 

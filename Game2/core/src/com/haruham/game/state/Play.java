@@ -4,10 +4,15 @@ package com.haruham.game.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -19,6 +24,7 @@ import com.haruham.game.gfx.Art;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.input.PlayerInput;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -40,13 +46,35 @@ public class Play extends GameState {
     // hud information can be gathered from that chracter object
     private Character player;
 
+    public static float ambientIntensity = .25f;
+    public static Vector3 ambientColor = new Vector3(.5f, .5f, .7f);
+
+    public float[] lightrgb = {.5f, .5f, .7f, .25f};
+    public int lightix = 0;
+
+    private Texture light = new Texture("lighttest/light3.png");
+    ;
+    private FrameBuffer fbo;
+
+    //out different shaders. currentShader is just a pointer to the 4 others
+    private ShaderSelection	shaderSelection = ShaderSelection.Final;
+    private ShaderProgram currentShader;
+    private ShaderProgram defaultShader;
+    private ShaderProgram ambientShader;
+    private ShaderProgram lightShader;
+    private ShaderProgram finalShader;
+
+    //read our shader files
+    final String vertexShader = new FileHandle("lighttest/vertexShader.glsl").readString();
+    final String defaultPixelShader = new FileHandle("lighttest/defaultPixelShader.glsl").readString();
+    final String ambientPixelShader = new FileHandle("lighttest/ambientPixelShader.glsl").readString();
+    final String lightPixelShader =  new FileHandle("lighttest/lightPixelShader.glsl").readString();
+    final String finalPixelShader =  new FileHandle("lighttest/pixelShader.glsl").readString();
+    public static DecimalFormat format = new DecimalFormat("0.##");
+
     public Play(GameStateManager gsm) {
         super(gsm);
         player = new Character(null, 1, new PlayerInput(), new Vector3(100,100,0));
-
-
-
-
         //wavSound.loop(.4f, 1f,.1f);
         font = new BitmapFont();
         pin = new PlayInput(gsm, this);
@@ -57,6 +85,43 @@ public class Play extends GameState {
         Art.load(assetManager);
         assetManager.finishLoading();
         Art.assignResource(assetManager);
+
+        fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)camera.viewportWidth*2, (int)camera.viewportHeight*2, false);
+
+        ShaderProgram.pedantic = false;
+        defaultShader = new ShaderProgram(vertexShader, defaultPixelShader);
+        ambientShader = new ShaderProgram(vertexShader, ambientPixelShader);
+        lightShader = new ShaderProgram(vertexShader, lightPixelShader);
+        finalShader = new ShaderProgram(vertexShader, finalPixelShader);
+        setShader(shaderSelection);
+
+
+        ambientShader.begin();
+        ambientShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1],
+                lightrgb[2], lightrgb[3]);
+        ambientShader.end();
+
+
+        lightShader.begin();
+        lightShader.setUniformi("u_lightmap", 1);
+        lightShader.end();
+
+        finalShader.begin();
+        finalShader.setUniformi("u_lightmap", 1);
+        finalShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1],
+                lightrgb[2], lightrgb[3]);
+        finalShader.end();
+
+        lightShader.begin();
+        lightShader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        lightShader.end();
+
+        finalShader.begin();
+        finalShader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        finalShader.end();
+
+
+
 
         worlds = new ArrayList<World>();
         worlds.add(new World(this));
@@ -122,6 +187,12 @@ public class Play extends GameState {
         for (int i = 0; i < worlds.size(); i++) {
             worlds.get(i).dispose();
         }
+
+        ambientShader.dispose();
+        // defaultShader.dispose();
+        finalShader.dispose();
+        lightShader.dispose();
+        light.dispose();
     }
 
     public void enter() {
@@ -155,5 +226,57 @@ public class Play extends GameState {
 
     public World getWorld() {
         return worlds.get(0);
+    }
+
+    public FrameBuffer getFBO() {
+        return fbo;
+    }
+
+    public ShaderProgram getDefaultShader() {
+        return defaultShader;
+    }
+
+    public ShaderProgram getCurrentShader() {
+        return currentShader;
+    }
+
+
+    public enum ShaderSelection{
+        Default,
+        Ambient,
+        Light,
+        Final
+    };
+
+    public void setShader(ShaderSelection ss){
+        shaderSelection = ss;
+
+        if(ss == ShaderSelection.Final){
+            currentShader = finalShader;
+        }
+        else if(ss == ShaderSelection.Ambient){
+            currentShader = ambientShader;
+        }
+        else if(ss == ShaderSelection.Light){
+            currentShader = lightShader;
+        }
+        else{
+            ss = ShaderSelection.Default;
+            currentShader = defaultShader;
+        }
+    }
+
+    public void updateShader() {
+        finalShader.begin();
+        finalShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1],
+                lightrgb[2], lightrgb[3]);
+        finalShader.end();
+    }
+    public float getAmbientIntensity() {
+        return lightrgb[3];
+    }
+
+    public Vector3 getAmbientColor() {
+        return new Vector3(lightrgb[0], lightrgb[1], lightrgb[2]);
     }
 }
