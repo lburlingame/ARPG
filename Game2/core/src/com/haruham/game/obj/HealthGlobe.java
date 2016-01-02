@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Created on 8/27/2015.
  */
-public class HealthGlobe extends Entity {
+public class HealthGlobe extends Pickup {
 
 
     private static Texture globe_tex = new Texture("sprites/health_globe.png");
@@ -60,6 +60,11 @@ public class HealthGlobe extends Entity {
 
     public void draw(SpriteBatch batch) {
         batch.draw(globes.get(0), pos.x-8, pos.y + pos.z - 8, 16, 16);
+    }
+
+    @Override
+    public void pickup(Character character) {
+        character.heal(amount);
     }
 
     // CYAN for pickups

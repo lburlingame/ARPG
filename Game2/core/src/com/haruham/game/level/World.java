@@ -58,8 +58,7 @@ public class World {
     private ArrayList<AttackObject> attacks;
     private ArrayList<Character> dead;
     private ArrayList<Item> items;
-    private ArrayList<Coin> coins;
-    private ArrayList<HealthGlobe> globes;
+    private ArrayList<Pickup> pickups;
 
     private ParticleEmitter emitter;
     //other drops;
@@ -92,8 +91,7 @@ public class World {
 
 
     public World(Play play) {
-        this.play
-                = play;
+        this.play = play;
 
         camera = play.getCamera();
         hudCamera = play.getHudCamera();
@@ -111,8 +109,7 @@ public class World {
         dead = new ArrayList<>();
         attacks = new ArrayList<>();
         items = new ArrayList<>();
-        coins = new ArrayList<>();
-        globes = new ArrayList<>();
+        pickups = new ArrayList<>();
 
         emitter = new ParticleEmitter();
 
@@ -135,9 +132,6 @@ public class World {
     public void update(float delta) {
         camera.unproject(Inputs.pos);
 
-        zAngle += delta * zSpeed;
-        while(zAngle > PI2)
-            zAngle -= PI2;
 
 
 
@@ -182,9 +176,9 @@ public class World {
                     emitter.bloodSpatter(characters.get(i).getPosition().add(characters.get(i).getHit().getCenter()), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f));
 
                     //if (!alive) {
-                        addCoin(new Coin(characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180-90), (float) (Math.random() * 360 - 180)), characters.get(i).getGold()));
+                        addPickup(new Coin(characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 360 - 180)), characters.get(i).getGold()));
                         if (Math.random() < .05f) {
-                            addHealthGlobe(new HealthGlobe(characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 360 - 180)), 100));
+                            addPickup(new HealthGlobe(characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 360 - 180)), 100));
                         }
                         //chars.remove(j);
                     //}
@@ -199,22 +193,11 @@ public class World {
         }
 
 
-        for (int i = 0; i < coins.size(); i++) {
-            coins.get(i).update(delta);
-            if (coins.get(i).collidesWith(player)) {
-                player.grabGold(coins.get(i).getAmount());
-                objects.remove(coins.get(i));
-                coins.remove(i);
-                i--;
-            }
-        }
-
-        for (int i = 0; i < globes.size(); i++) {
-            globes.get(i).update(delta);
-            if (globes.get(i).collidesWith(player)) {
-                player.heal(200);
-                objects.remove(globes.get(i));
-                globes.remove(i);
+        for (int i = 0; i < pickups.size(); i++) {
+            pickups.get(i).update(delta);
+            if (pickups.get(i).collidesWith(player)) {
+                pickups.get(i).pickup(player);
+                removePickup(pickups.get(i));
                 i--;
             }
         }
@@ -241,6 +224,10 @@ public class World {
 
         batch.setBlendFunction(batch.getBlendSrcFunc(), GL20.GL_ONE);
         //float lightSize = lightOscillate? (700 + 10f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):700;
+        zAngle += .014 *zSpeed;
+        while(zAngle > PI2)
+            zAngle -= PI2;
+
         float lightSize = lightOscillate? (350 + 4f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):350;
         batch.draw(Art.light, 1000- lightSize*0.5f,1000-lightSize*0.5f, lightSize, lightSize);
 
@@ -275,9 +262,9 @@ public class World {
         batch.setProjectionMatrix(hudCamera.combined);
         font.draw(batch, play.format.format(play.lightrgb[3]) + ", (" + play.format.format(play.lightrgb[0]) + ", " + play.format.format(play.lightrgb[1]) + ", " + play.format.format(play.lightrgb[2]) + ")", hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 20);
 
+        batch.end();
 
-
-        shapeRenderer.setColor(new Color(.0f, .0f, .05f, 0.4f));
+       /* shapeRenderer.setColor(new Color(.0f, .0f, .05f, 0.4f));
         font.draw(batch, shapeRenderer.getColor().r + ", " + shapeRenderer.getColor().g + ", " + shapeRenderer.getColor().b + ", " + shapeRenderer.getColor().a, hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 40);
         batch.end();
         Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -286,7 +273,7 @@ public class World {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.rect(0, 0, hudCamera.viewportWidth, hudCamera.viewportHeight);
         shapeRenderer.end();
-        Gdx.gl.glDisable(GL20.GL_BLEND);
+        Gdx.gl.glDisable(GL20.GL_BLEND);*/
     }
 
     public void renderDebug() {
@@ -303,16 +290,12 @@ public class World {
             attacks.get(i).drawDebug(shapeRenderer);
         }
 
-        for (int i = 0; i < coins.size(); i++) {
-            coins.get(i).drawDebug(shapeRenderer);
+        for (int i = 0; i < pickups.size(); i++) {
+            pickups.get(i).drawDebug(shapeRenderer);
         }
 
-        for (int i = 0; i < globes.size(); i++) {
-            globes.get(i).drawDebug(shapeRenderer);
-        }
         shapeRenderer.end();
     }
-
 
     // lerps the game camera to position;
     // need to change so that its called based on player pos
@@ -322,6 +305,7 @@ public class World {
         position.x += (pos.x - position.x) * lerp;
         position.y += (pos.y - position.y) * lerp * 1.5;
     }
+
 
     public void start() {
         ambient.resume();
@@ -340,12 +324,12 @@ public class World {
 
     }
 
-
     public void addAttack(AttackObject attack) {
         attacks.add(attack);
         objects.add(attack);
         cast.play(.1f, 1.25f, 0f);
     }
+
 
     public void removeAttack(AttackObject attack) {
         attacks.remove(attack);
@@ -353,7 +337,13 @@ public class World {
     }
 
     public void addPickup(Pickup pickup) {
+        pickups.add(pickup);
+        objects.add(pickup);
+    }
 
+    private void removePickup(Pickup pickup) {
+        pickups.remove(pickup);
+        objects.remove(pickup);
     }
 
     public void addCharacter(Character character) {
@@ -369,15 +359,6 @@ public class World {
 
     }
 
-    public void addCoin(Coin coin) {
-        coins.add(coin);
-        objects.add(coin);
-    }
-
-    public void addHealthGlobe(HealthGlobe globe) {
-        globes.add(globe);
-        objects.add(globe);
-    }
 
     public ParticleEmitter getEmitter() {
         return emitter;
