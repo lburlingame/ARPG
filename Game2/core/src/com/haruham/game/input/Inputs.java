@@ -130,10 +130,10 @@ public class Inputs {
 
 
         if (i == Input.Keys.UP) {
-            keys[UP] = b;
+            keys[ONE] = b;
         }
         if (i == Input.Keys.DOWN) {
-            keys[DOWN] = b;
+            keys[TWO] = b;
         }
 
         if (i == Input.Keys.LEFT) {

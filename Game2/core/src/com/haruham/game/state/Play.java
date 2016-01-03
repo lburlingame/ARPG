@@ -161,6 +161,7 @@ public class Play extends GameState {
     }
 
     public void renderDebug() {
+        worlds.get(0).renderDebug();
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
         font.draw(batch, Inputs.posScreen.x + ", " + Inputs.posScreen.y, 10, Gdx.graphics.getHeight() - 40);
@@ -180,7 +181,6 @@ public class Play extends GameState {
         shapeRenderer.line(hudCamera.viewportWidth * .3f, hudCamera.viewportHeight / 2, hudCamera.viewportWidth * .7f, hudCamera.viewportHeight / 2);
 
         shapeRenderer.end();*/
-        worlds.get(0).renderDebug();
     }
 
     public void dispose() {
