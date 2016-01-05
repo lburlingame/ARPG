@@ -1,6 +1,7 @@
 package com.haruham.game.input;
 
 import com.haruham.game.level.World;
+import org.lwjgl.input.Keyboard;
 
 /**
  * Created on 3/26/2015.

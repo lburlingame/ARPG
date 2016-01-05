@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector3;
  */
 public class Inputs {
 
-    public static final int NUM_KEYS = 21;
+    public static final int NUM_KEYS = 24;
 
     public static boolean[] keys = new boolean[NUM_KEYS];
     public static boolean[] pkeys = new boolean[NUM_KEYS];
@@ -31,9 +31,13 @@ public class Inputs {
     public static final int N = 10;
     public static final int M = 11;
 
-    public static final int M1 = 7;
-    public static final int M2 = 8;
-    public static final int M3 = 9;
+    public static final int TAB = 7;
+    public static final int V = 8;
+    public static final int C = 9;
+
+    public static final int M1 = 21;
+    public static final int M2 = 22;
+    public static final int M3 = 23;
 
 
     public static final int ONE = 12;
@@ -130,10 +134,10 @@ public class Inputs {
 
 
         if (i == Input.Keys.UP) {
-            keys[ONE] = b;
+            keys[UP] = b;
         }
         if (i == Input.Keys.DOWN) {
-            keys[TWO] = b;
+            keys[DOWN] = b;
         }
 
         if (i == Input.Keys.LEFT) {
@@ -141,6 +145,17 @@ public class Inputs {
         }
         if (i == Input.Keys.RIGHT) {
             keys[RIGHT] = b;
+        }
+
+        if (i == Input.Keys.TAB) {
+            keys[TAB] = b;
+        }
+
+        if (i == Input.Keys.C) {
+            keys[C] = b;
+        }
+        if (i == Input.Keys.V) {
+            keys[V] = b;
         }
     }
 

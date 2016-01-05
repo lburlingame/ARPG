@@ -257,7 +257,7 @@ public class World {
 
         batch.setShader(play.getDefaultShader());
         batch.setProjectionMatrix(hudCamera.combined);
-        font.draw(batch, play.format.format(play.lightrgb[3]) + ", (" + play.format.format(play.lightrgb[0]) + ", " + play.format.format(play.lightrgb[1]) + ", " + play.format.format(play.lightrgb[2]) + ")", hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 20);
+        font.draw(batch,"(" + play.format.format(play.lightrgb[0]) + ", " + play.format.format(play.lightrgb[1]) + ", " + play.format.format(play.lightrgb[2]) + ")," + play.format.format(play.lightrgb[3]), hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 20);
 
         batch.end();
 
