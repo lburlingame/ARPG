@@ -28,14 +28,13 @@ public class Weapon extends Equipment {
 
 
 
-    public void charge(World world, com.haruham.game.obj.Character user, Vector3 target) {
+    public void charge(World world, Character user, Vector3 target) {
 
     }
 
     public void release(World world, Character user, Vector3 target) {
             target = new Vector3(target);
             world.addAttack(new AttackObject(user, new Projectile(32), new BasicCollision(damage), target, name));
-
     }
 
 }

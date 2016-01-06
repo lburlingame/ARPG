@@ -7,5 +7,5 @@ import com.haruham.game.level.World;
  * Created on 10/17/2015.
  */
 public interface AttackBehavior {
-    public void attack(World world, com.haruham.game.obj.Character user, Vector3 target);
+    public void attack(World world, Character user, Vector3 target);
 }

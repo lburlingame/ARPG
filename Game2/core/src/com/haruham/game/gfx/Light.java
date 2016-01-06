@@ -1,17 +1,43 @@
 package com.haruham.game.gfx;
 
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
+import com.haruham.game.obj.Entity;
 
-public class Light {
-    public Vector2 location;
-    public float red;
-    public float green;
-    public float blue;
+/**
+ * Created on 1/1/2016.
+ */
+public class Light{
 
-    public Light(Vector2 location, float red, float green, float blue) {
-        this.location = location;
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+    private Vector3 pos;
+    private float radius;
+
+    public Light(int x, int y, float radius) {
+        pos = new Vector3(x,y,0);
+        this.radius = radius;
+    }
+
+    public Light(Vector3 pos, float radius) {
+        this.pos = new Vector3(pos);
+        this.radius = radius;
+    }
+
+
+    public void update(float delta) {
+
+    }
+
+
+
+
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
+
+
+    public Vector3 getPosition() {
+        return new Vector3(pos);
     }
 }

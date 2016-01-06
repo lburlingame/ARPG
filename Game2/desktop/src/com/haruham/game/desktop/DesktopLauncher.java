@@ -1,5 +1,6 @@
 package com.haruham.game.desktop;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.haruham.game.GameApp;
@@ -31,8 +32,10 @@ public class DesktopLauncher {
 
         config.title = GameApp.TITLE;
         config.vSyncEnabled = true;
-
-       // System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
+        config.addIcon("other/icon32.png", Files.FileType.Internal);
+        config.addIcon("other/icon64.png", Files.FileType.Internal);
+        config.addIcon("other/icon128.png", Files.FileType.Internal);
+        // System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
 
         /*config.foregroundFPS = 0;
         config.backgroundFPS = 0;*/

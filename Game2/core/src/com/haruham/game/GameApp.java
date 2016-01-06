@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -100,12 +101,15 @@ public class GameApp implements ApplicationListener {
 
         gsm.update(Gdx.graphics.getDeltaTime());
         gsm.render();
+
         batch.begin(); // begin - fps counter will be a setting that can be toggled
 
         int fps = Gdx.graphics.getFramesPerSecond();
         font.draw(batch, fps + " ", 10, Gdx.graphics.getHeight() - 20);
+        font.draw(batch, gsm.getSize() + " ", hudCamera.viewportWidth - 100, Gdx.graphics.getHeight() - 60);
 
         batch.end(); // end
+
         pin.update();
         Inputs.update();
     }

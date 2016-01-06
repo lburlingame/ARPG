@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Created on 8/27/2015.
  */
-public class Coin extends Entity {
+public class Coin extends Pickup {
     private static Texture coin_tex = new Texture("sprites/coins_sheet.png");
     private static ArrayList<TextureRegion> coins;
 
@@ -77,6 +77,11 @@ public class Coin extends Entity {
 
     public void draw(SpriteBatch batch) {
         batch.draw(coins.get(id), pos.x - 8, pos.y + pos.z - 8, 16,16);
+    }
+
+    @Override
+    public void pickup(Character character) {
+        character.grabGold(amount);
     }
 
     @Override

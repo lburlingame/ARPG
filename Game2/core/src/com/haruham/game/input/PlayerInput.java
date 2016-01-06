@@ -1,11 +1,13 @@
 package com.haruham.game.input;
 
-import com.haruham.game.level.World;
+import com.haruham.game.obj.Character;
 
 /**
  * Created on 3/26/2015.
  */
-public class PlayerInput extends InputComponent {
+public class PlayerInput implements InputComponent {
+
+    private float cooldown = .1f;
 
     public PlayerInput() {
 
@@ -13,7 +15,7 @@ public class PlayerInput extends InputComponent {
 
 
     int i = 0;
-    public void update(float delta) {
+    public void update(Character character, float delta) {
 
         // TODO MAKE IT SO THE MOST RECENTLY ACTIVATED KEY GETS PRIORITY
         if (Inputs.isDown(Inputs.MOVE_UP)) {
@@ -42,44 +44,21 @@ public class PlayerInput extends InputComponent {
 
 
         if (Inputs.isDown(Inputs.M1)) {
-            if (i++ % 6 ==0)
-            character.attack(Inputs.pos);
+            cooldown -= delta;
+            if (cooldown <= 0) {
+                character.attack(Inputs.pos);
+                cooldown = .1f + cooldown;
+            }
         }
         if (Inputs.isReleased(Inputs.M1)) {
-            i = 0;
+            cooldown = 0;
         }
 
         if (Inputs.isPressed(Inputs.SPACE)) {
             character.setX(Inputs.pos.x);
             character.setY(Inputs.pos.y);
         }
-        if (Inputs.isPressed(Inputs.N)) {
-            character.getWorld().getEmitter().clear();
-            character.getWorld().clearAttacks();
-        }
 
-        if (Inputs.isPressed(Inputs.ONE)) {
-            character.getWorld().setShader(World.ShaderSelection.Default);
-            System.out.println("set default");
-        }
-        if (Inputs.isPressed(Inputs.TWO)) {
-            character.getWorld().setShader(World.ShaderSelection.Ambient);
-            System.out.println("set ambiant");
-
-        }
-        if (Inputs.isPressed(Inputs.THREE)) {
-            character.getWorld().setShader(World.ShaderSelection.Light);
-            System.out.println("set light");
-
-        }
-        if (Inputs.isPressed(Inputs.FOUR)) {
-            character.getWorld().setShader(World.ShaderSelection.Final);
-            System.out.println("set final");
-
-        }
-        if (Inputs.isPressed(Inputs.M3)) {
-            character.getWorld().lightOscillate = !character.getWorld().lightOscillate;
-        }
 
        /* if (input.SHIFT.isPressed()) {
             character.sprint();

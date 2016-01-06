@@ -100,7 +100,6 @@ public class TileMap {
         double tilex = x / 32;
         double tiley = y / 32;
 
-       // System.out.println(tilex + ", " + tiley + "             :             " + x + ", " + y);
 
         if (tilex < 0 || tilex >= columns) {
             currentx = -1;

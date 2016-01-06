@@ -17,8 +17,8 @@ public class ParticleEmitter {
         particles = new ArrayList<Particle>();
     }
 
-    public void bloodSpatter(Vector3 pos, Vector3 vel) {
-        for (int i = 0; i < rand.nextInt(16) + 16; i++) {
+    public void bloodSpatter(Vector3 pos, Vector3 vel, int amount) {
+        for (int i = 0; i < amount; i++) {
             float random_dx = rand.nextFloat() * 180 - 90;
             float random_dy = rand.nextFloat() * 180 - 90;
             float random_dz = rand.nextFloat() * 180 - 90;

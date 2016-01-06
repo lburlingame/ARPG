@@ -2,6 +2,7 @@ package com.haruham.game.input;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.haruham.game.GameApp;
+import com.haruham.game.level.World;
 import com.haruham.game.state.GameStateManager;
 import com.haruham.game.state.Play;
 import com.haruham.game.util.Util;
@@ -49,6 +50,47 @@ public class PlayInput {
             //camera.zoom = 1.5f;
         }
 
+        if (Inputs.isPressed(Inputs.N)) {
+            play.getWorld().getEmitter().clear();
+            play.getWorld().clearAttacks();
+        }
+
+        if (Inputs.isPressed(Inputs.ONE)) {
+            play.setShader(Play.ShaderSelection.Default);
+        }
+        if (Inputs.isPressed(Inputs.TWO)) {
+            play.setShader(Play.ShaderSelection.Ambient);
+        }
+        if (Inputs.isPressed(Inputs.THREE)) {
+            play.setShader(Play.ShaderSelection.Light);
+        }
+        if (Inputs.isPressed(Inputs.FOUR)) {
+            play.setShader(Play.ShaderSelection.Final);
+
+        }
+        if (Inputs.isPressed(Inputs.M3)) {
+            play.getWorld().lightOscillate = !play.getWorld().lightOscillate;
+        }
+
+
+        if (Inputs.isPressed(Inputs.UP)) {
+            play.lightrgb[play.lightix] += .05f;
+            play.updateShader();
+        }
+        if (Inputs.isPressed(Inputs.DOWN)) {
+            play.lightrgb[play.lightix] -= .05f;
+            play.updateShader();
+        }
+        if (Inputs.isPressed(Inputs.LEFT)) {
+            play.lightix--;
+            if (play.lightix < 0) {
+                play.lightix = play.lightrgb.length - 1;
+            }
+        }
+        if (Inputs.isPressed(Inputs.RIGHT)) {
+            play.lightix++;
+            play.lightix = play.lightix % play.lightrgb.length;
+        }
 
         /*if ((camera.zoom > .5 && amount < 0) || (camera.zoom < 2 && amount > 0)) {
             camera.zoom = camera.zoom + amount * .1f;
