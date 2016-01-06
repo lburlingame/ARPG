@@ -171,8 +171,7 @@ public class World {
 
 
                     //}
-                    emitter.bloodSpatter(characters.get(i).getPosition(), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f), 0);
-
+                    emitter.bloodSpatter(characters.get(i).getPosition(), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f), 100);
                     //if (!alive) {
                         addPickup(new Coin(characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));
                         if (Math.random() < .05f) {
