@@ -119,8 +119,8 @@ public class World {
         characters.add(player);
         objects.add(player);
 
-        for (int i = 0; i < 200; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 3000 + 200), (float) (Math.random() * 3000 + 200), 0)));
+        for (int i = 0; i < 400; i++) {
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 200), (float) (Math.random() * 150 + 200), 0)));
         }
 
 
@@ -171,7 +171,7 @@ public class World {
 
 
                     //}
-                    emitter.bloodSpatter(characters.get(i).getPosition(), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f), 100);
+                    emitter.bloodSpatter(characters.get(i).getPosition(), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f), 0);
 
                     //if (!alive) {
                         addPickup(new Coin(characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));

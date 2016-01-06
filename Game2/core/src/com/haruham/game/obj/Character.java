@@ -51,7 +51,7 @@ public class Character extends Entity{
     private InputComponent input;
     private Vector2 knockback;
     private Vector2 counterknockback;
-    private float knockbackresistance = .05f;
+    private float knockbackresistance = .1f;
 
     private int gold;
 
@@ -122,6 +122,17 @@ public class Character extends Entity{
         }*/
         pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
         pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
+
+        knockback.x += counterknockback.x * knockbackresistance;
+        knockback.y += counterknockback.y * knockbackresistance;
+
+        if (Math.abs(knockback.x) < 5 && Math.abs(knockback.y) < 5) {
+            knockback.x = 0;
+            knockback.y = 0;
+            counterknockback.x = 0;
+            counterknockback.y = 0;
+        }
+
 
 
         if ((vel.x != 0 || vel.y != 0) && STATE != JUMPING) {
