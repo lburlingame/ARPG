@@ -49,11 +49,13 @@ public class Character extends Entity{
     private HealthComponent health;
     private Weapon weapon;
     private InputComponent input;
+    private Vector2 knockback;
+    private Vector2 counterknockback;
+    private float knockbackresistance = .05f;
 
     private int gold;
 
     public Character(World world, int id, InputComponent input, Vector3 pos) {
-        input.setCharacter(this);
         this.gfx = new GraphicsComponent();
         this.world = world;
         this.health = new PlayerHealth();
@@ -63,6 +65,8 @@ public class Character extends Entity{
         this.weapon = new Weapon(1, "Hello World", "Hi there friend", 25);
 
         this.input = input;
+        this.knockback = new Vector2(0,0);
+        this.counterknockback = new Vector2(0,0);
         this.smult = 1;
 
         this.pos = pos;
@@ -87,7 +91,7 @@ public class Character extends Entity{
     }
 
     public void update(float delta) {
-        input.update(delta);
+        input.update(this, delta);
 /*
         if ((pos.x + (vel.x * vmult) > dest.x && vel.x > 0) || (pos.x + (vel.x  * vmult) < dest.x && vel.x < 0)) {
             vel.x = 0;
@@ -116,8 +120,8 @@ public class Character extends Entity{
         curr = getTile(pos.x, pos.y + (vel.y * vmult));
         if (curr != null && curr.walkable) {
         }*/
-        pos.x += (vel.x * vmult * delta);
-        pos.y += (vel.y * vmult * delta);
+        pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
+        pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
 
 
         if ((vel.x != 0 || vel.y != 0) && STATE != JUMPING) {
@@ -139,6 +143,14 @@ public class Character extends Entity{
         gfx.draw(batch, this);
     }
 
+
+    public void knockback(Vector3 knockback) {
+        this.knockback.x = knockback.x;
+        this.knockback.y = knockback.y;
+
+        counterknockback.x = knockback.x * -1;
+        counterknockback.y = knockback.y * -1;
+    }
 
 /*
     public void move(Vector2 dest)
@@ -247,7 +259,6 @@ public class Character extends Entity{
 
     public void setInput(InputComponent input) {
         this.input = input;
-        input.setCharacter(this);
     }
 
     public InputComponent getInput() {

@@ -1,12 +1,11 @@
 package com.haruham.game.input;
 
-import com.haruham.game.level.World;
-import org.lwjgl.input.Keyboard;
+import com.haruham.game.obj.Character;
 
 /**
  * Created on 3/26/2015.
  */
-public class PlayerInput extends InputComponent {
+public class PlayerInput implements InputComponent {
 
     private float cooldown = .1f;
 
@@ -16,7 +15,7 @@ public class PlayerInput extends InputComponent {
 
 
     int i = 0;
-    public void update(float delta) {
+    public void update(Character character, float delta) {
 
         // TODO MAKE IT SO THE MOST RECENTLY ACTIVATED KEY GETS PRIORITY
         if (Inputs.isDown(Inputs.MOVE_UP)) {
