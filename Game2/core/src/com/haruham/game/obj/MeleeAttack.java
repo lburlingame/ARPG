@@ -16,7 +16,7 @@ public class MeleeAttack implements AttackType {
     private float angle;
 
     public MeleeAttack() {
-        this.radius = 400;
+        this.radius = 128;
         angle = 360;
         hit = new HitCircle(new Vector3(0,0,0), radius);
     }

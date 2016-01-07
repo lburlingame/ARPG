@@ -20,17 +20,18 @@ public class KnockbackCollision implements CollisionBehavior {
     public void onCollision(AttackObject attack, Character target) {
         target.takeDamage(damage);
 
+        float knockback = 2000; //550 is pretty good for the aoe knockback
         Vector3 vel = new Vector3(0,0,0);
         Vector3 attackpos = attack.getPosition();
         Vector3 charpos = target.getPosition();
         Direction dir = Util.findSlope(attackpos.x, attackpos.y, charpos.x, charpos.y);
 
-        vel.x = Util.findX(800, dir.slope) * dir.xdir;  ///800
+        vel.x = Util.findX(knockback, dir.slope) * dir.xdir;  ///800
         vel.y = dir.slope * vel.x;
 
         if (dir.slope == 200000 || dir.slope == -200000)
         {
-            vel.y = 800 * dir.slope / Math.abs(dir.slope);
+            vel.y = knockback * dir.slope / Math.abs(dir.slope);
         }
 
         target.knockback(vel);

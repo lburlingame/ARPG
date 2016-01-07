@@ -123,6 +123,13 @@ public class World {
             addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 200), (float) (Math.random() * 150 + 200), 0)));
         }
 
+        for (int i = 0; i < 400; i++) {
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 600), (float) (Math.random() * 150 + 600), 0)));
+        }
+
+        for (int i = 0; i < 400; i++) {
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 1000), (float) (Math.random() * 150 + 1000), 0)));
+        }
 
         camera.setToOrtho(false, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         camera.position.set(player.getX(),player.getY(),0);
@@ -171,7 +178,7 @@ public class World {
 
 
                     //}
-                    emitter.bloodSpatter(characters.get(i).getPosition(), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f), 100);
+                    emitter.bloodSpatter(characters.get(i).getPosition(), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f), 12);
                     //if (!alive) {
                         addPickup(new Coin(characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));
                         if (Math.random() < .05f) {
@@ -224,11 +231,11 @@ public class World {
         while(zAngle > PI2)
             zAngle -= PI2;
 
-        float lightSize = lightOscillate? (350 + 4f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):350;
+        float lightSize = lightOscillate? (600 + 7f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):600;
         batch.draw(Art.light, 1000- lightSize*0.5f,1000-lightSize*0.5f, lightSize, lightSize);
 
         batch.draw(Art.light, player.getX() - lightSize * 0.5f, player.getY() - lightSize * 0.5f, lightSize, lightSize);
-        lightSize = lightOscillate? (600 + 7f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):600;
+        lightSize = lightOscillate? (350 + 4f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):350;
 
         for (int i = 0; i < attacks.size(); i++) {
             batch.draw(Art.light,  attacks.get(i).getX()- lightSize*0.5f, attacks.get(i).getY() - lightSize*0.5f, lightSize, lightSize);
@@ -312,8 +319,6 @@ public class World {
     }
 
     public void dispose() {
-        fbo.dispose();
-
         ambient.dispose();
         sizzle.dispose();
         font.dispose();

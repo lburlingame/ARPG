@@ -15,7 +15,7 @@ public class DesktopLauncher {
         config.addIcon("assets/icon-32.png", FileType.Internal);
  */
 
-        boolean fullscreen = false;
+        boolean fullscreen = true;
         /*fullscreen = true;*/
 
         if (fullscreen) {
