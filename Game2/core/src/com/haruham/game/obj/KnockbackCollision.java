@@ -20,7 +20,7 @@ public class KnockbackCollision implements CollisionBehavior {
     public void onCollision(AttackObject attack, Character target) {
         target.takeDamage(damage);
 
-        float knockback = 2000; //550 is pretty good for the aoe knockback
+        float knockback = 600; //550 is pretty good for the aoe knockback
         Vector3 vel = new Vector3(0,0,0);
         Vector3 attackpos = attack.getPosition();
         Vector3 charpos = target.getPosition();

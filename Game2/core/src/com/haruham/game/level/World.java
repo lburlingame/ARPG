@@ -119,16 +119,20 @@ public class World {
         characters.add(player);
         objects.add(player);
 
-        for (int i = 0; i < 400; i++) {
+        for (int i = 0; i < 150; i++) {
             addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 200), (float) (Math.random() * 150 + 200), 0)));
         }
 
-        for (int i = 0; i < 400; i++) {
+        for (int i = 0; i < 150; i++) {
             addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 600), (float) (Math.random() * 150 + 600), 0)));
         }
 
-        for (int i = 0; i < 400; i++) {
+        for (int i = 0; i < 150; i++) {
             addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 1000), (float) (Math.random() * 150 + 1000), 0)));
+        }
+
+        for (int i = 0; i < 8; i++) {
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 1400), (float) (Math.random() * 150 + 1400), 0)));
         }
 
         camera.setToOrtho(false, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
@@ -320,6 +324,7 @@ public class World {
 
     public void dispose() {
         ambient.dispose();
+        cast.dispose();
         sizzle.dispose();
         font.dispose();
 

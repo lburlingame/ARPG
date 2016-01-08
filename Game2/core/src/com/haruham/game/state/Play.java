@@ -48,7 +48,9 @@ public class Play extends GameState {
     public int lightix = 0;
 
     private Texture light = new Texture("lighttest/light3.png");
-    ;
+
+    private AssetManager assetManager;
+            ;
     private FrameBuffer fbo;
 
     //out different shaders. currentShader is just a pointer to the 4 others
@@ -75,7 +77,7 @@ public class Play extends GameState {
         pin = new PlayInput(gsm, this);
 
         // Create assets manager
-        AssetManager assetManager = new AssetManager();
+        assetManager = new AssetManager();
         // create a new sprite batch to render the graphics
         Art.load(assetManager);
         assetManager.finishLoading();
@@ -182,7 +184,8 @@ public class Play extends GameState {
         lightShader.dispose();
         light.dispose();
         fbo.dispose();
-
+        Art.unload(assetManager);
+        assetManager.dispose();
     }
 
     public void enter() {
@@ -258,9 +261,11 @@ public class Play extends GameState {
 
     public void updateShader() {
         finalShader.begin();
-        finalShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1],
-                lightrgb[2], lightrgb[3]);
+        finalShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1], lightrgb[2], lightrgb[3]);
         finalShader.end();
+        ambientShader.begin();
+        ambientShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1], lightrgb[2], lightrgb[3]);
+        ambientShader.end();
     }
 
 }
