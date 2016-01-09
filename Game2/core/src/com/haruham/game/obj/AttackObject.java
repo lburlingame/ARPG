@@ -68,8 +68,11 @@ public class AttackObject extends GameObject {
         type.update(this, delta);
         if (duration > 0) {
             duration = duration - delta;
-
         }
+    }
+
+    public void die() {
+
     }
 
     public void draw(SpriteBatch batch) {

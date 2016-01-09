@@ -51,7 +51,7 @@ public class Character extends Entity{
     private InputComponent input;
     private Vector2 knockback;
     private Vector2 counterknockback;
-    private float knockbackresistance = -.125f / 2; //.125f / 2 is pretty good
+    private float knockbackresistance = -1; //.125f / 2 is pretty good
 
     private int gold;
 
