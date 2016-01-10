@@ -36,7 +36,7 @@ public class World {
     private FrameBuffer fbo;
     
     private OrthographicCamera camera;
-    private TileMap tmap;
+    private TileMap map;
 
     private BitmapFont font = new BitmapFont();
 
@@ -88,8 +88,6 @@ public class World {
     public static final float zSpeed = 12.0f;
     public static final float PI2 = 3.1415926535897932384626433832795f * 2.0f;
 
-
-
     public World(Play play) {
         this.play = play;
 
@@ -102,7 +100,7 @@ public class World {
 
         ambient.loop(2f);
 
-        tmap = new TileMap("levels/test_map.txt", camera);
+        map = new TileMap("levels/test_map.txt", camera);
 
         objects = new ArrayList<>(); // list of all objects in world, for sorting/rendering purposes
         characters = new ArrayList<>();
@@ -144,7 +142,7 @@ public class World {
     public void update(float delta) {
         camera.unproject(Inputs.pos);
 
-        tmap.update(delta);
+        map.update(delta);
 
         for (int i = 0; i < attacks.size(); i++) {
             attacks.get(i).update(delta);
@@ -257,7 +255,7 @@ public class World {
         fbo.getColorBufferTexture().bind(1); //this is important! bind the FBO to the 2nd texture unit
         Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
 
-        tmap.draw(batch);
+        map.draw(batch);
         emitter.draw(batch);
         Collections.sort(objects);
         for (int i = 0; i < objects.size(); i++) {
@@ -383,6 +381,10 @@ public class World {
             removeAttack(attacks.get(i));
             i--;
         }
+    }
+
+    public TileMap getMap() {
+        return map;
     }
 
 

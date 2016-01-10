@@ -114,10 +114,6 @@ public class TileMap {
         return tiles[(int)tiley][(int)tilex];
     }
 
-    public Tile[][] getTiles() {
-        return tiles;
-    }
-
     public void update(float delta) {
     }
 

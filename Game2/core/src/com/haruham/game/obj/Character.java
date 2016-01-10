@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.input.PlayerInput;
+import com.haruham.game.level.Tile;
+import com.haruham.game.level.TileMap;
 import com.haruham.game.level.World;
 import com.haruham.game.gfx.GraphicsComponent;
 
@@ -113,15 +115,26 @@ public class Character extends Entity{
             STATE = PREV_STATE;
         }
 
-     /*   Tile curr = getTile(pos.x + (vel.x * vmult), pos.y);
+
+        TileMap map = world.getMap();
+        Tile curr = map.getTile(pos.x + ((vel.x * vmult)  + knockback.x) * delta, pos.y + ((vel.y * vmult) + knockback.y) * delta);
         if (curr != null && curr.walkable) {
+            pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
+            pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
+        }else{
+            curr = map.getTile(pos.x + ((vel.x * vmult)  + knockback.x) * delta, pos.y);
+            if (curr != null && curr.walkable) {
+                pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
+            }else {
+                curr = map.getTile(pos.x, pos.y + ((vel.y * vmult) + knockback.y) * delta);
+                if (curr != null && curr.walkable) {
+                    pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
+                }
+            }
         }
 
-        curr = getTile(pos.x, pos.y + (vel.y * vmult));
-        if (curr != null && curr.walkable) {
-        }*/
-        pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
-        pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
+        /*pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
+        pos.y += ((vel.y * vmult) + (knockback.y)) * delta;*/
 
         knockback.x += knockback.x * knockbackresistance;
         knockback.y += knockback.y * knockbackresistance;
