@@ -51,7 +51,7 @@ public class Character extends Entity{
     private InputComponent input;
     private Vector2 knockback;
     private Vector2 counterknockback;
-    private float knockbackresistance = -1; //.125f / 2 is pretty good
+    private float knockbackresistance = -.125f / 2; //.125f / 2 is pretty good
 
     private int gold;
 
@@ -79,7 +79,7 @@ public class Character extends Entity{
         this.hit = new HitCircle(new Vector3(0, 0, 0), dim.x / 3);
 
         //this.onCollision = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
-        gold = (int)(Math.random() * 58000) + 5;
+        gold = (int)(Math.random() * 80) + 5;
     }
 
     public void changeSize() {

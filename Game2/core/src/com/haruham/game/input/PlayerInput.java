@@ -19,20 +19,20 @@ public class PlayerInput implements InputComponent {
 
         // TODO MAKE IT SO THE MOST RECENTLY ACTIVATED KEY GETS PRIORITY
         if (Inputs.isDown(Inputs.MOVE_UP)) {
-            character.setDy(180);
+            character.setDy(120);
         }else{
             if (Inputs.isDown(Inputs.MOVE_DOWN)) {
-                character.setDy(-180);
+                character.setDy(-120);
             }else{
                 character.setDy(0);
             }
         }
 
         if (Inputs.isDown(Inputs.MOVE_LEFT)) {
-            character.setDx(-180);
+            character.setDx(-120);
         }else{
             if (Inputs.isDown(Inputs.MOVE_RIGHT)) {
-                character.setDx(180);
+                character.setDx(120);
             }else{
                 character.setDx(0);
             }

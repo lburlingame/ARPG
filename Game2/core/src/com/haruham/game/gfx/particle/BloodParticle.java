@@ -22,11 +22,9 @@ public class BloodParticle extends Particle {
 
         if (blood == null) {
             blood = new ArrayList<TextureRegion>();
-            blood.add(new TextureRegion(blood_tex,0,0,16,16));
-            blood.add(new TextureRegion(blood_tex,16,0,16,16));
-            blood.add(new TextureRegion(blood_tex,32,0,16,16));
-            blood.add(new TextureRegion(blood_tex,48,0,16,16));
-            blood.add(new TextureRegion(blood_tex,64,0,16,16));
+            for (int i = 0; i < blood_tex.getWidth(); i+=16) {
+                blood.add(new TextureRegion(blood_tex,i,0,16,16));
+            }
 
         }
        // img = images.get((int)(Math.random() * 5));
