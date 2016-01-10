@@ -34,26 +34,23 @@ import java.util.ArrayList;
 public class Play extends GameState {
 
     private BitmapFont font;
-
+    public boolean paused = false;
 
     private PlayInput pin;
-
     private ArrayList<World> worlds;
-    public boolean paused = false;
 
     // sound manager needs to be here, observer to level
     // create player character in charactercreation/selection state, and pass to play state, then pass that to world objects that are newly created
     // hud information can be gathered from that chracter object
     private Character player;
 
-    public static float ambientIntensity = .25f;
-    public static Vector3 ambientColor = new Vector3(.5f, .5f, .7f);
-
-    public float[] lightrgb = {.5f, .5f, .7f, .25f};
+    public float[] lightrgb = {.5f, .5f, .7f, .45f};
     public int lightix = 0;
 
     private Texture light = new Texture("lighttest/light3.png");
-    ;
+
+    private AssetManager assetManager;
+            ;
     private FrameBuffer fbo;
 
     //out different shaders. currentShader is just a pointer to the 4 others
@@ -80,7 +77,7 @@ public class Play extends GameState {
         pin = new PlayInput(gsm, this);
 
         // Create assets manager
-        AssetManager assetManager = new AssetManager();
+        assetManager = new AssetManager();
         // create a new sprite batch to render the graphics
         Art.load(assetManager);
         assetManager.finishLoading();
@@ -95,12 +92,9 @@ public class Play extends GameState {
         finalShader = new ShaderProgram(vertexShader, finalPixelShader);
         setShader(shaderSelection);
 
-
         ambientShader.begin();
-        ambientShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1],
-                lightrgb[2], lightrgb[3]);
+        ambientShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1], lightrgb[2], lightrgb[3]);
         ambientShader.end();
-
 
         lightShader.begin();
         lightShader.setUniformi("u_lightmap", 1);
@@ -108,8 +102,7 @@ public class Play extends GameState {
 
         finalShader.begin();
         finalShader.setUniformi("u_lightmap", 1);
-        finalShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1],
-                lightrgb[2], lightrgb[3]);
+        finalShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1], lightrgb[2], lightrgb[3]);
         finalShader.end();
 
         lightShader.begin();
@@ -119,9 +112,6 @@ public class Play extends GameState {
         finalShader.begin();
         finalShader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         finalShader.end();
-
-
-
 
         worlds = new ArrayList<World>();
         worlds.add(new World(this));
@@ -193,6 +183,9 @@ public class Play extends GameState {
         finalShader.dispose();
         lightShader.dispose();
         light.dispose();
+        fbo.dispose();
+        Art.unload(assetManager);
+        assetManager.dispose();
     }
 
     public void enter() {
@@ -268,15 +261,11 @@ public class Play extends GameState {
 
     public void updateShader() {
         finalShader.begin();
-        finalShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1],
-                lightrgb[2], lightrgb[3]);
+        finalShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1], lightrgb[2], lightrgb[3]);
         finalShader.end();
-    }
-    public float getAmbientIntensity() {
-        return lightrgb[3];
+        ambientShader.begin();
+        ambientShader.setUniformf("ambientColor", lightrgb[0], lightrgb[1], lightrgb[2], lightrgb[3]);
+        ambientShader.end();
     }
 
-    public Vector3 getAmbientColor() {
-        return new Vector3(lightrgb[0], lightrgb[1], lightrgb[2]);
-    }
 }

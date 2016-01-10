@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.input.PlayerInput;
+import com.haruham.game.level.Tile;
+import com.haruham.game.level.TileMap;
 import com.haruham.game.level.World;
 import com.haruham.game.gfx.GraphicsComponent;
 
@@ -51,7 +53,7 @@ public class Character extends Entity{
     private InputComponent input;
     private Vector2 knockback;
     private Vector2 counterknockback;
-    private float knockbackresistance = .1f;
+    private float knockbackresistance = -.125f / 2; //.125f / 2 is pretty good
 
     private int gold;
 
@@ -79,7 +81,7 @@ public class Character extends Entity{
         this.hit = new HitCircle(new Vector3(0, 0, 0), dim.x / 3);
 
         //this.onCollision = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
-        gold = (int)(Math.random() * 58000) + 5;
+        gold = (int)(Math.random() * 80) + 5;
     }
 
     public void changeSize() {
@@ -113,18 +115,29 @@ public class Character extends Entity{
             STATE = PREV_STATE;
         }
 
-     /*   Tile curr = getTile(pos.x + (vel.x * vmult), pos.y);
+
+        TileMap map = world.getMap();
+        Tile curr = map.getTile(pos.x + ((vel.x * vmult)  + knockback.x) * delta, pos.y + ((vel.y * vmult) + knockback.y) * delta);
         if (curr != null && curr.walkable) {
+            pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
+            pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
+        }else{
+            curr = map.getTile(pos.x + ((vel.x * vmult)  + knockback.x) * delta, pos.y);
+            if (curr != null && curr.walkable) {
+                pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
+            }else {
+                curr = map.getTile(pos.x, pos.y + ((vel.y * vmult) + knockback.y) * delta);
+                if (curr != null && curr.walkable) {
+                    pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
+                }
+            }
         }
 
-        curr = getTile(pos.x, pos.y + (vel.y * vmult));
-        if (curr != null && curr.walkable) {
-        }*/
-        pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
-        pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
+        /*pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
+        pos.y += ((vel.y * vmult) + (knockback.y)) * delta;*/
 
-        knockback.x += counterknockback.x * knockbackresistance;
-        knockback.y += counterknockback.y * knockbackresistance;
+        knockback.x += knockback.x * knockbackresistance;
+        knockback.y += knockback.y * knockbackresistance;
 
         if (Math.abs(knockback.x) < 5 && Math.abs(knockback.y) < 5) {
             knockback.x = 0;
@@ -156,8 +169,8 @@ public class Character extends Entity{
 
 
     public void knockback(Vector3 knockback) {
-        this.knockback.x = knockback.x;
-        this.knockback.y = knockback.y;
+        this.knockback.x += knockback.x;
+        this.knockback.y += knockback.y;
 
         counterknockback.x = knockback.x * -1;
         counterknockback.y = knockback.y * -1;
@@ -327,7 +340,7 @@ public class Character extends Entity{
     public void setWorld(World world) {
         this.world = world;
     }
-
+    public void setWeapon(Weapon weapon) { this.weapon = weapon;}
 
 }
 

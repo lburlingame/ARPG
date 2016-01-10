@@ -16,23 +16,23 @@ public class PlayerInput implements InputComponent {
 
     int i = 0;
     public void update(Character character, float delta) {
-
+        float velocity = 150;
         // TODO MAKE IT SO THE MOST RECENTLY ACTIVATED KEY GETS PRIORITY
         if (Inputs.isDown(Inputs.MOVE_UP)) {
-            character.setDy(180);
+            character.setDy(velocity);
         }else{
             if (Inputs.isDown(Inputs.MOVE_DOWN)) {
-                character.setDy(-180);
+                character.setDy(-velocity);
             }else{
                 character.setDy(0);
             }
         }
 
         if (Inputs.isDown(Inputs.MOVE_LEFT)) {
-            character.setDx(-180);
+            character.setDx(-velocity);
         }else{
             if (Inputs.isDown(Inputs.MOVE_RIGHT)) {
-                character.setDx(180);
+                character.setDx(velocity);
             }else{
                 character.setDx(0);
             }
@@ -43,7 +43,7 @@ public class PlayerInput implements InputComponent {
         }*/
 
 
-        if (Inputs.isDown(Inputs.M1)) {
+        if (Inputs.isPressed(Inputs.M1)) {
             cooldown -= delta;
             if (cooldown <= 0) {
                 character.attack(Inputs.pos);

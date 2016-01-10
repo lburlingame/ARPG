@@ -41,7 +41,7 @@ public class AttackObject extends GameObject {
         pos.z = 10;
         pos.y-=1;
         this.target = target;
-        this.duration = 3;
+        this.duration = .25f;
         vel = new Vector3(0,0,0);
        // this.pos = new Vector3(target.x, target.y, target.z);
 
@@ -68,8 +68,11 @@ public class AttackObject extends GameObject {
         type.update(this, delta);
         if (duration > 0) {
             duration = duration - delta;
-
         }
+    }
+
+    public void die() {
+
     }
 
     public void draw(SpriteBatch batch) {

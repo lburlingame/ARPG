@@ -29,7 +29,6 @@ public class DesktopLauncher {
         config.fullscreen = fullscreen;
         config.resizable = false;
 
-
         config.title = GameApp.TITLE;
         config.vSyncEnabled = true;
         config.addIcon("other/icon32.png", Files.FileType.Internal);
