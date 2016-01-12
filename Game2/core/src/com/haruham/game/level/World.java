@@ -180,11 +180,11 @@ public class World {
 
 
                     //}
-                    emitter.bloodSpatter(characters.get(i).getPosition(), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f), 12);
+                    emitter.bloodSpatter(characters.get(i).getPosition(), new Vector3(attacks.get(j).getDx()*.2f + characters.get(i).getEffectiveXvel(), attacks.get(j).getDy()*.2f + characters.get(i).getEffectiveYvel(),(float)Math.random() * 180 - 90f), 12);
                     //if (!alive) {
-                        addPickup(new Coin(characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));
+                        addPickup(new Coin(characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90)+ characters.get(i).getEffectiveYvel(), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));
                         if (Math.random() < .05f) {
-                            addPickup(new HealthGlobe(characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), 100));
+                            addPickup(new HealthGlobe(characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90) + characters.get(i).getEffectiveXvel(), (float) (Math.random() * 180 - 90)+ characters.get(i).getEffectiveYvel(), (float) (Math.random() * 45 + 45)), 100));
                         }
                         //chars.remove(j);
                     //}

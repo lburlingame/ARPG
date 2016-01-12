@@ -342,6 +342,12 @@ public class Character extends Entity{
     }
     public void setWeapon(Weapon weapon) { this.weapon = weapon;}
 
+    public float getEffectiveXvel() {
+        return vel.x + knockback.x;
+    }
+    public float getEffectiveYvel() {
+        return vel.y + knockback.y;
+    }
 }
 
 
