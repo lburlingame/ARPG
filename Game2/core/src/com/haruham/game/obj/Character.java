@@ -47,7 +47,6 @@ public class Character extends Entity{
 
     private float vmult = 1;  // velocity multiplier
 
-    private World world;
     private HealthComponent health;
     private Weapon weapon;
     private InputComponent input;
@@ -164,7 +163,10 @@ public class Character extends Entity{
     }
 
     public void draw(SpriteBatch batch) {
-        gfx.draw(batch, this);
+        if (pos.x + dim.x > world.getCamX() - world.getCamWidth() / 2 && pos.x - dim.x < world.getCamX() + world.getCamWidth() /2
+        && pos.y + dim.y > world.getCamY() - world.getCamHeight() / 2 && pos.y - dim.y < world.getCamY() + world.getCamHeight() / 2) {
+            gfx.draw(batch, this);
+        }
     }
 
 
@@ -322,9 +324,6 @@ public class Character extends Entity{
         health.takeDamage(amount);
     }
 
-    public World getWorld() {
-        return world;
-    }
 
     @Override
     public void drawDebug(ShapeRenderer renderer) {
@@ -337,9 +336,6 @@ public class Character extends Entity{
         renderer.setColor(color);
     }
 
-    public void setWorld(World world) {
-        this.world = world;
-    }
     public void setWeapon(Weapon weapon) { this.weapon = weapon;}
 
     public float getEffectiveXvel() {

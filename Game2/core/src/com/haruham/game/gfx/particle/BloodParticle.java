@@ -18,7 +18,7 @@ public class BloodParticle extends Particle {
 
     public BloodParticle(Vector3 pos, Vector3 vel) {
         super(pos, vel);
-        duration = (int)((Math.random() * 120) + 360); // 120  120  420
+        duration = (int)((Math.random() * 120) + 720); // 120  120  420
 
         if (blood == null) {
             blood = new ArrayList<TextureRegion>();

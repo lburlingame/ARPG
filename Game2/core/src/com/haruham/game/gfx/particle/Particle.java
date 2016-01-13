@@ -10,11 +10,14 @@ public abstract class Particle {
 
     protected Vector3 pos;
     protected Vector3 vel;
+    protected Vector3 dim;
+
     protected int duration;
 
     public Particle(Vector3 pos, Vector3 v) {
         this.pos = pos;
         this.vel = v;
+        this.dim = new Vector3(16,16,0);
     }
 
     public abstract void update(float delta);
