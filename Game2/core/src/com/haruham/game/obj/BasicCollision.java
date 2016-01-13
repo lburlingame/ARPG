@@ -18,6 +18,6 @@ public class BasicCollision implements CollisionBehavior {
     public void onCollision(AttackObject attack, Character target) {
         target.takeDamage(damage);
         Vector3 attackvel = attack.getVelocity();
-        target.knockback(new Vector3(attackvel.x * 2, attackvel.y * 2, 0));
+        target.knockback(new Vector3(attackvel.x, attackvel.y, 0));
     }
 }
