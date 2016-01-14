@@ -114,7 +114,7 @@ public class Character extends Entity{
             STATE = PREV_STATE;
         }
 
-
+/*
         TileMap map = world.getMap();
         Tile curr = map.getTile(pos.x + ((vel.x * vmult)  + knockback.x) * delta, pos.y + ((vel.y * vmult) + knockback.y) * delta);
         if (curr != null && curr.walkable) {
@@ -130,10 +130,10 @@ public class Character extends Entity{
                     pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
                 }
             }
-        }
+        }*/
 
-        /*pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
-        pos.y += ((vel.y * vmult) + (knockback.y)) * delta;*/
+        pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
+        pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
 
         knockback.x += knockback.x * knockbackresistance;
         knockback.y += knockback.y * knockbackresistance;
