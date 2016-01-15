@@ -52,14 +52,14 @@ public class Character extends Entity{
     private InputComponent input;
     private Vector2 knockback;
     private Vector2 counterknockback;
-    private float knockbackresistance = -.125f / 2; //.125f / 2 is pretty good
+    private float knockbackresistance = -.125f / 2 * 60; //.125f / 2 is pretty good
 
     private int gold;
 
     public Character(World world, int id, InputComponent input, Vector3 pos) {
         this.gfx = new GraphicsComponent();
         this.world = world;
-        this.health = new PlayerHealth();
+        this.health = new PlayerHealth(100);
         this.id = id;
         this.UID = new Integer(NEXT_UID);
         NEXT_UID++;
@@ -114,7 +114,7 @@ public class Character extends Entity{
             STATE = PREV_STATE;
         }
 
-/*
+
         TileMap map = world.getMap();
         Tile curr = map.getTile(pos.x + ((vel.x * vmult)  + knockback.x) * delta, pos.y + ((vel.y * vmult) + knockback.y) * delta);
         if (curr != null && curr.walkable) {
@@ -130,13 +130,13 @@ public class Character extends Entity{
                     pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
                 }
             }
-        }*/
+        }
 
-        pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
+       /* pos.x += ((vel.x * vmult)  + (knockback.x)) * delta;
         pos.y += ((vel.y * vmult) + (knockback.y)) * delta;
-
-        knockback.x += knockback.x * knockbackresistance;
-        knockback.y += knockback.y * knockbackresistance;
+*/
+        knockback.x += knockback.x * knockbackresistance * delta;
+        knockback.y += knockback.y * knockbackresistance * delta;
 
         if (Math.abs(knockback.x) < 5 && Math.abs(knockback.y) < 5) {
             knockback.x = 0;
@@ -320,8 +320,8 @@ public class Character extends Entity{
         weapon.release(world, this, target);
     }
 
-    public void takeDamage(int amount) {
-        health.takeDamage(amount);
+    public void takeHit(AttackObject attack) {
+        health.takeHit(attack, this);
     }
 
 
@@ -338,12 +338,17 @@ public class Character extends Entity{
 
     public void setWeapon(Weapon weapon) { this.weapon = weapon;}
 
-    public float getEffectiveXvel() {
+    public float getTotalDx() {
         return vel.x + knockback.x;
     }
-    public float getEffectiveYvel() {
+    public float getTotalDy() {
         return vel.y + knockback.y;
     }
+
+    public boolean isAlive() {
+        return health.isAlive();
+    }
+
 }
 
 

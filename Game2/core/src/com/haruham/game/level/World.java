@@ -180,14 +180,14 @@ public class World {
 
 
                     //}
-                    emitter.bloodSpatter(characters.get(i).getPosition(), new Vector3(attacks.get(j).getDx()*.2f + characters.get(i).getEffectiveXvel(), attacks.get(j).getDy()*.2f + characters.get(i).getEffectiveYvel(),(float)Math.random() * 180 - 90f), 50);
-                    //if (!alive) {
+                    if (!characters.get(i).isAlive()) {
                         addPickup(new Coin(this, characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));
                         if (Math.random() < .05f) {
                             addPickup(new HealthGlobe(this, characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), 100));
                         }
-                        //chars.remove(j);
-                    //}
+                        removeCharacter(characters.get(i));
+                        i--;
+                    }
 
                 }
             }
@@ -208,7 +208,7 @@ public class World {
         }
         emitter.update(delta);
 
-        lerp(player.getPosition());
+        lerp(player.getPosition(), delta);
 
         if (collisionsound > 0) {
             collisionsound -= delta;
@@ -229,7 +229,7 @@ public class World {
 
         batch.setBlendFunction(batch.getBlendSrcFunc(), GL20.GL_ONE);
         //float lightSize = lightOscillate? (700 + 10f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):700;
-        zAngle += .014 *zSpeed;
+        zAngle += .014 * 60 *zSpeed * Gdx.graphics.getDeltaTime();
         while(zAngle > PI2)
             zAngle -= PI2;
 
@@ -304,11 +304,11 @@ public class World {
 
     // lerps the game camera to position;
     // need to change so that its called based on player pos
-    public void lerp(Vector3 pos) {
-        float lerp = .05f;//.0125f;
+    public void lerp(Vector3 pos, float delta) {
+        float lerp = 3f;//3f;//.05;
         Vector3 position = camera.position;
-        position.x += (pos.x - position.x) * lerp;
-        position.y += (pos.y - position.y) * lerp * 1.5;
+        position.x += (pos.x - position.x) * lerp * delta;
+        position.y += (pos.y - position.y) * lerp * 1.5 * delta;
     }
 
 
@@ -354,7 +354,10 @@ public class World {
         characters.add(character);
         objects.add(character);
     }
-
+    public void removeCharacter(Character character) {
+        characters.remove(character);
+        objects.remove(character);
+    }
     public void addNeutral(Character character) {
 
     }

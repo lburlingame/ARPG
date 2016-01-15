@@ -31,9 +31,10 @@ public class AttackObject extends GameObject {
     protected String name;
 
     protected Vector3 target;
+    private int damage;
 
 
-    public AttackObject(Character owner, AttackType type, CollisionBehavior collision, Vector3 target, String name) {
+    public AttackObject(Character owner, AttackType type, CollisionBehavior collision, Vector3 target, int damage) {
         this.owner = owner;
         this.type = type;
         this.collision = collision;
@@ -41,11 +42,12 @@ public class AttackObject extends GameObject {
         pos.z = 10;
         pos.y-=1;
         this.target = target;
-        this.duration = 5;  // .25f
+        this.duration = 60;  // .25f
+        this.damage = damage;
         vel = new Vector3(0,0,0);
        // this.pos = new Vector3(target.x, target.y, target.z);
 
-        this.name = name;
+        //this.name = name;
         hitids = new ArrayList<Integer>(); // add casters onCollision id to this;
         hitids.add(owner.getUID());
         type.init(this);
@@ -62,7 +64,7 @@ public class AttackObject extends GameObject {
 
     public boolean collidesWith(Character character) {
         return type.collidesWith(this, character);
-    }
+    } // could be void, and instead of returning boolean that it has collided, it just straight away calls the collision.oncollision, observers will take care of the sound
 
     public void update(float delta) {
         type.update(this, delta);
@@ -91,4 +93,7 @@ public class AttackObject extends GameObject {
         return duration > 0;
     }
 
+    public int getDamage() {
+        return damage;
+    }
 }

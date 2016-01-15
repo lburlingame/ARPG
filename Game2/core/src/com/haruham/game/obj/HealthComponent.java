@@ -10,9 +10,9 @@ public abstract class HealthComponent {
 
     protected boolean alive;
 
-    public abstract void takeHit(AttackObject attack);
+    public abstract void takeHit(AttackObject attack, Character character);
 
-    public void takeDamage(int amount) {
+    protected void takeDamage(int amount) {
         currHealth = currHealth - amount;
         if (currHealth <= 0) {
             currHealth = 0;
