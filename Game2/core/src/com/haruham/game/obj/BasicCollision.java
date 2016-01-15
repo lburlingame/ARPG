@@ -15,8 +15,8 @@ public class BasicCollision implements CollisionBehavior {
 
     // maybe send an release report instead, containing information such as knockback and stuff
     public void onCollision(AttackObject attack, Character target) {
+        Vector3 attackvel = attack.getVelocity();
+        target.knockback(new Vector3(attackvel.x, attackvel.y, 0));
         target.takeHit(attack);
-        /*    Vector3 attackvel = attack.getVelocity();
-        target.knockback(new Vector3(attackvel.x, attackvel.y, 0));*/
     }
 }

@@ -42,7 +42,7 @@ public class AttackObject extends GameObject {
         pos.z = 10;
         pos.y-=1;
         this.target = target;
-        this.duration = 60;  // .25f
+        this.duration = 3;  // .25f
         this.damage = damage;
         vel = new Vector3(0,0,0);
        // this.pos = new Vector3(target.x, target.y, target.z);

@@ -33,7 +33,7 @@ public class ParticleEmitter {
 
     public void update(float delta) {
         for (int i = 0; i < particles.size(); i++) {
-            if (particles.get(i).getDuration() == 0) {
+            if (particles.get(i).getDuration() <= 0) {
                 particles.remove(i);
                 i--;
             }else{

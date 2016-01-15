@@ -43,7 +43,7 @@ public class PlayerInput implements InputComponent {
         }*/
 
 
-        if (Inputs.isPressed(Inputs.M1)) {
+        if (Inputs.isDown(Inputs.M1)) {
             cooldown -= delta;
             if (cooldown <= 0) {
                 character.attack(Inputs.pos);

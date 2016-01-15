@@ -12,7 +12,7 @@ public abstract class Particle {
     protected Vector3 vel;
     protected Vector3 dim;
 
-    protected int duration;
+    protected float duration;
 
     public Particle(Vector3 pos, Vector3 v) {
         this.pos = pos;
@@ -24,7 +24,7 @@ public abstract class Particle {
 
     public abstract void draw(SpriteBatch batch);
 
-    public int getDuration() {
+    public float getDuration() {
         return duration;
     }
 

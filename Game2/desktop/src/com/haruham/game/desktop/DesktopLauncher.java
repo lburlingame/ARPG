@@ -30,9 +30,9 @@ public class DesktopLauncher {
         config.resizable = false;
 
         config.title = GameApp.TITLE;
-        config.vSyncEnabled = false;
-        config.foregroundFPS = 180;
-        config.backgroundFPS = 180;
+        config.vSyncEnabled = true;
+/*        config.foregroundFPS = 180;
+        config.backgroundFPS = 180;*/
         config.addIcon("other/icon32.png", Files.FileType.Internal);
         config.addIcon("other/icon64.png", Files.FileType.Internal);
         config.addIcon("other/icon128.png", Files.FileType.Internal);
