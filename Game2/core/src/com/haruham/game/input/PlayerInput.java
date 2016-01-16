@@ -7,7 +7,7 @@ import com.haruham.game.obj.Character;
  */
 public class PlayerInput implements InputComponent {
 
-    private float cooldown = .1f;
+    private float cooldown = .15f;
 
     public PlayerInput() {
 
@@ -47,7 +47,7 @@ public class PlayerInput implements InputComponent {
             cooldown -= delta;
             if (cooldown <= 0) {
                 character.attack(Inputs.pos);
-                cooldown = .1f + cooldown;
+                cooldown = .15f + cooldown;
             }
         }
         if (Inputs.isReleased(Inputs.M1)) {
