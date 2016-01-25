@@ -55,7 +55,11 @@ public class PlayInput {
 
         if (Inputs.isPressed(Inputs.N)) {
             play.getWorld().getEmitter().clear();
+        }
+
+        if (Inputs.isPressed(Inputs.V)) {
             play.getWorld().clearAttacks();
+
         }
 
         if (Inputs.isPressed(Inputs.ONE)) {

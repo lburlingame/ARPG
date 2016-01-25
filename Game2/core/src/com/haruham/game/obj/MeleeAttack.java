@@ -50,7 +50,7 @@ public class MeleeAttack implements AttackType {
         attack.setX(attack.getX() + attack.getDx() * delta);
         attack.setY(attack.getY() + attack.getDy() * delta);
         attack.setZ(attack.getZ() + attack.getDz() * delta);
-        this.radius += 12;
+        this.radius += 20; //12;
         hit.setRadius(radius);
     }
 

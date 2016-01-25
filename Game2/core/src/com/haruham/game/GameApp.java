@@ -117,6 +117,8 @@ public class GameApp implements ApplicationListener {
     public void dispose() {
         gsm.dispose();
         batch.dispose();
+        shapeRenderer.dispose();
+        font.dispose();
        // System.out.println("dispose");
         AL.destroy();
         System.exit(1);
@@ -137,11 +139,11 @@ public class GameApp implements ApplicationListener {
     }
 
     public void pause() {
-        System.out.println("pause");
+        System.out.println("#pause");
     }
 
     public void resume() {
-        System.out.println("Resume");
+        System.out.println("#resume");
     }
 
     public ShapeRenderer getShapeRenderer() {
