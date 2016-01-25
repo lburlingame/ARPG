@@ -1,5 +1,7 @@
 package com.haruham.game.input;
 
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.obj.Character;
 
 /**
@@ -54,10 +56,16 @@ public class PlayerInput implements InputComponent {
             cooldown = 0;
         }
 
+        if (Inputs.isPressed(Inputs.M3)) {
+            character.knockback(new Vector3(MathUtils.random()* 300 - 150, MathUtils.random() * 300 - 150, 0));
+        }
+
         if (Inputs.isPressed(Inputs.SPACE)) {
             character.setX(Inputs.pos.x);
             character.setY(Inputs.pos.y);
         }
+
+
 
 
        /* if (input.SHIFT.isPressed()) {

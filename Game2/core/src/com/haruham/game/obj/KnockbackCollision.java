@@ -18,7 +18,7 @@ public class KnockbackCollision implements CollisionBehavior {
     // maybe send an release report instead, containing information such as knockback and stuff
     public void onCollision(AttackObject attack, Character target) {
 
-        float knockback = 120; //550 is pretty good for the aoe knockback
+        float knockback = 550; //550 is pretty good for the aoe knockback
         Vector3 vel = new Vector3(0,0,0);
         Vector3 attackpos = attack.getPosition();
         Vector3 charpos = target.getPosition();

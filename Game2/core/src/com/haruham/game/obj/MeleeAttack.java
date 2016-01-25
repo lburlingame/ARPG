@@ -17,8 +17,8 @@ public class MeleeAttack implements AttackType {
     private float angle;
 
     public MeleeAttack() {
-        this.radius = 128;
-        angle = 120;
+        this.radius = 0;
+        angle = 360;
         hit = new HitCircle(new Vector3(0,0,0), radius);
     }
 
@@ -50,6 +50,8 @@ public class MeleeAttack implements AttackType {
         attack.setX(attack.getX() + attack.getDx() * delta);
         attack.setY(attack.getY() + attack.getDy() * delta);
         attack.setZ(attack.getZ() + attack.getDz() * delta);
+        this.radius += 12;
+        hit.setRadius(radius);
     }
 
     public void draw(AttackObject attack, SpriteBatch batch) {

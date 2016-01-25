@@ -55,6 +55,18 @@ public class Util {
         return new Direction(xdir, slope);
     }
 
+
+    /*
+            y = mx
+            h2 = x2 + y2
+
+            h2 = x2 + (mx)2
+            h2 = x2 + m2x2
+            h2 = x2(1 + m2)
+            h2/(1+m2) = x2
+            sqrt(h2/(1+m2)) = x
+     */
+
     public static float findX(float hypotenuse, float slope) {
         return (float) Math.sqrt(Math.pow(hypotenuse, 2) / (1 + Math.pow(slope, 2)));
     }
