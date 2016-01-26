@@ -406,6 +406,15 @@ public class World {
         return camera.viewportHeight;
     }
 
+    public void clearEverything() {
+        characters.clear();
+        objects.clear();
+        emitter.clear();
+        attacks.clear();
+        pickups.clear();
+        addCharacter(player);
+    }
+
 
     // remove this stuff later
 

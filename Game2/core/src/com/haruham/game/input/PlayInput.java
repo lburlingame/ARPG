@@ -62,6 +62,10 @@ public class PlayInput {
 
         }
 
+        if (Inputs.isPressed(Inputs.TAB)) {
+            play.getWorld().clearEverything();
+        }
+
         if (Inputs.isPressed(Inputs.ONE)) {
             play.setShader(Play.ShaderSelection.Default);
         }

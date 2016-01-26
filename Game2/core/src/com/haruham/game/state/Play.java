@@ -44,7 +44,7 @@ public class Play extends GameState {
     // hud information can be gathered from that chracter object
     private Character player;
 
-    public float[] lightrgb = {.5f, .5f, .7f, .45f};
+    public float[] lightrgb = {.5f, .5f, .7f, .65f};
     public int lightix = 0;
 
     private Texture light = new Texture("lighttest/light3.png");
