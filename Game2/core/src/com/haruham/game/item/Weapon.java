@@ -21,7 +21,7 @@ public class Weapon extends Equipment {
 
     public Weapon(int itemID, String name, String description, int levelReq) {
         super(itemID, name, description, levelReq);
-        damage = 50;
+        damage = 100;
         attackTime = 1.5f;
         charge = 0;
     }

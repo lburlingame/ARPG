@@ -16,8 +16,8 @@ public class PlayerHealth extends HealthComponent {
     }
 
     public void takeHit(AttackObject attack, Character character) {
-        takeDamage(attack.getDamage());
-        character.getWorld().getEmitter().bloodSpatter(character.getPosition(), new Vector3(attack.getDx()*.2f + character.getTotalDx(), attack.getDy()*.2f + character.getTotalDy(),(float)Math.random() * 180 - 90f), 50);
+        float percentage = takeDamage(attack.getDamage()); // takedamage returns a float, % of health taken... use this to spawn blood
+        character.getWorld().getEmitter().bloodSpatter(character.getPosition(), new Vector3(attack.getDx()*.2f + character.getTotalDx(), attack.getDy()*.2f + character.getTotalDy(),(float)Math.random() * 180 - 90f), (int)(50 * percentage));
 
     }
 

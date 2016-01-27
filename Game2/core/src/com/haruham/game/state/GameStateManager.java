@@ -70,16 +70,12 @@ public class GameStateManager {
     }
 
     public void pushState(int state) {
-        try {
-            if (states.size() > 0) {
-                states.peek().exit();
-            }
-            GameState gameState = getState(state);
-            gameState.enter();
-            states.push(gameState);
-        }catch(Exception e) {
-            System.out.println(e.getMessage());
+        if (states.size() > 0) {
+            states.peek().exit();
         }
+        GameState gameState = getState(state);
+        gameState.enter();
+        states.push(gameState);
     }
 
     public void popState(boolean dispose) {

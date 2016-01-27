@@ -215,6 +215,7 @@ public class World {
     }
 
     public void render() {
+        camera.update();
 
         fbo.begin();
         batch.setProjectionMatrix(camera.combined);
@@ -266,7 +267,6 @@ public class World {
         font.draw(batch,"(" + play.format.format(play.lightrgb[0]) + ", " + play.format.format(play.lightrgb[1]) + ", " + play.format.format(play.lightrgb[2]) + ")," + play.format.format(play.lightrgb[3]), hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 20);
 
         batch.end();
-        camera.update();
 
        /* shapeRenderer.setColor(new Color(.0f, .0f, .05f, 0.4f));
         font.draw(batch, shapeRenderer.getColor().r + ", " + shapeRenderer.getColor().g + ", " + shapeRenderer.getColor().b + ", " + shapeRenderer.getColor().a, hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 40);
