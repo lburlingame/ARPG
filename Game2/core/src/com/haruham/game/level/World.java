@@ -209,14 +209,12 @@ public class World {
         emitter.update(delta);
 
         lerp(player.getPosition(), delta);
-
         if (collisionsound > 0) {
             collisionsound -= delta;
         }
     }
 
     public void render() {
-        camera.update();
 
         fbo.begin();
         batch.setProjectionMatrix(camera.combined);
@@ -268,6 +266,7 @@ public class World {
         font.draw(batch,"(" + play.format.format(play.lightrgb[0]) + ", " + play.format.format(play.lightrgb[1]) + ", " + play.format.format(play.lightrgb[2]) + ")," + play.format.format(play.lightrgb[3]), hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 20);
 
         batch.end();
+        camera.update();
 
        /* shapeRenderer.setColor(new Color(.0f, .0f, .05f, 0.4f));
         font.draw(batch, shapeRenderer.getColor().r + ", " + shapeRenderer.getColor().g + ", " + shapeRenderer.getColor().b + ", " + shapeRenderer.getColor().a, hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 40);
@@ -306,10 +305,13 @@ public class World {
     // need to change so that its called based on player pos
     public void lerp(Vector3 pos, float delta) {
         float lerp = 3f;//3f;//.05;
-        Vector3 position = camera.position;
+        Vector3 position = new Vector3(camera.position);
+        Vector3 intpos = camera.position;
         position.x += (pos.x - position.x) * lerp * delta;
         position.y += (pos.y - position.y) * lerp * 1.5 * delta;
-    }
+        intpos.x = (float)(position.x);
+        intpos.y = (float)(position.y);
+;    }
 
 
     public void start() {

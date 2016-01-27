@@ -1,8 +1,6 @@
 package com.haruham.game.ui;
 
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * Created on 5/5/2015.
@@ -10,11 +8,6 @@ import java.awt.image.BufferedImage;
 public class DayCycle {
 
 
-    private static BufferedImage SUN;
-   // private static SpriteSheet sunsheet = new SpriteSheet("/gui/sun_icon.png");
-
-    private static BufferedImage MOON;
-   // private static SpriteSheet moonsheet = new SpriteSheet("/gui/moon_icon.png");
 
     private int flicker_timer = 0;
     private int flicker_duration = 16;
@@ -73,7 +66,7 @@ public class DayCycle {
         moon_angle = -(current_time/DAY_CYCLE * 2 * pi) - pi;//* 9 / 10);
     }
 
-    public void draw(Graphics g) {
+    /*public void draw(Graphics g) {
         int sun_x = (int)(origin_x + Math.sin(sun_angle) * radius);
         int sun_y = (int)(origin_y + Math.cos(sun_angle) * radius);
 
@@ -85,7 +78,7 @@ public class DayCycle {
         //g.drawImage(MOON, moon_x, moon_y, 32, 32, null);
         g.setColor(Color.white);
         g.fillOval((int)(origin_x+16),(int)(origin_y+16),2,2);
-    }
+    }*/
 
     public double getLightDist() {
         return light_distance;
