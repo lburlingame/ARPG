@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.level.TileMap;
+import com.haruham.game.level.World;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,9 @@ public class HealthGlobe extends Pickup {
     private int amount;
    // private int id;
 
-    public HealthGlobe(Vector3 pos, Vector3 vel, int amount) {
+    public HealthGlobe(World world, Vector3 pos, Vector3 vel, int amount) {
+        this.world = world;
+
         if (globes == null)
         {
             globes = new ArrayList<TextureRegion>();
@@ -59,7 +62,10 @@ public class HealthGlobe extends Pickup {
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(globes.get(0), pos.x-8, pos.y + pos.z - 8, 16, 16);
+        if (pos.x + dim.x > world.getCamX() - world.getCamWidth() / 2 && pos.x - dim.x < world.getCamX() + world.getCamWidth() /2
+                && pos.y + dim.y > world.getCamY() - world.getCamHeight() / 2 && pos.y - dim.y < world.getCamY() + world.getCamHeight() / 2) {
+            batch.draw(globes.get(0), pos.x - 8, pos.y + pos.z - 8, 16, 16);
+        }
     }
 
     @Override

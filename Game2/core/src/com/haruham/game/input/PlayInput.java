@@ -1,8 +1,11 @@
 package com.haruham.game.input;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.GameApp;
 import com.haruham.game.level.World;
+import com.haruham.game.obj.*;
 import com.haruham.game.state.GameStateManager;
 import com.haruham.game.state.Play;
 import com.haruham.game.util.Util;
@@ -52,7 +55,15 @@ public class PlayInput {
 
         if (Inputs.isPressed(Inputs.N)) {
             play.getWorld().getEmitter().clear();
+        }
+
+        if (Inputs.isPressed(Inputs.V)) {
             play.getWorld().clearAttacks();
+
+        }
+
+        if (Inputs.isPressed(Inputs.TAB)) {
+            play.getWorld().clearEverything();
         }
 
         if (Inputs.isPressed(Inputs.ONE)) {
@@ -68,10 +79,6 @@ public class PlayInput {
             play.setShader(Play.ShaderSelection.Final);
 
         }
-        if (Inputs.isPressed(Inputs.M3)) {
-            play.getWorld().lightOscillate = !play.getWorld().lightOscillate;
-        }
-
 
         if (Inputs.isPressed(Inputs.UP)) {
             play.lightrgb[play.lightix] += .05f;
@@ -91,7 +98,11 @@ public class PlayInput {
             play.lightix++;
             play.lightix = play.lightix % play.lightrgb.length;
         }
-
+        if (Inputs.isPressed(Inputs.C)) {
+            for (int i = 0; i < 150; i++) {
+                play.getWorld().addCharacter(new com.haruham.game.obj.Character(play.getWorld(), 1, new NullInput(), new Vector3(play.getPlayer().getPosition().add(MathUtils.random()*300-150, MathUtils.random()*300-150,0))));
+            }
+        }
         /*if ((camera.zoom > .5 && amount < 0) || (camera.zoom < 2 && amount > 0)) {
             camera.zoom = camera.zoom + amount * .1f;
         }*/

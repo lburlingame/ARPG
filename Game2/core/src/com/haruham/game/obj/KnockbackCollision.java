@@ -9,16 +9,14 @@ import com.haruham.game.util.Util;
  */
 public class KnockbackCollision implements CollisionBehavior {
 
-    private int damage;
 
-    public KnockbackCollision(int damage) {
-        this.damage = damage;
+    public KnockbackCollision() {
+
     }
 
 
     // maybe send an release report instead, containing information such as knockback and stuff
     public void onCollision(AttackObject attack, Character target) {
-        target.takeDamage(damage);
 
         float knockback = 550; //550 is pretty good for the aoe knockback
         Vector3 vel = new Vector3(0,0,0);
@@ -35,5 +33,7 @@ public class KnockbackCollision implements CollisionBehavior {
         }
 
         target.knockback(vel);
+
+        target.takeHit(attack);
     }
 }

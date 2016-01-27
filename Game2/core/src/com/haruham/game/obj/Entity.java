@@ -3,6 +3,7 @@ package com.haruham.game.obj;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.haruham.game.level.World;
 import com.haruham.game.util.Util;
 
 /**
@@ -11,6 +12,7 @@ import com.haruham.game.util.Util;
 public abstract class Entity extends GameObject {
 
     protected HitCircle hit;
+    protected World world;
 
     public HitCircle getHit() {
         return hit;
@@ -32,6 +34,12 @@ public abstract class Entity extends GameObject {
 
     public void drawDebug(ShapeRenderer renderer) {
         renderer.circle(pos.x + hit.getCenter().x, pos.y + hit.getCenter().y, hit.getRadius());
+    }
+    public World getWorld() {
+        return world;
+    }
+    public void setWorld(World world) {
+        this.world = world;
     }
 
 }

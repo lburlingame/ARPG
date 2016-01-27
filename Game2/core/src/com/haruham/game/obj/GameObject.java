@@ -22,7 +22,6 @@ public abstract class GameObject implements Comparable<GameObject>, Subject{
     protected Vector3 vel;
 
 
-
     public Vector3 getPosition() {
         return new Vector3(pos.x, pos.y, pos.z);
     }

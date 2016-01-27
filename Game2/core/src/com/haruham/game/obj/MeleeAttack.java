@@ -1,5 +1,6 @@
 package com.haruham.game.obj;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
@@ -16,7 +17,7 @@ public class MeleeAttack implements AttackType {
     private float angle;
 
     public MeleeAttack() {
-        this.radius = 128;
+        this.radius = 0;
         angle = 360;
         hit = new HitCircle(new Vector3(0,0,0), radius);
     }
@@ -49,6 +50,8 @@ public class MeleeAttack implements AttackType {
         attack.setX(attack.getX() + attack.getDx() * delta);
         attack.setY(attack.getY() + attack.getDy() * delta);
         attack.setZ(attack.getZ() + attack.getDz() * delta);
+        this.radius += 20; //12;
+        hit.setRadius(radius);
     }
 
     public void draw(AttackObject attack, SpriteBatch batch) {
@@ -56,6 +59,9 @@ public class MeleeAttack implements AttackType {
     }
 
     public void drawDebug(AttackObject attack, ShapeRenderer renderer) {
+        Color prev = renderer.getColor();
+        renderer.setColor(Color.RED);
         renderer.circle(attack.getX() + hit.getCenter().x, attack.getY() + hit.getCenter().y, hit.getRadius());
+        renderer.setColor(prev);
     }
 }

@@ -109,7 +109,7 @@ public class World {
         items = new ArrayList<>();
         pickups = new ArrayList<>();
 
-        emitter = new ParticleEmitter();
+        emitter = new ParticleEmitter(this);
 
         player = play.getPlayer();
         player.setWorld(this);
@@ -118,19 +118,19 @@ public class World {
         objects.add(player);
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 200), (float) (Math.random() * 150 + 200), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 200), (float) (Math.random() * 300 + 200), 0)));
         }
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 600), (float) (Math.random() * 150 + 600), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 600), (float) (Math.random() * 300 + 600), 0)));
         }
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 1000), (float) (Math.random() * 150 + 1000), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 1000), (float) (Math.random() * 300 + 1000), 0)));
         }
 
         for (int i = 0; i < 8; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 150 + 1400), (float) (Math.random() * 150 + 1400), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 1400), (float) (Math.random() * 300 + 1400), 0)));
         }
 
         camera.setToOrtho(false, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
@@ -180,14 +180,14 @@ public class World {
 
 
                     //}
-                    emitter.bloodSpatter(characters.get(i).getPosition(), new Vector3(attacks.get(j).getDx()*.2f, attacks.get(j).getDy()*.2f,(float)Math.random() * 180 - 90f), 12);
-                    //if (!alive) {
-                        addPickup(new Coin(characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));
+                    if (!characters.get(i).isAlive()) {
+                        addPickup(new Coin(this, characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));
                         if (Math.random() < .05f) {
-                            addPickup(new HealthGlobe(characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), 100));
+                            addPickup(new HealthGlobe(this, characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), 100));
                         }
-                        //chars.remove(j);
-                    //}
+                        removeCharacter(characters.get(i));
+                        i--;
+                    }
 
                 }
             }
@@ -208,8 +208,7 @@ public class World {
         }
         emitter.update(delta);
 
-        lerp(player.getPosition());
-
+        lerp(player.getPosition(), delta);
         if (collisionsound > 0) {
             collisionsound -= delta;
         }
@@ -229,7 +228,7 @@ public class World {
 
         batch.setBlendFunction(batch.getBlendSrcFunc(), GL20.GL_ONE);
         //float lightSize = lightOscillate? (700 + 10f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):700;
-        zAngle += .014 *zSpeed;
+        zAngle += .014 * 60 *zSpeed * Gdx.graphics.getDeltaTime();
         while(zAngle > PI2)
             zAngle -= PI2;
 
@@ -304,12 +303,15 @@ public class World {
 
     // lerps the game camera to position;
     // need to change so that its called based on player pos
-    public void lerp(Vector3 pos) {
-        float lerp = .05f;//.0125f;
-        Vector3 position = camera.position;
-        position.x += (pos.x - position.x) * lerp;
-        position.y += (pos.y - position.y) * lerp * 1.5;
-    }
+    public void lerp(Vector3 pos, float delta) {
+        float lerp = 3f;//3f;//.05;
+        Vector3 position = new Vector3(camera.position);
+        Vector3 intpos = camera.position;
+        position.x += (pos.x - position.x) * lerp * delta;
+        position.y += (pos.y - position.y) * lerp * 1.5 * delta;
+        intpos.x = (float)(position.x);
+        intpos.y = (float)(position.y);
+;    }
 
 
     public void start() {
@@ -354,7 +356,10 @@ public class World {
         characters.add(character);
         objects.add(character);
     }
-
+    public void removeCharacter(Character character) {
+        characters.remove(character);
+        objects.remove(character);
+    }
     public void addNeutral(Character character) {
 
     }
@@ -385,6 +390,31 @@ public class World {
 
     public TileMap getMap() {
         return map;
+    }
+
+    public float getCamX() {
+        return camera.position.x;
+    }
+
+    public float getCamY() {
+        return camera.position.y;
+    }
+
+    public float getCamWidth() {
+        return camera.viewportWidth;
+    }
+
+    public float getCamHeight() {
+        return camera.viewportHeight;
+    }
+
+    public void clearEverything() {
+        characters.clear();
+        objects.clear();
+        emitter.clear();
+        attacks.clear();
+        pickups.clear();
+        addCharacter(player);
     }
 
 

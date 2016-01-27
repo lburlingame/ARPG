@@ -36,6 +36,7 @@ public class GraphicsComponent {
     }
 
     public void draw(SpriteBatch batch, Character character){
+        batch.draw(Art.shadow, character.getX()-character.getDimx()/2, character.getY() - character.getDimy()*.425f, 32,16);
         batch.draw(TextureLoader.getSprite(character.getID(), frame), character.getX()-character.getDimx()/2, character.getY() - character.getDimy()*.25f + character.getZ(), 32,32);
 
     }

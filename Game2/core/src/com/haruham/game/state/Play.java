@@ -44,7 +44,7 @@ public class Play extends GameState {
     // hud information can be gathered from that chracter object
     private Character player;
 
-    public float[] lightrgb = {.5f, .5f, .7f, .45f};
+    public float[] lightrgb = {.5f, .5f, .7f, .65f};
     public int lightix = 0;
 
     private Texture light = new Texture("lighttest/light3.png");
@@ -62,11 +62,11 @@ public class Play extends GameState {
     private ShaderProgram finalShader;
 
     //read our shader files
-    final String vertexShader = new FileHandle("lighttest/vertexShader.glsl").readString();
-    final String defaultPixelShader = new FileHandle("lighttest/defaultPixelShader.glsl").readString();
-    final String ambientPixelShader = new FileHandle("lighttest/ambientPixelShader.glsl").readString();
-    final String lightPixelShader =  new FileHandle("lighttest/lightPixelShader.glsl").readString();
-    final String finalPixelShader =  new FileHandle("lighttest/pixelShader.glsl").readString();
+    final String vertexShader = Gdx.files.local("lighttest/vertexShader.glsl").readString();
+    final String defaultPixelShader = Gdx.files.local("lighttest/defaultPixelShader.glsl").readString();
+    final String ambientPixelShader = Gdx.files.local("lighttest/ambientPixelShader.glsl").readString();
+    final String lightPixelShader =  Gdx.files.local("lighttest/lightPixelShader.glsl").readString();
+    final String finalPixelShader =  Gdx.files.local("lighttest/pixelShader.glsl").readString();
     public static DecimalFormat format = new DecimalFormat("0.##");
 
     public Play(GameStateManager gsm) {
@@ -156,8 +156,11 @@ public class Play extends GameState {
         batch.begin();
         font.draw(batch, Inputs.posScreen.x + ", " + Inputs.posScreen.y, 10, Gdx.graphics.getHeight() - 40);
         font.draw(batch, player.getX() + ", " + player.getY(), 10, Gdx.graphics.getHeight()-60);
+        font.draw(batch, camera.position.x + ", " + camera.position.y, 10, Gdx.graphics.getHeight()-80);
+
         font.draw(batch, worlds.get(0).getObjects().size() + " ", 10, Gdx.graphics.getHeight() - 100);
         font.draw(batch, player.getGold() +  " " , 10, Gdx.graphics.getHeight() - 120);
+        font.draw(batch, worlds.get(0).getEmitter().drawn + "" , 10, Gdx.graphics.getHeight() - 140);
 
         //font.draw(batch, attacks.size() + "", 10, Gdx.graphics.getHeight() - 100);
 

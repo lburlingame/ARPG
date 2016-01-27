@@ -13,7 +13,7 @@ import com.haruham.game.input.InputHandler;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.input.ProgramInput;
 import com.haruham.game.state.GameStateManager;
-import org.lwjgl.openal.AL;
+//import org.lwjgl.openal.AL;
 
 import java.io.BufferedReader;
 
@@ -117,8 +117,10 @@ public class GameApp implements ApplicationListener {
     public void dispose() {
         gsm.dispose();
         batch.dispose();
+        shapeRenderer.dispose();
+        font.dispose();
        // System.out.println("dispose");
-        AL.destroy();
+       // AL.destroy();
         System.exit(1);
     }
 
@@ -137,11 +139,11 @@ public class GameApp implements ApplicationListener {
     }
 
     public void pause() {
-        System.out.println("pause");
+        System.out.println("#pause");
     }
 
     public void resume() {
-        System.out.println("Resume");
+        System.out.println("#resume");
     }
 
     public ShapeRenderer getShapeRenderer() {

@@ -1,5 +1,7 @@
 package com.haruham.game.input;
 
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.obj.Character;
 
 /**
@@ -7,7 +9,7 @@ import com.haruham.game.obj.Character;
  */
 public class PlayerInput implements InputComponent {
 
-    private float cooldown = .1f;
+    private float cooldown = .15f;
 
     public PlayerInput() {
 
@@ -43,21 +45,27 @@ public class PlayerInput implements InputComponent {
         }*/
 
 
-        if (Inputs.isPressed(Inputs.M1)) {
+        if (Inputs.isDown(Inputs.M1)) {
             cooldown -= delta;
             if (cooldown <= 0) {
                 character.attack(Inputs.pos);
-                cooldown = .1f + cooldown;
+                cooldown = .15f + cooldown;
             }
         }
         if (Inputs.isReleased(Inputs.M1)) {
             cooldown = 0;
         }
 
+        if (Inputs.isPressed(Inputs.M3)) {
+            character.knockback(new Vector3(MathUtils.random()* 300 - 150, MathUtils.random() * 300 - 150, 0));
+        }
+
         if (Inputs.isPressed(Inputs.SPACE)) {
             character.setX(Inputs.pos.x);
             character.setY(Inputs.pos.y);
         }
+
+
 
 
        /* if (input.SHIFT.isPressed()) {

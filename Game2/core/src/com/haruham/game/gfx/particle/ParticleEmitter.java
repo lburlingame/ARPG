@@ -2,6 +2,7 @@ package com.haruham.game.gfx.particle;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.haruham.game.level.World;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,9 +14,13 @@ public class ParticleEmitter {
 
     private ArrayList<Particle> particles;
     private Random rand = new Random();
-    public ParticleEmitter() {
+    private World world;
+    public ParticleEmitter(World world) {
+        this.world = world;
         particles = new ArrayList<Particle>();
     }
+
+    public int drawn;
 
     public void bloodSpatter(Vector3 pos, Vector3 vel, int amount) {
         for (int i = 0; i < amount; i++) {
@@ -28,7 +33,7 @@ public class ParticleEmitter {
 
     public void update(float delta) {
         for (int i = 0; i < particles.size(); i++) {
-            if (particles.get(i).getDuration() == 0) {
+            if (particles.get(i).getDuration() <= 0) {
                 particles.remove(i);
                 i--;
             }else{
@@ -39,8 +44,15 @@ public class ParticleEmitter {
 
 
     public void draw(SpriteBatch batch) {
+        drawn = 0;
         for (int i = 0; i < particles.size(); i++) {
-            particles.get(i).draw(batch);
+            Particle particle = particles.get(i);
+            if (particle.pos.x + particle.dim.x > world.getCamX() - world.getCamWidth() / 2 && particle.pos.x - particle.dim.x < world.getCamX() + world.getCamWidth() /2
+            && particle.pos.y + particle.dim.y > world.getCamY() - world.getCamHeight() / 2 && particle.pos.y - particle.dim.y < world.getCamY() + world.getCamHeight() / 2) {
+
+                particles.get(i).draw(batch);
+                drawn++;
+            }
         }
         //batch.setColor(new Color(1,1,1,1));
     }

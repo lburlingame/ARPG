@@ -1,5 +1,3 @@
-package com.haruham.game.desktop;
-
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -15,7 +13,7 @@ public class DesktopLauncher {
         config.addIcon("assets/icon-32.png", FileType.Internal);
  */
 
-        boolean fullscreen = false;
+        boolean fullscreen = true;
         /*fullscreen = true;*/
 
         if (fullscreen) {

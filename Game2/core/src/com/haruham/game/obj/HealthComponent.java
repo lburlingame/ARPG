@@ -10,14 +10,16 @@ public abstract class HealthComponent {
 
     protected boolean alive;
 
-    public abstract void takeHit(AttackObject attack);
+    public abstract void takeHit(AttackObject attack, Character character);
 
-    public void takeDamage(int amount) {
+    protected float takeDamage(int amount) {
+        float percentage = amount / (float)maxHealth;
         currHealth = currHealth - amount;
         if (currHealth <= 0) {
             currHealth = 0;
             die();
         }
+        return percentage;
     }
 
     public void heal(int amount) {
