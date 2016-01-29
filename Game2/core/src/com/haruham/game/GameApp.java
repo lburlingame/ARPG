@@ -34,7 +34,7 @@ public class GameApp implements ApplicationListener {
 
     private GameStateManager gsm;
 
-    private InputMultiplexer inputs = new InputMultiplexer();
+    private InputMultiplexer inputs;
     private InputHandler inputHandler;
     private ProgramInput pin;
 
@@ -42,7 +42,7 @@ public class GameApp implements ApplicationListener {
     public boolean mute = false;
 
     private BitmapFont font;
-
+    public float[] deltas = new float[5];
 
     public void create() {
         try {
@@ -74,11 +74,13 @@ public class GameApp implements ApplicationListener {
         gsm = new GameStateManager(this);
 
         font = new BitmapFont();
+
+        inputs = new InputMultiplexer();
         inputHandler = new InputHandler();
         inputs.addProcessor(inputHandler);
         Gdx.input.setInputProcessor(inputs);
 
-        pin = new ProgramInput();
+        pin = new ProgramInput(this);
 
 
     }
@@ -99,6 +101,14 @@ public class GameApp implements ApplicationListener {
             Inputs.update();
         }*/
 
+        float delta = Gdx.graphics.getDeltaTime();
+        for (int i = 0; i < 5; i++) {
+            if (delta > deltas[i]) {
+                deltas[i] = delta;
+                break;
+            }
+        }
+
         gsm.update(Gdx.graphics.getDeltaTime());
         gsm.render();
 
@@ -107,7 +117,7 @@ public class GameApp implements ApplicationListener {
         int fps = Gdx.graphics.getFramesPerSecond();
         font.draw(batch, fps + " ", 10, Gdx.graphics.getHeight() - 20);
         font.draw(batch, gsm.getSize() + " ", hudCamera.viewportWidth - 100, Gdx.graphics.getHeight() - 60);
-
+        font.draw(batch, deltas[0] + "-" + deltas[4], 10, Gdx.graphics.getHeight() - 160);
         batch.end(); // end
 
         pin.update();
