@@ -59,6 +59,7 @@ public class World {
     private ArrayList<Character> dead;
     private ArrayList<Item> items;
     private ArrayList<Pickup> pickups;
+    private ArrayList<Obstacle> obstacles;
 
     private ParticleEmitter emitter;
     //other drops;
@@ -108,6 +109,7 @@ public class World {
         attacks = new ArrayList<>();
         items = new ArrayList<>();
         pickups = new ArrayList<>();
+        obstacles = new ArrayList<>();
 
         emitter = new ParticleEmitter(this);
 
@@ -132,6 +134,10 @@ public class World {
         for (int i = 0; i < 8; i++) {
             addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 1400), (float) (Math.random() * 300 + 1400), 0)));
         }
+        for (int i = 0; i < 16000; i++) {
+            addObstacle(new Obstacle(this, new Vector3(MathUtils.random()*16032, MathUtils.random() * 13340, 0)));
+        }
+
 
         camera.setToOrtho(false, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         camera.position.set(player.getX(),player.getY(),0);
@@ -182,7 +188,7 @@ public class World {
                     //}
                     if (!characters.get(i).isAlive()) {
                         addPickup(new Coin(this, characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));
-                        if (Math.random() < .05f) {
+                        if (Math.random() < 1f) {
                             addPickup(new HealthGlobe(this, characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), 100));
                         }
                         removeCharacter(characters.get(i));
@@ -305,12 +311,9 @@ public class World {
     // need to change so that its called based on player pos
     public void lerp(Vector3 pos, float delta) {
         float lerp = 3f;//3f;//.05;
-        Vector3 position = new Vector3(camera.position);
-        Vector3 intpos = camera.position;
+        Vector3 position = camera.position;
         position.x += (pos.x - position.x) * lerp * delta;
         position.y += (pos.y - position.y) * lerp * 1.5 * delta;
-        intpos.x = (float)(position.x);
-        intpos.y = (float)(position.y);
 ;    }
 
 
@@ -359,6 +362,15 @@ public class World {
     public void removeCharacter(Character character) {
         characters.remove(character);
         objects.remove(character);
+    }
+
+    public void addObstacle(Obstacle obstacle) {
+        obstacles.add(obstacle);
+        objects.add(obstacle);
+    }
+    public void removeObstacle(Obstacle obstacle) {
+        obstacles.remove(obstacle);
+        objects.remove(obstacle);
     }
     public void addNeutral(Character character) {
 
@@ -409,11 +421,12 @@ public class World {
     }
 
     public void clearEverything() {
-        characters.clear();
         objects.clear();
+        characters.clear();
         emitter.clear();
         attacks.clear();
         pickups.clear();
+        obstacles.clear();
         addCharacter(player);
     }
 

@@ -32,6 +32,11 @@ public class BloodParticle extends Particle {
     }
 
     public void update(float delta) {
+        if (pos.z != 0) {
+            pos.x += vel.x * delta;
+            pos.y += vel.y * delta;
+        }
+
         if (pos.z > 0 || vel.z > 0) {
             vel.z += TileMap.GRAVITY * delta;
             pos.z += vel.z * delta;
@@ -39,12 +44,6 @@ public class BloodParticle extends Particle {
         if (pos.z < 0) {
             pos.z = 0;
         }
-
-        if (pos.z != 0) {
-            pos.x += vel.x * delta;
-            pos.y += vel.y * delta;
-        }
-
         if (duration > 0) {
            duration -= delta;
         }

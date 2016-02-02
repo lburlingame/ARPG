@@ -104,7 +104,7 @@ public class GameApp implements ApplicationListener {
         if (delta > .018) {
             System.out.println("DELTA>> "  + delta);
         }
-        gsm.update(delta);
+        gsm.update(delta/10);
         gsm.render();
 
         batch.begin(); // begin - fps counter will be a setting that can be toggled

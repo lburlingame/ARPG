@@ -82,6 +82,7 @@ public class TileMap {
                 rows++;
             }
             System.out.println(columns + ", " + rows + " OK?>");
+            System.out.println((columns * 32) + ", " + (rows  * 32)+ " OK?>");
 
 			br.close();
 		}catch(Exception e){
