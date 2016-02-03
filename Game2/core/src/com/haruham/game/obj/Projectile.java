@@ -47,7 +47,7 @@ public class Projectile implements AttackType {
         HitCircle o = other.getHit();
         Vector3 oCenter = o.getCenter();
 
-        if (Util.findDistance((attack.getX() + hitCenter.x) - (opos.x + oCenter.x), (attack.getY() + hitCenter.y) - (opos.y + oCenter.y)) <= (hit.getRadius() + o.getRadius())) {
+        if (Util.findSquareDistance((attack.getX() + hitCenter.x) - (opos.x + oCenter.x), (attack.getY() + hitCenter.y) - (opos.y + oCenter.y)) <= Math.pow(hit.getRadius() + o.getRadius(),2)) {
             return true;
         }
 

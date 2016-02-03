@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.haruham.game.gfx.Art;
 import com.haruham.game.gfx.particle.ParticleEmitter;
 import com.haruham.game.obj.*;
@@ -89,6 +90,13 @@ public class World {
     public static final float zSpeed = 12.0f;
     public static final float PI2 = 3.1415926535897932384626433832795f * 2.0f;
 
+
+    //time average
+
+    public long timeavg = 0;
+    public long count = 0;
+    public float elapsed = 0;
+
     public World(Play play) {
         this.play = play;
 
@@ -139,7 +147,7 @@ public class World {
         }
 
 
-        camera.setToOrtho(false, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        camera.setToOrtho(false,740, 416.25f);
         camera.position.set(player.getX(),player.getY(),0);
         camera.update();
 
@@ -188,7 +196,7 @@ public class World {
                     //}
                     if (!characters.get(i).isAlive()) {
                         addPickup(new Coin(this, characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));
-                        if (Math.random() < 1f) {
+                        if (Math.random() < .05f) {
                             addPickup(new HealthGlobe(this, characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), 100));
                         }
                         removeCharacter(characters.get(i));
@@ -204,6 +212,7 @@ public class World {
             }
         }
 
+        long time = TimeUtils.nanoTime();
         for (int i = 0; i < pickups.size(); i++) {
             pickups.get(i).update(delta);
             if (pickups.get(i).collidesWith(player)) {
@@ -212,11 +221,20 @@ public class World {
                 i--;
             }
         }
+        timeavg = (timeavg * count + TimeUtils.timeSinceNanos(time)) / ++count;
         emitter.update(delta);
 
         lerp(player.getPosition(), delta);
         if (collisionsound > 0) {
             collisionsound -= delta;
+        }
+
+        elapsed += delta;
+        if (elapsed > 1) {
+            elapsed = 0;
+           // System.out.println(timeavg);
+            timeavg = 0;
+            count = 0;
         }
     }
 
@@ -428,6 +446,10 @@ public class World {
         pickups.clear();
         obstacles.clear();
         addCharacter(player);
+    }
+
+    public int getSize() {
+        return characters.size() + attacks.size() + pickups.size();
     }
 
 

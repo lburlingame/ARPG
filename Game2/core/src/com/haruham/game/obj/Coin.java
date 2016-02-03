@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.haruham.game.gfx.Art;
 import com.haruham.game.level.TileMap;
 import com.haruham.game.level.World;
 
@@ -80,6 +81,8 @@ public class Coin extends Pickup {
     public void draw(SpriteBatch batch) {
         if (pos.x + dim.x > world.getCamX() - world.getCamWidth() / 2 && pos.x - dim.x < world.getCamX() + world.getCamWidth() /2
                 && pos.y + dim.y > world.getCamY() - world.getCamHeight() / 2 && pos.y - dim.y < world.getCamY() + world.getCamHeight() / 2) {
+            if (amount > 40)
+            batch.draw(Art.shadow16, pos.x - 8, pos.y - dim.z * .6f, 16,12);
             batch.draw(coins.get(id), pos.x - 8, pos.y + pos.z - 8, 16, 16);
         }
     }

@@ -28,8 +28,8 @@ public abstract class Entity extends GameObject {
         Vector3 opos = other.getPosition();
         HitCircle o = other.getHit();
         Vector3 oCenter = o.getCenter();
-
-        if (Util.findDistance((pos.x + hitCenter.x) - (opos.x + oCenter.x), (pos.y + hitCenter.y) - (opos.y + oCenter.y)) <= (hit.getRadius() + o.getRadius())) {
+        //if (Util.findDistance((pos.x + hitCenter.x) - (opos.x + oCenter.x), (pos.y + hitCenter.y) - (opos.y + oCenter.y)) <= (hit.getRadius() + o.getRadius())) {
+        if (Util.findSquareDistance((pos.x + hitCenter.x) - (opos.x + oCenter.x), (pos.y + hitCenter.y) - (opos.y + oCenter.y)) <= Math.pow(hit.getRadius() + o.getRadius(),2)) {
             return true;
         }
 

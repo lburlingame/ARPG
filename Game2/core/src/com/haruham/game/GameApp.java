@@ -65,7 +65,7 @@ public class GameApp implements ApplicationListener {
         float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, w/2, h/2);
+        camera.setToOrtho(false, 740, 416.25f);
 
         hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, w, h);
@@ -104,7 +104,7 @@ public class GameApp implements ApplicationListener {
         if (delta > .018) {
             System.out.println("DELTA>> "  + delta);
         }
-        gsm.update(delta/10);
+        gsm.update(delta);
         gsm.render();
 
         batch.begin(); // begin - fps counter will be a setting that can be toggled

@@ -158,9 +158,10 @@ public class Play extends GameState {
         font.draw(batch, player.getX() + ", " + player.getY(), 10, Gdx.graphics.getHeight()-60);
         font.draw(batch, camera.position.x + ", " + camera.position.y, 10, Gdx.graphics.getHeight()-80);
 
-        font.draw(batch, worlds.get(0).getObjects().size() + " ", 10, Gdx.graphics.getHeight() - 100);
+        font.draw(batch, worlds.get(0).getSize() + " ", 10, Gdx.graphics.getHeight() - 100);
         font.draw(batch, player.getGold() +  " " , 10, Gdx.graphics.getHeight() - 120);
         font.draw(batch, worlds.get(0).getEmitter().drawn + "" , 10, Gdx.graphics.getHeight() - 140);
+        font.draw(batch, camera.viewportWidth + ", " + camera.viewportHeight , 10, Gdx.graphics.getHeight() - 160);
 
         //font.draw(batch, attacks.size() + "", 10, Gdx.graphics.getHeight() - 100);
 

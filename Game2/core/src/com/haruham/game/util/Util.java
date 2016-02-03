@@ -30,6 +30,10 @@ public class Util {
         return x * x + y * y;
     }
 
+    public static float findSquareDistance(Vector3 o, Vector3 d) {
+        return o.x * d.x + o.y * d.y;
+    }
+
     public static Direction findSlope(float x, float y, float dest_x, float dest_y)
     {
         float rise = dest_y - y;
