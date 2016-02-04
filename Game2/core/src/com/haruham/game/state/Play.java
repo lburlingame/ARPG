@@ -72,6 +72,8 @@ public class Play extends GameState {
     public Play(GameStateManager gsm) {
         super(gsm);
         player = new Character(null, 1, new PlayerInput(), new Vector3(100,100,0));
+        camera.setToOrtho(false,740, 416.25f);
+
         //wavSound.loop(.4f, 1f,.1f);
         font = new BitmapFont();
         pin = new PlayInput(gsm, this);

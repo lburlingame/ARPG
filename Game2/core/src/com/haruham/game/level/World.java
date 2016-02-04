@@ -147,7 +147,6 @@ public class World {
         }
 
 
-        camera.setToOrtho(false,740, 416.25f);
         camera.position.set(player.getX(),player.getY(),0);
         camera.update();
 
@@ -322,6 +321,12 @@ public class World {
             pickups.get(i).drawDebug(shapeRenderer);
         }
 
+
+        for (int i = 0; i < obstacles.size(); i++) {
+            obstacles.get(i).drawDebug(shapeRenderer);
+        }
+
+
         shapeRenderer.end();
     }
 
@@ -450,6 +455,10 @@ public class World {
 
     public int getSize() {
         return characters.size() + attacks.size() + pickups.size();
+    }
+
+    public Character getPlayer() {
+        return player;
     }
 
 

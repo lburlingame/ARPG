@@ -82,7 +82,7 @@ public class Coin extends Pickup {
         if (pos.x + dim.x > world.getCamX() - world.getCamWidth() / 2 && pos.x - dim.x < world.getCamX() + world.getCamWidth() /2
                 && pos.y + dim.y > world.getCamY() - world.getCamHeight() / 2 && pos.y - dim.y < world.getCamY() + world.getCamHeight() / 2) {
             if (amount > 40)
-            batch.draw(Art.shadow16, pos.x - 8, pos.y - dim.z * .6f, 16,12);
+            batch.draw(Art.shadow16, pos.x - 8, pos.y - dim.z * .55f, 16,12);
             batch.draw(coins.get(id), pos.x - 8, pos.y + pos.z - 8, 16, 16);
         }
     }
