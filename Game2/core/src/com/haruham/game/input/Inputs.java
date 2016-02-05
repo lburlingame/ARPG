@@ -3,6 +3,7 @@ package com.haruham.game.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -62,13 +63,14 @@ public class Inputs {
     public static Vector3 pos = new Vector3(0,0,0);
     public static Vector3 posScreen = new Vector3(0,0,0);
 
-    public static void update() {
+    public static void update(OrthographicCamera camera) {
         for (int i = 0; i < NUM_KEYS; i++) {
             pkeys[i] = keys[i];
         }
 
         pos.x = posScreen.x = Gdx.input.getX();
         pos.y = posScreen.y = Gdx.input.getY();
+        camera.unproject(pos);
 
         amount = 0;
     }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.haruham.game.audio.MusicManager;
+import com.haruham.game.input.Inputs;
 import com.haruham.game.input.MainMenuInput;
 
 
@@ -42,11 +44,19 @@ public class MainMenu extends GameState {
     private MusicManager mmg;
     private Music rainloop;
     private Sound boop;
+    private ParticleEffect effect;
+
+
 
     public MainMenu(GameStateManager gsm) {
         super(gsm);
         background = new Texture(Gdx.files.internal("other/tempback1.jpg"));
         title = new Texture(Gdx.files.internal("other/TITLE.png"));
+
+        effect = new ParticleEffect();
+        effect.load(Gdx.files.internal("effects/particles/ember2.p"), Gdx.files.internal("effects/particles"));
+        effect.setPosition(Inputs.posScreen.x, Gdx.graphics.getHeight() - Inputs.posScreen.y);
+        effect.start();
 
         rainloop = Gdx.audio.newMusic(Gdx.files.internal("audio/rainloop.ogg"));
         rainloop.setLooping(true);
@@ -139,10 +149,13 @@ public class MainMenu extends GameState {
     public void update(float delta) {
         min.update();
         stage.act(delta);
+        effect.update(delta);
+        effect.setPosition(Inputs.posScreen.x, Gdx.graphics.getHeight() - Inputs.posScreen.y);
+
     }
 
     public void render() {
-        Gdx.gl20.glClearColor(.15f,.15f,.15f,1);
+        Gdx.gl20.glClearColor(0f,0,0,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
        // batch.setProjectionMatrix(hudCamera.combined);
@@ -150,16 +163,20 @@ public class MainMenu extends GameState {
        // batch.draw(background, 0, 0, hudCamera.viewportWidth, hudCamera.viewportHeight);
         //batch.draw(title, hudCamera.viewportWidth/2 - title.getWidth() * hudCamera.viewportWidth / 1920 / 2, hudCamera.viewportHeight - title.getHeight() * hudCamera.viewportHeight / 1080 * 2f, title.getWidth() * hudCamera.viewportWidth / 1920, title.getHeight() * hudCamera.viewportHeight / 1080);
         //batch.draw(button0,hudCamera.viewportWidth/2 - button1.getWidth() * hudCamera.viewportWidth / 1920 / 2, hudCamera.viewportHeight - button1.getHeight() * hudCamera.viewportHeight / 1080 * 2f, button1.getWidth(), button1.getHeight());
+        effect.draw(batch);
         batch.end();
 
         stage.draw();
-        table.drawDebug(shapeRenderer); // This is optional, but enables debug lines for tables.
+       // table.drawDebug(shapeRenderer); // This is optional, but enables debug lines for tables.
     }
 
     public void enter() {
         game.getInputs().addProcessor(stage);
         mmg.play();
         rainloop.play();
+        effect.reset();
+        effect.setPosition(Inputs.posScreen.x, Gdx.graphics.getHeight() - Inputs.posScreen.y);
+
     }
 
     //change to enter()/end()

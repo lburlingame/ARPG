@@ -115,7 +115,7 @@ public class GameApp implements ApplicationListener {
         batch.end(); // end
 
         pin.update();
-        Inputs.update();
+        Inputs.update(camera);
     }
 
     public void dispose() {

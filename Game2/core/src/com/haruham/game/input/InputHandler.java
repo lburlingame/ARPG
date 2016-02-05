@@ -10,12 +10,13 @@ import com.badlogic.gdx.graphics.Pixmap;
  */
 public class InputHandler extends InputAdapter {
 
-    Cursor cursorUp = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("gui/cursor3_up.png")), 0, 4);
-    Cursor cursorDown = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("gui/cursor3_up.png")), 0, 4);
+    public static final Cursor cursorUp = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("gui/cursor3_up.png")), 0, 4);
+    public static final Cursor cursorDown = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("gui/cursor3_up.png")), 0, 4);
 
+    public static final Cursor cursorEmpty = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("gui/cursor_empty.png")), 0, 4);
 
     public InputHandler() {
-        Gdx.graphics.setCursor(cursorUp);
+        //Gdx.graphics.setCursor(cursorUp);
 
     }
 

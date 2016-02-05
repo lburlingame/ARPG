@@ -99,8 +99,8 @@ public class PlayInput {
             play.lightix = play.lightix % play.lightrgb.length;
         }
         if (Inputs.isPressed(Inputs.C)) {
-            for (int i = 0; i < 10000; i++) {
-                play.getWorld().addCharacter(new com.haruham.game.obj.Character(play.getWorld(), 1, new NullInput(), new Vector3(play.getPlayer().getPosition().add(MathUtils.random()*10000-150, MathUtils.random()*9000-150,0))));
+            for (int i = 0; i < 150; i++) {
+                play.getWorld().addCharacter(new com.haruham.game.obj.Character(play.getWorld(), 1, new NullInput(), new Vector3(play.getPlayer().getPosition().add(MathUtils.random()*300-150, MathUtils.random()*300-150,0))));
             }
         }
         /*if ((camera.zoom > .5 && amount < 0) || (camera.zoom < 2 && amount > 0)) {

@@ -1,6 +1,7 @@
 package com.haruham.game.desktop;
 
 import com.badlogic.gdx.Files;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.haruham.game.GameApp;
@@ -8,18 +9,14 @@ import com.haruham.game.GameApp;
 public class DesktopLauncher {
 	public static void main (String[] arg) throws Exception {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-/*
-
-    config.addIcon("assets/icon-256.png", FileType.Internal);
-        config.addIcon("assets/icon-64.png", FileType.Internal);
-        config.addIcon("assets/icon-32.png", FileType.Internal);
- */
 
         boolean fullscreen = false;
         /*fullscreen = true;*/
 
         if (fullscreen) {
-            config.setFromDisplayMode(LwjglApplicationConfiguration.getDesktopDisplayMode());
+           // config.setFromDisplayMode(LwjglApplicationConfiguration.getDesktopDisplayMode());
+             config.setFromDisplayMode(LwjglApplicationConfiguration.getDesktopDisplayMode());
+
 
         }else{
             config.width = 1280;  // 1280
@@ -44,7 +41,6 @@ public class DesktopLauncher {
 
 
         LwjglApplication lwjgl = new LwjglApplication(new GameApp(), config);
-
 
 	}
 }
