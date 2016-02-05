@@ -3,6 +3,7 @@ package com.haruham.game.gfx.particle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.level.TileMap;
 
@@ -18,7 +19,7 @@ public class BloodParticle extends Particle {
 
     public BloodParticle(Vector3 pos, Vector3 vel) {
         super(pos, vel);
-        duration = (float)((Math.random() * 5) + 550000000); // 120  120  420
+        duration = MathUtils.random() * 1f + 1f; // 120  120  420
 
         if (blood == null) {
             blood = new ArrayList<TextureRegion>();
@@ -43,6 +44,7 @@ public class BloodParticle extends Particle {
         }
         if (pos.z < 0) {
             pos.z = 0;
+            //duration = 0;
         }
         if (duration > 0) {
            duration -= delta;

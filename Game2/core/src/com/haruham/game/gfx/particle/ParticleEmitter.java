@@ -1,6 +1,7 @@
 package com.haruham.game.gfx.particle;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.level.World;
 
@@ -13,7 +14,6 @@ import java.util.Random;
 public class ParticleEmitter {
 
     private ArrayList<Particle> particles;
-    private Random rand = new Random();
     private World world;
     public ParticleEmitter(World world) {
         this.world = world;
@@ -24,9 +24,9 @@ public class ParticleEmitter {
 
     public void bloodSpatter(Vector3 pos, Vector3 vel, int amount) {
         for (int i = 0; i < amount; i++) {
-            float random_dx = rand.nextFloat() * 180 - 90;
-            float random_dy = rand.nextFloat() * 180 - 90;
-            float random_dz = rand.nextFloat() * 180 - 90;
+            float random_dx = MathUtils.random() * 180 - 90;
+            float random_dy = MathUtils.random() * 180 - 90;
+            float random_dz = MathUtils.random() * 180 - 90;
             particles.add(new BloodParticle(new Vector3(pos.x, pos.y, pos.z+16), new Vector3(vel.x + random_dx, vel.y + random_dy, vel.z + random_dz)));
         }
     }

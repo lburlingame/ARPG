@@ -47,9 +47,8 @@ public class GameApp implements ApplicationListener {
         try {
             FileHandle file = Gdx.files.local("log/runcount.txt");
             BufferedReader br = file.reader(1);
-            String curLine = br.readLine();
+            int current = Integer.parseInt(br.readLine());
             br.close();
-            int current = Integer.parseInt(curLine);
             current++;
             System.out.println(current + " ");
             file.writeString(current + "", false);
@@ -102,7 +101,7 @@ public class GameApp implements ApplicationListener {
 
         float delta = Gdx.graphics.getDeltaTime();
         if (delta > .018) {
-            System.out.println("DELTA>> "  + delta);
+           // System.out.println("DELTA>> "  + delta);
         }
         gsm.update(delta);
         gsm.render();
@@ -143,11 +142,11 @@ public class GameApp implements ApplicationListener {
     }
 
     public void pause() {
-        System.out.println("#pause");
+       // System.out.println("#pause");
     }
 
     public void resume() {
-        System.out.println("#resume");
+        //System.out.println("#resume");
     }
 
     public ShapeRenderer getShapeRenderer() {

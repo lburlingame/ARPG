@@ -1,9 +1,9 @@
 package com.haruham.game.desktop;
 
 import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+
 import com.haruham.game.GameApp;
 
 public class DesktopLauncher {
@@ -14,10 +14,7 @@ public class DesktopLauncher {
         /*fullscreen = true;*/
 
         if (fullscreen) {
-           // config.setFromDisplayMode(LwjglApplicationConfiguration.getDesktopDisplayMode());
              config.setFromDisplayMode(LwjglApplicationConfiguration.getDesktopDisplayMode());
-
-
         }else{
             config.width = 1280;  // 1280
             config.height = 720;  //720
@@ -34,10 +31,6 @@ public class DesktopLauncher {
         config.addIcon("other/icon64.png", Files.FileType.Internal);
         config.addIcon("other/icon128.png", Files.FileType.Internal);
         // System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
-
-        /*config.foregroundFPS = 0;
-        config.backgroundFPS = 0;*/
-
 
 
         LwjglApplication lwjgl = new LwjglApplication(new GameApp(), config);

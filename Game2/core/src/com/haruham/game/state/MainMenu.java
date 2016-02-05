@@ -47,14 +47,13 @@ public class MainMenu extends GameState {
     private ParticleEffect effect;
 
 
-
     public MainMenu(GameStateManager gsm) {
         super(gsm);
         background = new Texture(Gdx.files.internal("other/tempback1.jpg"));
         title = new Texture(Gdx.files.internal("other/TITLE.png"));
 
         effect = new ParticleEffect();
-        effect.load(Gdx.files.internal("effects/particles/ember2.p"), Gdx.files.internal("effects/particles"));
+        effect.load(Gdx.files.internal("effects/particles/ember3.p"), Gdx.files.internal("effects/particles"));
         effect.setPosition(Inputs.posScreen.x, Gdx.graphics.getHeight() - Inputs.posScreen.y);
         effect.start();
 
@@ -110,7 +109,7 @@ public class MainMenu extends GameState {
 
         settings.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                playClicked();
+                settingsClicked();
             }
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 boop.play(.125f);
@@ -143,7 +142,10 @@ public class MainMenu extends GameState {
     }
 
     public void playClicked() {
-        gsm.pushState(GameStateManager.PLAY);
+        gsm.pushState(GameStateManager.PLAYSERVER);
+    }
+    public void settingsClicked() {
+        gsm.pushState(GameStateManager.PLAYCLIENT);
     }
 
     public void update(float delta) {
@@ -200,6 +202,7 @@ public class MainMenu extends GameState {
         mmg.dispose();
         boop.dispose();
         rainloop.dispose();
+        effect.dispose();
     }
       /*  TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = skin.newDrawable("white");

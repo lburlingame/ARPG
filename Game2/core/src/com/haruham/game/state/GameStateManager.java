@@ -1,7 +1,10 @@
 package com.haruham.game.state;
 
 import com.haruham.game.GameApp;
+import com.haruham.game.net.client.ClientProgram;
+import com.haruham.game.net.server.ServerProgram;
 
+import java.io.IOException;
 import java.util.Stack;
 
 /**
@@ -18,8 +21,10 @@ public class GameStateManager {
     public static final int SPLASH = 0;
     public static final int MAINMENU = 1;
     public static final int PLAY = 2;
-    public static final int GAMEMENU = 3;
-    public static final int SETTINGS = 4;
+    public static final int PLAYSERVER = 3;
+    public static final int PLAYCLIENT = 4;
+    public static final int GAMEMENU = 5;
+    public static final int SETTINGS = 6;
 
     public GameStateManager(GameApp game) {
         this.game = game;
@@ -54,7 +59,26 @@ public class GameStateManager {
         if (state == MAINMENU) return new MainMenu(this);
         if (state == PLAY) {
             if (play == null) {
-                return play = new Play(this);
+                play = new Play(this, null);
+            }
+            return play;
+        }
+
+        if (state == PLAYSERVER) {
+            if (play == null) {
+                try {
+                    play = new Play(this, new ServerProgram());
+                }catch(IOException e) {
+                    System.out.println(e.getMessage());
+                    play = new Play(this, null);
+                }
+            }
+            return play;
+        }
+
+        if (state == PLAYCLIENT) {
+            if (play == null) {
+                play = new Play(this, new ClientProgram());
             }
             return play;
         }

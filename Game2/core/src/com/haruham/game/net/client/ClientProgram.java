@@ -11,41 +11,43 @@ import com.haruham.game.net.PacketUpdateY;
 
 public class ClientProgram extends Listener {
 
-	private Player player;
 	private Network network;
+
+	private Player player;
 	Map<Integer,MPPlayer> players;
 
 	public ClientProgram() {
 		player  = new Player();
 		network = new Network(this);
+		network.connect("hi");
 		players = new HashMap<Integer,MPPlayer>();
 	}
 	
-	public void update(float delta){
+	public void update(float delta) {
 		player.update();
 		
 		//Update position
-		if(player.networkPosition.x != player.position.x){
+		if(player.netpos.x != player.pos.x) {
 			//Send the player's X value
 			PacketUpdateX packet = new PacketUpdateX();
-			packet.x = player.position.x;
+			packet.x = player.pos.x;
 			network.sendUDP(packet);
 			
-			player.networkPosition.x = player.position.x;
+			player.netpos.x = player.pos.x;
 		}
-		if(player.networkPosition.y != player.position.y){
+		if(player.netpos.y != player.pos.y) {
 			//Send the player's Y value
 			PacketUpdateY packet = new PacketUpdateY();
-			packet.y = player.position.y;
+			packet.y = player.pos.y;
 			network.sendUDP(packet);
-			
-			player.networkPosition.y = player.position.y;
+
+			player.netpos.y = player.pos.y;
 		}
 	}
 	
-	public void render(){
+	public void render() {
 
-		for(MPPlayer mpPlayer : players.values()){
+		for(MPPlayer mpPlayer : players.values()) {
 
 		}
 

@@ -134,19 +134,19 @@ public class World {
         objects.add(player);
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 200), (float) (Math.random() * 300 + 200), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random() * 300 + 200, MathUtils.random() * 300 + 200, 0)));
         }
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 600), (float) (Math.random() * 300 + 600), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 600, MathUtils.random() * 300 + 600, 0)));
         }
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 1000), (float) (Math.random() * 300 + 1000), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 1000, MathUtils.random()  * 300 + 1000, 0)));
         }
 
         for (int i = 0; i < 8; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 1400), (float) (Math.random() * 300 + 1400), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 1400, MathUtils.random()  * 300 + 1400, 0)));
         }
         for (int i = 0; i < 16000; i++) {
             addObstacle(new Obstacle(this, new Vector3(MathUtils.random()*16032, MathUtils.random() * 13340, 0)));
@@ -200,9 +200,9 @@ public class World {
 
                     //}
                     if (!characters.get(i).isAlive()) {
-                        addPickup(new Coin(this, characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));
+                        addPickup(new Coin(this, characters.get(i).getPosition().add(0, 0, 16), new Vector3(MathUtils.random() * 180 - 90, MathUtils.random() * 180 - 90, MathUtils.random() * 45 + 45), characters.get(i).getGold()));
                         if (Math.random() < .05f) {
-                            addPickup(new HealthGlobe(this, characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), 100));
+                            addPickup(new HealthGlobe(this, characters.get(i).getPosition().add(0,0,16), new Vector3(MathUtils.random() * 180 - 90, MathUtils.random() * 180 - 90, MathUtils.random() * 45 + 45), 100));
                         }
                         removeCharacter(characters.get(i));
                         i--;
@@ -212,8 +212,8 @@ public class World {
             }
 
             if (maxVol > .01) {
-                sizzle.play(maxVol, (float) (Math.random() * .15 + .85), maxPan);
-                collisionsound = (float) (Math.random() * collisionreset + .15f);
+                sizzle.play(maxVol, MathUtils.random() * .15f + .85f, maxPan);
+                collisionsound = MathUtils.random() * collisionreset + .15f;
             }
         }
 
@@ -361,6 +361,7 @@ public class World {
         cast.dispose();
         sizzle.dispose();
         font.dispose();
+        effect.dispose();
 
     }
 

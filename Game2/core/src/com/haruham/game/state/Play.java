@@ -1,22 +1,16 @@
 package com.haruham.game.state;
 
-
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
+
+import com.esotericsoftware.kryonet.Listener;
 import com.haruham.game.input.PlayInput;
 import com.haruham.game.level.World;
 import com.haruham.game.obj.Character;
@@ -69,8 +63,12 @@ public class Play extends GameState {
     final String finalPixelShader =  Gdx.files.local("lighttest/pixelShader.glsl").readString();
     public static DecimalFormat format = new DecimalFormat("0.##");
 
-    public Play(GameStateManager gsm) {
+    Listener netProgram;
+
+    public Play(GameStateManager gsm, Listener netProgram) {
         super(gsm);
+        this.netProgram = netProgram;
+
         player = new Character(null, 1, new PlayerInput(), new Vector3(100,100,0));
         camera.setToOrtho(false,740, 416.25f);
 
