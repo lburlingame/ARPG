@@ -19,7 +19,7 @@ public class ClientProgram extends Listener {
 	public ClientProgram() {
 		player  = new Player();
 		network = new Network(this);
-		network.connect("hi");
+		network.connect("localhost");
 		players = new HashMap<Integer,MPPlayer>();
 	}
 	

@@ -15,7 +15,6 @@ public class Network extends Listener {
 
 	private ClientProgram clientProgram;
 	private Client client;
-	private String ip = "localhost";
 	private int port = 27960;
 
 	public Network(ClientProgram clientProgram) {
@@ -32,7 +31,7 @@ public class Network extends Listener {
 		
 		client.start();
 		try {
-			client.connect(5000, this.ip, port, port);
+			client.connect(5000, ip, port, port);
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
