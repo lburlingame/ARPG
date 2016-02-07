@@ -32,7 +32,6 @@ public abstract class GameState {
     public abstract void render();
     public abstract void renderDebug();
 
-    // enter exit
     public abstract void enter();
     public abstract void exit();
 
