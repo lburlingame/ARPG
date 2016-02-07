@@ -81,4 +81,8 @@ public class ServerProgram extends Listener {
 		server.sendToAllExceptTCP(c.getID(), packet);
 		System.out.println("Connection dropped.");
 	}
+
+	public void close() {
+		server.close();
+	}
 }

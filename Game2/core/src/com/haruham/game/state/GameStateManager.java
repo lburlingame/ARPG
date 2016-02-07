@@ -59,7 +59,7 @@ public class GameStateManager {
         if (state == MAINMENU) return new MainMenu(this);
         if (state == PLAY) {
             if (play == null) {
-                play = new Play(this, null);
+                play = new Play(this);
             }
             return play;
         }
@@ -70,7 +70,7 @@ public class GameStateManager {
                     play = new Play(this, new ServerProgram());
                 }catch(IOException e) {
                     System.out.println(e.getMessage());
-                    play = new Play(this, null);
+                    play = new Play(this);
                 }
             }
             return play;

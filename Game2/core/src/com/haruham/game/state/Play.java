@@ -13,6 +13,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.esotericsoftware.kryonet.Listener;
 import com.haruham.game.input.PlayInput;
 import com.haruham.game.level.World;
+import com.haruham.game.net.client.ClientProgram;
+import com.haruham.game.net.server.ServerProgram;
 import com.haruham.game.obj.Character;
 import com.haruham.game.gfx.Art;
 import com.haruham.game.input.Inputs;
@@ -63,11 +65,27 @@ public class Play extends GameState {
     final String finalPixelShader =  Gdx.files.local("lighttest/pixelShader.glsl").readString();
     public static DecimalFormat format = new DecimalFormat("0.##");
 
-    Listener netProgram;
+    ServerProgram server;
+    ClientProgram client;
 
-    public Play(GameStateManager gsm, Listener netProgram) {
+    public Play(GameStateManager gsm) {
         super(gsm);
-        this.netProgram = netProgram;
+        init();
+    }
+
+    public Play(GameStateManager gsm, ServerProgram server) {
+        super(gsm);
+        this.server = server;
+        init();
+    }
+
+    public Play(GameStateManager gsm, ClientProgram client) {
+        super(gsm);
+        this.client = client;
+        init();
+    }
+
+    public void init() {
 
         player = new Character(null, 1, new PlayerInput(), new Vector3(100,100,0));
         camera.setToOrtho(false,740, 416.25f);
@@ -190,6 +208,9 @@ public class Play extends GameState {
         fbo.dispose();
         Art.unload(assetManager);
         assetManager.dispose();
+        if (server != null) {
+            server.close();
+        }
     }
 
     public void enter() {
