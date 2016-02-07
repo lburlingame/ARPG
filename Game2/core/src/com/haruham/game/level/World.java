@@ -148,7 +148,7 @@ public class World {
         for (int i = 0; i < 8; i++) {
             addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 1400, MathUtils.random()  * 300 + 1400, 0)));
         }
-        for (int i = 0; i < 16000; i++) {
+        for (int i = 0; i < 8000; i++) {
             addObstacle(new Obstacle(this, new Vector3(MathUtils.random()*16032, MathUtils.random() * 13340, 0)));
         }
 
