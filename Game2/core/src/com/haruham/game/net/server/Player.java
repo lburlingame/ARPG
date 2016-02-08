@@ -8,5 +8,5 @@ import com.esotericsoftware.kryonet.Connection;
 public class Player {
 
 	public Vector2 pos;
-	public Connection c;
+	public Connection conn;
 }

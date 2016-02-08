@@ -24,8 +24,6 @@ public class MeleeAttack implements AttackType {
 
     public void init(AttackObject attack) {
         direction = attack.getTarget().sub(attack.getPosition()); // convert the 2 points into a vector from attack position to the target position
-        attack.setDx(0);
-        attack.setDy(0);
     }
 
     public boolean collidesWith(AttackObject attack, Entity other) {

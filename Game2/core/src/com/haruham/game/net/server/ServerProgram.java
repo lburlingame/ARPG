@@ -39,7 +39,7 @@ public class ServerProgram extends Listener {
 	public void connected(Connection c) {
 		Player player = new Player();
 		player.pos = new Vector2(256, 256);
-		player.c = c;
+		player.conn = c;
 		
 		PacketAddPlayer packet = new PacketAddPlayer();
 		packet.id = c.getID();
@@ -47,7 +47,7 @@ public class ServerProgram extends Listener {
 		
 		for(Player p : players.values()) {
 			PacketAddPlayer packet2 = new PacketAddPlayer();
-			packet2.id = p.c.getID();
+			packet2.id = p.conn.getID();
 			c.sendTCP(packet2);
 		}
 		

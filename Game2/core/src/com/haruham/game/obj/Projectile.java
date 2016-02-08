@@ -21,6 +21,8 @@ public class Projectile implements AttackType {
         hit = new HitCircle(new Vector3(0,0,0), radius * .6f);
     }
 
+
+    /** move this into constructor **/
     public void init(AttackObject attack) {
         Vector3 target = attack.getTarget();
         Vector3 vel = new Vector3(0,0,0);
