@@ -287,7 +287,7 @@ public class World {
         map.draw(batch);
         emitter.draw(batch);
         Collections.sort(objects);
-        for (int i = 0; i < objects.size(); i++) {
+        for (int i = objects.size() - 1; i >= 0; i-- ) {
             objects.get(i).draw(batch);
         }
 

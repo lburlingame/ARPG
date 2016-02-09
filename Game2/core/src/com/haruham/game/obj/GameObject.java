@@ -37,9 +37,9 @@ public abstract class GameObject implements Comparable<GameObject>, Subject{
     @Override
     public int compareTo(GameObject o) {
         if (this.pos.y > o.getY()) {
-            return -1;
-        }else if (this.pos.y < o.getY()) {
             return 1;
+        }else if (this.pos.y < o.getY()) {
+            return -1;
         }
         return 0;
     }
