@@ -10,7 +10,7 @@ public class MusicManager {
 
     public Music music;
     public MusicManager() {
-        music = Gdx.audio.newMusic(Gdx.files.internal("audio/Mimos.ogg"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("audio/purple.ogg"));
         music.setVolume(.6f);
         music.setLooping(true);
     }

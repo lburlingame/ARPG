@@ -4,15 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.TimeUtils;
+
 import com.haruham.game.gfx.Art;
 import com.haruham.game.gfx.particle.ParticleEmitter;
 import com.haruham.game.obj.*;
-import com.haruham.game.input.Inputs;
 import com.haruham.game.input.NullInput;
 import com.haruham.game.item.Item;
 import com.haruham.game.obj.Character;
@@ -59,6 +61,7 @@ public class World {
     private ArrayList<Character> dead;
     private ArrayList<Item> items;
     private ArrayList<Pickup> pickups;
+    private ArrayList<Obstacle> obstacles;
 
     private ParticleEmitter emitter;
     //other drops;
@@ -68,8 +71,6 @@ public class World {
     private static final float collisionreset = .15f;
     private static final float dropoff = 150;
 
-
-
     /*
 
     LIGHT STUFF  -- LIGHTQUALITY, use lower resolution tex if it actually helps fps on laptop
@@ -78,15 +79,24 @@ public class World {
     //used for drawing
     private boolean	lightMove = false;
     public boolean lightOscillate = true;
-
-
     //values passed to the shader
 
 
     //used to make the light flicker
     public float zAngle;
+
+
     public static final float zSpeed = 12.0f;
     public static final float PI2 = 3.1415926535897932384626433832795f * 2.0f;
+    //time average
+
+
+    public long timeavg = 0;
+    public long count = 0;
+    public float elapsed = 0;
+
+
+    private ParticleEffect effect;
 
     public World(Play play) {
         this.play = play;
@@ -96,6 +106,11 @@ public class World {
         shapeRenderer = play.getShapeRenderer();
         batch = play.getBatch();
         fbo = play.getFBO();
+
+        effect = new ParticleEffect();
+        effect.load(Gdx.files.internal("effects/particles/dust.p"), Gdx.files.internal("effects/particles"));
+        effect.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2 );
+        effect.start();
 
 
         ambient.loop(2f);
@@ -108,6 +123,7 @@ public class World {
         attacks = new ArrayList<>();
         items = new ArrayList<>();
         pickups = new ArrayList<>();
+        obstacles = new ArrayList<>();
 
         emitter = new ParticleEmitter(this);
 
@@ -118,29 +134,32 @@ public class World {
         objects.add(player);
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 200), (float) (Math.random() * 300 + 200), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random() * 300 + 200, MathUtils.random() * 300 + 200, 0)));
         }
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 600), (float) (Math.random() * 300 + 600), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 600, MathUtils.random() * 300 + 600, 0)));
         }
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 1000), (float) (Math.random() * 300 + 1000), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 1000, MathUtils.random()  * 300 + 1000, 0)));
         }
 
         for (int i = 0; i < 8; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3((float) (Math.random() * 300 + 1400), (float) (Math.random() * 300 + 1400), 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 1400, MathUtils.random()  * 300 + 1400, 0)));
+        }
+        for (int i = 0; i < 8000; i++) {
+            addObstacle(new Obstacle(this, new Vector3(MathUtils.random()*16032, MathUtils.random() * 13340, 0)));
         }
 
-        camera.setToOrtho(false, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+
         camera.position.set(player.getX(),player.getY(),0);
         camera.update();
 
     }
 
     public void update(float delta) {
-        camera.unproject(Inputs.pos);
+       // camera.unproject(Inputs.pos);
 
         map.update(delta);
 
@@ -181,9 +200,9 @@ public class World {
 
                     //}
                     if (!characters.get(i).isAlive()) {
-                        addPickup(new Coin(this, characters.get(i).getPosition().add(0, 0, 16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), characters.get(i).getGold()));
+                        addPickup(new Coin(this, characters.get(i).getPosition().add(0, 0, 16), new Vector3(MathUtils.random() * 180 - 90, MathUtils.random() * 180 - 90, MathUtils.random() * 45 + 45), characters.get(i).getGold()));
                         if (Math.random() < .05f) {
-                            addPickup(new HealthGlobe(this, characters.get(i).getPosition().add(0,0,16), new Vector3((float) (Math.random() * 180 - 90), (float) (Math.random() * 180 - 90), (float) (Math.random() * 45 + 45)), 100));
+                            addPickup(new HealthGlobe(this, characters.get(i).getPosition().add(0,0,16), new Vector3(MathUtils.random() * 180 - 90, MathUtils.random() * 180 - 90, MathUtils.random() * 45 + 45), 100));
                         }
                         removeCharacter(characters.get(i));
                         i--;
@@ -193,11 +212,12 @@ public class World {
             }
 
             if (maxVol > .01) {
-                sizzle.play(maxVol, (float) (Math.random() * .15 + .85), maxPan);
-                collisionsound = (float) (Math.random() * collisionreset + .15f);
+                sizzle.play(maxVol, MathUtils.random() * .15f + .85f, maxPan);
+                collisionsound = MathUtils.random() * collisionreset + .15f;
             }
         }
 
+        long time = TimeUtils.nanoTime();
         for (int i = 0; i < pickups.size(); i++) {
             pickups.get(i).update(delta);
             if (pickups.get(i).collidesWith(player)) {
@@ -206,11 +226,21 @@ public class World {
                 i--;
             }
         }
+        timeavg = (timeavg * count + TimeUtils.timeSinceNanos(time)) / ++count;
         emitter.update(delta);
+        effect.update(delta);
 
         lerp(player.getPosition(), delta);
         if (collisionsound > 0) {
             collisionsound -= delta;
+        }
+
+        elapsed += delta;
+        if (elapsed > 1) {
+            elapsed = 0;
+           // System.out.println(timeavg);
+            timeavg = 0;
+            count = 0;
         }
     }
 
@@ -257,15 +287,16 @@ public class World {
         map.draw(batch);
         emitter.draw(batch);
         Collections.sort(objects);
-        for (int i = 0; i < objects.size(); i++) {
+        for (int i = objects.size() - 1; i >= 0; i-- ) {
             objects.get(i).draw(batch);
         }
+
+        effect.draw(batch);
 
 
         batch.setShader(play.getDefaultShader());
         batch.setProjectionMatrix(hudCamera.combined);
         font.draw(batch,"(" + play.format.format(play.lightrgb[0]) + ", " + play.format.format(play.lightrgb[1]) + ", " + play.format.format(play.lightrgb[2]) + ")," + play.format.format(play.lightrgb[3]), hudCamera.viewportWidth - 150, hudCamera.viewportHeight - 20);
-
         batch.end();
 
        /* shapeRenderer.setColor(new Color(.0f, .0f, .05f, 0.4f));
@@ -298,6 +329,12 @@ public class World {
             pickups.get(i).drawDebug(shapeRenderer);
         }
 
+
+        for (int i = 0; i < obstacles.size(); i++) {
+            obstacles.get(i).drawDebug(shapeRenderer);
+        }
+
+
         shapeRenderer.end();
     }
 
@@ -305,12 +342,9 @@ public class World {
     // need to change so that its called based on player pos
     public void lerp(Vector3 pos, float delta) {
         float lerp = 3f;//3f;//.05;
-        Vector3 position = new Vector3(camera.position);
-        Vector3 intpos = camera.position;
+        Vector3 position = camera.position;
         position.x += (pos.x - position.x) * lerp * delta;
         position.y += (pos.y - position.y) * lerp * 1.5 * delta;
-        intpos.x = (float)(position.x);
-        intpos.y = (float)(position.y);
 ;    }
 
 
@@ -327,6 +361,7 @@ public class World {
         cast.dispose();
         sizzle.dispose();
         font.dispose();
+        effect.dispose();
 
     }
 
@@ -359,6 +394,15 @@ public class World {
     public void removeCharacter(Character character) {
         characters.remove(character);
         objects.remove(character);
+    }
+
+    public void addObstacle(Obstacle obstacle) {
+        obstacles.add(obstacle);
+        objects.add(obstacle);
+    }
+    public void removeObstacle(Obstacle obstacle) {
+        obstacles.remove(obstacle);
+        objects.remove(obstacle);
     }
     public void addNeutral(Character character) {
 
@@ -409,12 +453,21 @@ public class World {
     }
 
     public void clearEverything() {
-        characters.clear();
         objects.clear();
+        characters.clear();
         emitter.clear();
         attacks.clear();
         pickups.clear();
+        obstacles.clear();
         addCharacter(player);
+    }
+
+    public int getSize() {
+        return characters.size() + attacks.size() + pickups.size();
+    }
+
+    public Character getPlayer() {
+        return player;
     }
 
 

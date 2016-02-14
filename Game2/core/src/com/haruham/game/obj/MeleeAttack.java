@@ -24,8 +24,6 @@ public class MeleeAttack implements AttackType {
 
     public void init(AttackObject attack) {
         direction = attack.getTarget().sub(attack.getPosition()); // convert the 2 points into a vector from attack position to the target position
-        attack.setDx(0);
-        attack.setDy(0);
     }
 
     public boolean collidesWith(AttackObject attack, Entity other) {
@@ -35,7 +33,7 @@ public class MeleeAttack implements AttackType {
         HitCircle o = other.getHit();
         Vector3 oCenter = o.getCenter();
 
-        if (Util.findDistance((attack.getX() + hitCenter.x) - (opos.x + oCenter.x), (attack.getY() + hitCenter.y) - (opos.y + oCenter.y)) <= (hit.getRadius() + o.getRadius())) {
+        if (Util.findSquareDistance((attack.getX() + hitCenter.x) - (opos.x + oCenter.x), (attack.getY() + hitCenter.y) - (opos.y + oCenter.y)) <= Math.pow(hit.getRadius() + o.getRadius(),2)) {
             float collisionangle = Util.getAngle(other.getPosition().sub(attack.getPosition()), direction);
 
             if (Math.abs(collisionangle) < angle/2) {
@@ -50,7 +48,7 @@ public class MeleeAttack implements AttackType {
         attack.setX(attack.getX() + attack.getDx() * delta);
         attack.setY(attack.getY() + attack.getDy() * delta);
         attack.setZ(attack.getZ() + attack.getDz() * delta);
-        this.radius += 20; //12;
+        this.radius += 12 * 60 * delta; //12;
         hit.setRadius(radius);
     }
 

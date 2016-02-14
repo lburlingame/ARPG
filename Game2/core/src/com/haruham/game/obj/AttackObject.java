@@ -13,7 +13,8 @@ import java.util.ArrayList;
 
 // TODO object pooling
 // TODO figure out how to add release to level's arraylist
-// TODO multiple types of spells, using strategy?
+// TODO multiple types of spells, using strategy
+// TODO each attack type, melee attack, projectile, laser, lightning, etc., will extend an abstract AttackObject class, rather than implementing AttackType
 // laser spell would use a rectangle that is rotated based on mouse location, and is drawn using shaders
 public class AttackObject extends GameObject {
 
@@ -40,9 +41,10 @@ public class AttackObject extends GameObject {
         this.collision = collision;
         this.pos = owner.getPosition();
         pos.z = 10;
-        pos.y-=1;
+        //pos.y-=1;
+        this.dim = new Vector3(32,32,32);
         this.target = new Vector3(target);
-        this.duration = .25f;  // .25f
+        this.duration = .35f;  // .25f
         this.damage = damage;
         vel = new Vector3(0,0,0);
        // this.pos = new Vector3(target.x, target.y, target.z);

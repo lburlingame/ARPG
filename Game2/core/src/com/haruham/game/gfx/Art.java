@@ -11,6 +11,7 @@ public class Art {
     public static TextureRegion LightningSegment, HalfCircle, HalfCircle2, Pixel;
     public static TextureRegion light;
     public static TextureRegion shadow;
+    public static TextureRegion shadow16;
 
     public static void load(AssetManager assetManager){
         assetManager.load("effects/HalfCircle.png", Texture.class);
@@ -18,6 +19,7 @@ public class Art {
         assetManager.load("effects/Pixel.png", Texture.class);
         assetManager.load("lighttest/light3.png", Texture.class);
         assetManager.load("effects/shadow.png", Texture.class);
+        assetManager.load("effects/shadow16.png", Texture.class);
 
     }
     public static void assignResource(AssetManager assetManager){
@@ -29,6 +31,8 @@ public class Art {
 
         light =  new TextureRegion(assetManager.get("lighttest/light3.png", Texture.class));
         shadow =  new TextureRegion(assetManager.get("effects/shadow.png", Texture.class));
+        shadow16 =  new TextureRegion(assetManager.get("effects/shadow16.png", Texture.class));
+
     }
 
     public static void unload(AssetManager assetManager){
@@ -37,6 +41,7 @@ public class Art {
         assetManager.unload("effects/Pixel.png");
         assetManager.unload("lighttest/light3.png");
         assetManager.unload("effects/shadow.png");
+        assetManager.unload("effects/shadow16.png");
 
     }
 }

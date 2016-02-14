@@ -8,7 +8,6 @@ import com.haruham.game.util.Util;
 public class ProgramInput {
 
     public ProgramInput() {
-
     }
 
 

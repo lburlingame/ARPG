@@ -21,6 +21,8 @@ public class Projectile implements AttackType {
         hit = new HitCircle(new Vector3(0,0,0), radius * .6f);
     }
 
+
+    /** move this into constructor **/
     public void init(AttackObject attack) {
         Vector3 target = attack.getTarget();
         Vector3 vel = new Vector3(0,0,0);
@@ -47,7 +49,7 @@ public class Projectile implements AttackType {
         HitCircle o = other.getHit();
         Vector3 oCenter = o.getCenter();
 
-        if (Util.findDistance((attack.getX() + hitCenter.x) - (opos.x + oCenter.x), (attack.getY() + hitCenter.y) - (opos.y + oCenter.y)) <= (hit.getRadius() + o.getRadius())) {
+        if (Util.findSquareDistance((attack.getX() + hitCenter.x) - (opos.x + oCenter.x), (attack.getY() + hitCenter.y) - (opos.y + oCenter.y)) <= Math.pow(hit.getRadius() + o.getRadius(),2)) {
             return true;
         }
 

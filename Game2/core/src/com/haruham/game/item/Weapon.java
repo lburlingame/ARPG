@@ -21,7 +21,7 @@ public class Weapon extends Equipment {
 
     public Weapon(int itemID, String name, String description, int levelReq) {
         super(itemID, name, description, levelReq);
-        damage = 100;
+        damage = 50;
         attackTime = 1.5f;
         charge = 0;
     }
@@ -34,7 +34,8 @@ public class Weapon extends Equipment {
 
     public void release(World world, Character user, Vector3 target) {
             //target = new Vector3(target);
-            world.addAttack(new AttackObject(user, new MeleeAttack(), new KnockbackCollision(), target, damage));
+
+        world.addAttack(new AttackObject(user, new MeleeAttack(), new KnockbackCollision(), target, damage));
            // world.addAttack(new AttackObject(user, new Projectile(64), new BasicCollision(), target, damage));
 
     }

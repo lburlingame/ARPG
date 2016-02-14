@@ -3,6 +3,7 @@ package com.haruham.game.obj;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.gfx.Line;
@@ -174,7 +175,7 @@ public class Lightning implements AttackType {
 
 
     public void init(AttackObject attack) {
-        init(attack.getPosition(), attack.getTarget(), new Color((float)(Math.random()*.2f) + .4f,(float)(Math.random()*.3f) + .5f,(float)(Math.random()*.3f) + .7f,1));
+        init(attack.getPosition(), attack.getTarget(), new Color(MathUtils.random() *.2f + .4f,MathUtils.random() *.3f + .5f,MathUtils.random() *.3f + .7f,1));
     }
 
     public boolean collidesWith(AttackObject attack, Entity other) {

@@ -34,7 +34,7 @@ public class GameApp implements ApplicationListener {
 
     private GameStateManager gsm;
 
-    private InputMultiplexer inputs = new InputMultiplexer();
+    private InputMultiplexer inputs;
     private InputHandler inputHandler;
     private ProgramInput pin;
 
@@ -43,14 +43,12 @@ public class GameApp implements ApplicationListener {
 
     private BitmapFont font;
 
-
     public void create() {
         try {
             FileHandle file = Gdx.files.local("log/runcount.txt");
             BufferedReader br = file.reader(1);
-            String curLine = br.readLine();
+            int current = Integer.parseInt(br.readLine());
             br.close();
-            int current = Integer.parseInt(curLine);
             current++;
             System.out.println(current + " ");
             file.writeString(current + "", false);
@@ -66,7 +64,7 @@ public class GameApp implements ApplicationListener {
         float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, w/2, h/2);
+        camera.setToOrtho(false, 740, 416.25f);
 
         hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, w, h);
@@ -74,6 +72,8 @@ public class GameApp implements ApplicationListener {
         gsm = new GameStateManager(this);
 
         font = new BitmapFont();
+
+        inputs = new InputMultiplexer();
         inputHandler = new InputHandler();
         inputs.addProcessor(inputHandler);
         Gdx.input.setInputProcessor(inputs);
@@ -99,7 +99,11 @@ public class GameApp implements ApplicationListener {
             Inputs.update();
         }*/
 
-        gsm.update(Gdx.graphics.getDeltaTime());
+        float delta = Gdx.graphics.getDeltaTime();
+        if (delta > .018) {
+           // System.out.println("DELTA>> "  + delta);
+        }
+        gsm.update(delta);
         gsm.render();
 
         batch.begin(); // begin - fps counter will be a setting that can be toggled
@@ -107,11 +111,10 @@ public class GameApp implements ApplicationListener {
         int fps = Gdx.graphics.getFramesPerSecond();
         font.draw(batch, fps + " ", 10, Gdx.graphics.getHeight() - 20);
         font.draw(batch, gsm.getSize() + " ", hudCamera.viewportWidth - 100, Gdx.graphics.getHeight() - 60);
-
         batch.end(); // end
 
         pin.update();
-        Inputs.update();
+        Inputs.update(camera);
     }
 
     public void dispose() {
@@ -139,11 +142,11 @@ public class GameApp implements ApplicationListener {
     }
 
     public void pause() {
-        System.out.println("#pause");
+       // System.out.println("#pause");
     }
 
     public void resume() {
-        System.out.println("#resume");
+        //System.out.println("#resume");
     }
 
     public ShapeRenderer getShapeRenderer() {

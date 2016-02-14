@@ -1,24 +1,20 @@
 package com.haruham.game.state;
 
-
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
+
+import com.esotericsoftware.kryonet.Listener;
 import com.haruham.game.input.PlayInput;
 import com.haruham.game.level.World;
+import com.haruham.game.net.client.ClientProgram;
+import com.haruham.game.net.server.ServerProgram;
 import com.haruham.game.obj.Character;
 import com.haruham.game.gfx.Art;
 import com.haruham.game.input.Inputs;
@@ -69,9 +65,31 @@ public class Play extends GameState {
     final String finalPixelShader =  Gdx.files.local("lighttest/pixelShader.glsl").readString();
     public static DecimalFormat format = new DecimalFormat("0.##");
 
+    ServerProgram server;
+    ClientProgram client;
+
     public Play(GameStateManager gsm) {
         super(gsm);
+        init();
+    }
+
+    public Play(GameStateManager gsm, ServerProgram server) {
+        super(gsm);
+        this.server = server;
+        init();
+    }
+
+    public Play(GameStateManager gsm, ClientProgram client) {
+        super(gsm);
+        this.client = client;
+        init();
+    }
+
+    public void init() {
+
         player = new Character(null, 1, new PlayerInput(), new Vector3(100,100,0));
+        camera.setToOrtho(false,740, 416.25f);
+
         //wavSound.loop(.4f, 1f,.1f);
         font = new BitmapFont();
         pin = new PlayInput(gsm, this);
@@ -158,9 +176,10 @@ public class Play extends GameState {
         font.draw(batch, player.getX() + ", " + player.getY(), 10, Gdx.graphics.getHeight()-60);
         font.draw(batch, camera.position.x + ", " + camera.position.y, 10, Gdx.graphics.getHeight()-80);
 
-        font.draw(batch, worlds.get(0).getObjects().size() + " ", 10, Gdx.graphics.getHeight() - 100);
+        font.draw(batch, worlds.get(0).getSize() + " ", 10, Gdx.graphics.getHeight() - 100);
         font.draw(batch, player.getGold() +  " " , 10, Gdx.graphics.getHeight() - 120);
         font.draw(batch, worlds.get(0).getEmitter().drawn + "" , 10, Gdx.graphics.getHeight() - 140);
+        font.draw(batch, camera.viewportWidth + ", " + camera.viewportHeight , 10, Gdx.graphics.getHeight() - 160);
 
         //font.draw(batch, attacks.size() + "", 10, Gdx.graphics.getHeight() - 100);
 
@@ -189,6 +208,9 @@ public class Play extends GameState {
         fbo.dispose();
         Art.unload(assetManager);
         assetManager.dispose();
+        if (server != null) {
+            server.close();
+        }
     }
 
     public void enter() {
