@@ -262,23 +262,20 @@ public class World {
         while(zAngle > PI2)
             zAngle -= PI2;
 
-        float lightSize = lightOscillate? (600 + 7f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):600;
-        batch.draw(Art.light, 1000- lightSize*0.5f,1000-lightSize*0.5f, lightSize, lightSize);
+        float lightSize = lightOscillate ? (600 + 7f * MathUtils.sin(zAngle) + .2f * MathUtils.random()):600;
+        batch.draw(Art.light, 1000- lightSize*0.5f, 1000 - lightSize * 0.5f, lightSize, lightSize);
 
         batch.draw(Art.light, player.getX() - lightSize * 0.5f, player.getY() - lightSize * 0.5f, lightSize, lightSize);
-        lightSize = lightOscillate? (350 + 4f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):350;
+        lightSize = lightOscillate ? (350 + 4f * MathUtils.sin(zAngle) + .2f* MathUtils.random()):350;
 
         for (int i = 0; i < attacks.size(); i++) {
             batch.draw(Art.light,  attacks.get(i).getX()- lightSize*0.5f, attacks.get(i).getY() - lightSize*0.5f, lightSize, lightSize);
         }
 
         batch.setBlendFunction(batch.getBlendSrcFunc(), bdest);
-
         batch.end();
         fbo.end();
 
-
-        batch.setProjectionMatrix(camera.combined);
         batch.setShader(play.getCurrentShader());
         batch.begin();
         fbo.getColorBufferTexture().bind(1); //this is important! bind the FBO to the 2nd texture unit

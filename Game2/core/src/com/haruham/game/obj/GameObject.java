@@ -3,6 +3,7 @@ package com.haruham.game.obj;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.util.Event;
 import com.haruham.game.util.Observer;
@@ -121,5 +122,10 @@ public abstract class GameObject implements Comparable<GameObject>, Subject{
 
     public float getDimy() {
         return dim.y;
+    }
+
+    public boolean inBounds(Vector2 point) {
+
+        return false;
     }
 }

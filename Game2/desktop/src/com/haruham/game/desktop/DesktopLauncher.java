@@ -31,7 +31,7 @@ public class DesktopLauncher {
         config.addIcon("other/icon64.png", Files.FileType.Internal);
         config.addIcon("other/icon128.png", Files.FileType.Internal);
         // System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
-
+        config.samples = 16;
 
         LwjglApplication lwjgl = new LwjglApplication(new GameApp(), config);
 
