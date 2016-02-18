@@ -56,7 +56,7 @@ public class Character extends Entity{
 
     private int gold;
 
-    public Character(World world, int id, InputComponent input, Vector3 pos) {
+    public Character(World world, int id, InputComponent input, Vector3 pos, float smult) {
         this.gfx = new GraphicsComponent();
         this.world = world;
         this.health = new PlayerHealth(100);
@@ -68,7 +68,7 @@ public class Character extends Entity{
         this.input = input;
         this.knockback = new Vector2(0,0);
         this.counterknockback = new Vector2(0,0);
-        this.smult = 1;
+        this.smult = smult;
 
         this.pos = pos;
         this.dest = new Vector2(pos.x, pos.y);

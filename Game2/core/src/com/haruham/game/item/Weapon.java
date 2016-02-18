@@ -36,7 +36,7 @@ public class Weapon extends Equipment {
             //target = new Vector3(target);
 
        // world.addAttack(new AttackObject(user, new MeleeAttack(), new KnockbackCollision(), target, damage));
-        world.addAttack(new AttackObject(user, new Projectile(64), new BasicCollision(), target, damage));
+        world.addAttack(new AttackObject(user, new Projectile(128), new BasicCollision(), target, damage));
 
     }
 

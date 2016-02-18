@@ -134,19 +134,19 @@ public class World {
         objects.add(player);
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random() * 300 + 200, MathUtils.random() * 300 + 200, 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random() * 300 + 200, MathUtils.random() * 300 + 200, 0), MathUtils.random() * 2 + .75f));
         }
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 600, MathUtils.random() * 300 + 600, 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 600, MathUtils.random() * 300 + 600, 0), MathUtils.random() * 2 + .75f));
         }
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 1000, MathUtils.random()  * 300 + 1000, 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 1000, MathUtils.random()  * 300 + 1000, 0), MathUtils.random() * 2 + .75f));
         }
 
         for (int i = 0; i < 8; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 1400, MathUtils.random()  * 300 + 1400, 0)));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 1400, MathUtils.random()  * 300 + 1400, 0), MathUtils.random() * 2 + .75f));
         }
         for (int i = 0; i < 8000; i++) {
             addObstacle(new Obstacle(this, new Vector3(MathUtils.random()*16032, MathUtils.random() * 13340, 0)));
