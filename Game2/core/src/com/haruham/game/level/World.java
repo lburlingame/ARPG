@@ -253,26 +253,31 @@ public class World {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
+        int bsrc = batch.getBlendSrcFunc();
 
         int bdest = batch.getBlendDstFunc();
 
-        batch.setBlendFunction(batch.getBlendSrcFunc(), GL20.GL_ONE);
+        batch.setBlendFunction(bsrc, GL20.GL_ONE); //GL20.GL_ONE);
         //float lightSize = lightOscillate? (700 + 10f * (float)Math.sin(zAngle) + .2f* MathUtils.random()):700;
         zAngle += .014 * 60 *zSpeed * Gdx.graphics.getDeltaTime();
         while(zAngle > PI2)
             zAngle -= PI2;
 
         float lightSize = lightOscillate ? (600 + 7f * MathUtils.sin(zAngle) + .2f * MathUtils.random()):600;
+        Color c = batch.getColor();
+        batch.setColor(1, 0, 0, 3f);
         batch.draw(Art.light, 1000- lightSize*0.5f, 1000 - lightSize * 0.5f, lightSize, lightSize);
+        batch.setColor(c.r, c.g, c.b, 1); //set alpha to 1
 
         batch.draw(Art.light, player.getX() - lightSize * 0.5f, player.getY() - lightSize * 0.5f, lightSize, lightSize);
         lightSize = lightOscillate ? (350 + 4f * MathUtils.sin(zAngle) + .2f* MathUtils.random()):350;
 
+
         for (int i = 0; i < attacks.size(); i++) {
-            batch.draw(Art.light,  attacks.get(i).getX()- lightSize*0.5f, attacks.get(i).getY() - lightSize*0.5f, lightSize, lightSize);
+            batch.draw(Art.light, attacks.get(i).getX() - lightSize * 0.5f, attacks.get(i).getY() - lightSize*0.5f, lightSize, lightSize);
         }
 
-        batch.setBlendFunction(batch.getBlendSrcFunc(), bdest);
+        batch.setBlendFunction(bsrc, bdest);
         batch.end();
         fbo.end();
 
