@@ -1,6 +1,7 @@
 package com.haruham.game.gfx;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
@@ -17,6 +18,7 @@ public class Light{
     private Vector3 pos;
     private float radius;
     private float angle;
+    private Color color;
 
     public Light(int x, int y, float radius) {
         pos = new Vector3(x,y,0);

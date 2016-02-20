@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -98,6 +99,9 @@ public class World {
 
     private ParticleEffect effect;
 
+    private ArrayList<Vector2> stuff;
+    private ArrayList<Color> colors;
+
     public World(Play play) {
         this.play = play;
 
@@ -126,6 +130,13 @@ public class World {
         obstacles = new ArrayList<>();
 
         emitter = new ParticleEmitter(this);
+
+        stuff = new ArrayList<>();
+        colors = new ArrayList<>();
+        for (int i  = 0; i < 1000; i++) {
+            stuff.add(new Vector2(MathUtils.random() * 5000, MathUtils.random() * 5000));
+            colors.add(new Color(MathUtils.random(), MathUtils.random(), MathUtils.random(), MathUtils.random() * 1f));
+        }
 
         player = play.getPlayer();
         player.setWorld(this);
@@ -265,16 +276,25 @@ public class World {
 
         float lightSize = lightOscillate ? (600 + 7f * MathUtils.sin(zAngle) + .2f * MathUtils.random()):600;
         Color c = batch.getColor();
-        batch.setColor(1, 0, 0, 3f);
-        batch.draw(Art.light, 1000- lightSize*0.5f, 1000 - lightSize * 0.5f, lightSize, lightSize);
-        batch.setColor(c.r, c.g, c.b, 1); //set alpha to 1
+        batch.setColor(0, .6f, .1f, 1f);
+        batch.draw(Art.light, 300 - lightSize * 0.5f, 300 - lightSize * 0.5f, lightSize, lightSize);
+        batch.setColor(.6f, .2f, .2f, 1); //set alpha to 1
 
         batch.draw(Art.light, player.getX() - lightSize * 0.5f, player.getY() - lightSize * 0.5f, lightSize, lightSize);
+        for (int i = 0; i < colors.size(); i++) {
+            lightSize = 450 + 4f * MathUtils.sin(zAngle) + .2f* MathUtils.random();
+
+            batch.setColor(colors.get(i)); //set alpha to 1
+            batch.draw(Art.light, stuff.get(i).x - lightSize * .5f, stuff.get(i).y-lightSize* .5f, lightSize, lightSize);
+        }
+
+
+        batch.setColor(c.r, c.g, c.b, 1); //set alpha to 1
         lightSize = lightOscillate ? (350 + 4f * MathUtils.sin(zAngle) + .2f* MathUtils.random()):350;
 
 
         for (int i = 0; i < attacks.size(); i++) {
-            batch.draw(Art.light, attacks.get(i).getX() - lightSize * 0.5f, attacks.get(i).getY() - lightSize*0.5f, lightSize, lightSize);
+            batch.draw(Art.light, attacks.get(i).getX() - lightSize * 0.5f, attacks.get(i).getY() - lightSize * 0.5f, lightSize, lightSize);
         }
 
         batch.setBlendFunction(bsrc, bdest);
