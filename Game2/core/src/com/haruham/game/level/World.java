@@ -20,6 +20,8 @@ import com.haruham.game.input.NullInput;
 import com.haruham.game.item.Item;
 import com.haruham.game.obj.Character;
 import com.haruham.game.state.Play;
+import com.haruham.game.util.Event;
+import com.haruham.game.util.Observer;
 import com.haruham.game.util.Util;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ import java.util.Collections;
  */
 
 // abstract class world, all worlds extend from it, and all collision handlng and sound effects and whatnot will be handled in the abstract super class
-public class World {
+public class World implements Observer {
 
     private OrthographicCamera hudCamera;
     private Play play;
@@ -133,7 +135,7 @@ public class World {
 
         stuff = new ArrayList<>();
         colors = new ArrayList<>();
-        for (int i  = 0; i < 1000; i++) {
+        for (int i  = 0; i < 100; i++) {
             stuff.add(new Vector2(MathUtils.random() * 5000, MathUtils.random() * 5000));
             colors.add(new Color(MathUtils.random(), MathUtils.random(), MathUtils.random(), MathUtils.random() * 1f));
         }
@@ -185,31 +187,12 @@ public class World {
         for (int i = 0; i < characters.size(); i++) {
             characters.get(i).update(delta);
 
-            float maxVol = 0;
-            float maxPan = 0;
+
             // add sound effects to a queue, play a couple every update?
             for (int j = 0; j < attacks.size(); j++) {
                 if (attacks.get(j).collidesWith(characters.get(i)) && !attacks.get(j).hasCollided(characters.get(i))) {
                     attacks.get(j).onCollision(characters.get(i));
-                 //   if (collisionsound <= 0) {
-                        float distance = Util.findDistance(camera.position, characters.get(i).getPosition());
-                        float xdist = camera.position.x - characters.get(i).getX();
 
-                        float pan = xdist / -100;
-                        if (pan > 1) pan = 1;
-                        if (pan < -1) pan = -1;
-
-                        if (distance < dropoff) distance = dropoff;
-                        float volume = dropoff / distance;
-                        volume *= volume * .4f;
-
-                        if (volume > maxVol) {
-                            maxVol = volume;
-                            maxPan = pan;
-                        }
-
-
-                    //}
                     if (!characters.get(i).isAlive()) {
                         addPickup(new Coin(this, characters.get(i).getPosition().add(0, 0, 16), new Vector3(MathUtils.random() * 180 - 90, MathUtils.random() * 180 - 90, MathUtils.random() * 45 + 45), characters.get(i).getGold()));
                         if (Math.random() < .05f) {
@@ -220,11 +203,6 @@ public class World {
                     }
 
                 }
-            }
-
-            if (maxVol > .01) {
-                sizzle.play(maxVol, MathUtils.random() * .15f + .85f, maxPan);
-                collisionsound = MathUtils.random() * collisionreset + .15f;
             }
         }
 
@@ -412,10 +390,12 @@ public class World {
     public void addCharacter(Character character) {
         characters.add(character);
         objects.add(character);
+        character.registerObserver(this);
     }
     public void removeCharacter(Character character) {
         characters.remove(character);
         objects.remove(character);
+        character.removeObserver(this);
     }
 
     public void addObstacle(Obstacle obstacle) {
@@ -475,6 +455,7 @@ public class World {
     }
 
     public void clearEverything() {
+        removeCharacter(player);
         objects.clear();
         characters.clear();
         emitter.clear();
@@ -490,6 +471,39 @@ public class World {
 
     public Character getPlayer() {
         return player;
+    }
+
+    @Override
+    public void onNotify(GameObject obj, Event event) {
+        if (event == Event.EVENT_CHARACTER_DEATH) {
+
+        }
+        if (event == Event.EVENT_CHARACTER_HIT) {
+            float maxVol = 0;
+            float maxPan = 0;
+            //   if (collisionsound <= 0) {
+            float distance = Util.findDistance(camera.position, obj.getPosition());
+            float xdist = camera.position.x - obj.getX();
+
+            float pan = xdist / -100;
+            if (pan > 1) pan = 1;
+            if (pan < -1) pan = -1;
+
+            if (distance < dropoff) distance = dropoff;
+            float volume = dropoff / distance;
+            volume *= volume * .4f;
+
+            if (volume > maxVol) {
+                maxVol = volume;
+                maxPan = pan;
+            }
+
+            if (maxVol > .01) {
+                sizzle.play(maxVol, MathUtils.random() * .15f + .85f, maxPan);
+                collisionsound = MathUtils.random() * collisionreset + .15f;
+            }
+            //}
+        }
     }
 
 

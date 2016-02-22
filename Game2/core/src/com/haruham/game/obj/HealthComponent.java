@@ -10,7 +10,13 @@ public abstract class HealthComponent {
 
     protected boolean alive;
 
-    public abstract void takeHit(AttackObject attack, Character character);
+    protected Character character;
+
+    public HealthComponent(Character character) {
+        this.character = character;
+    }
+
+    public abstract void takeHit(AttackObject attack);
 
     protected float takeDamage(int amount) {
         float percentage = amount / (float)maxHealth;

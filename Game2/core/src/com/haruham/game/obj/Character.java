@@ -14,18 +14,13 @@ import com.haruham.game.gfx.GraphicsComponent;
 import com.haruham.game.input.InputComponent;
 import com.haruham.game.item.Weapon;
 import com.haruham.game.util.Event;
-import com.haruham.game.util.Observer;
-import com.haruham.game.util.Subject;
-
-import java.util.ArrayList;
-
 
 // enemy aggro could be cone based on vision, and circular based on noise, your noise level depends on whether you are running or walking or sprinting, and maybe even have a talent tree that reduces noise and stuff
 // vision is reduced in poorly lit areas
 
 //only calculates lighting on tiles that are either on _screen, or in between the player and an enemy that is in aggro range
 //death() function called when hp = 0, death behavior on death is then called, will have a boolean dead, if dead then on the next for loop, the obj will be removed from the arraylist, or maybe moved to another arraylist to have its body still remain ticking.
-public class Character extends Entity{
+public class Character extends Entity {
 
     private static int NEXT_UID = 0;
     public static final int STOPPED = 0;
@@ -59,7 +54,7 @@ public class Character extends Entity{
     public Character(World world, int id, InputComponent input, Vector3 pos, float smult) {
         this.gfx = new GraphicsComponent();
         this.world = world;
-        this.health = new PlayerHealth(100);
+        this.health = new PlayerHealth(this,100);
         this.id = id;
         this.UID = new Integer(NEXT_UID);
         NEXT_UID++;
@@ -81,6 +76,7 @@ public class Character extends Entity{
 
         //this.onCollision = new HitCircle(new Vector3(dim.x * .667f, dim.z*.43f, 0), dim.x / 3);
         gold = (int)(Math.random() * 80) + 5;
+
     }
 
     public void changeSize() {
@@ -321,7 +317,8 @@ public class Character extends Entity{
     }
 
     public void takeHit(AttackObject attack) {
-        health.takeHit(attack, this);
+        health.takeHit(attack);
+        notify(this, Event.EVENT_CHARACTER_HIT);
     }
 
 

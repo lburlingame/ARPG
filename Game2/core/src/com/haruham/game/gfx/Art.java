@@ -42,6 +42,5 @@ public class Art {
         assetManager.unload("lighttest/light3.png");
         assetManager.unload("effects/shadow.png");
         assetManager.unload("effects/shadow16.png");
-
     }
 }

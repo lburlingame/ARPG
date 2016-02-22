@@ -56,7 +56,7 @@ public class GameApp implements ApplicationListener {
             System.out.println(e.getMessage());
         }
 
-        batch = new SpriteBatch();
+        batch = new SpriteBatch(5460);
         shapeRenderer = new ShapeRenderer();
         camera = new OrthographicCamera();
         hudCamera = new OrthographicCamera();
@@ -112,6 +112,7 @@ public class GameApp implements ApplicationListener {
         font.draw(batch, fps + " ", 10, Gdx.graphics.getHeight() - 20);
         font.draw(batch, gsm.getSize() + " ", hudCamera.viewportWidth - 100, Gdx.graphics.getHeight() - 60);
         batch.end(); // end
+        //System.out.println(batch.maxSpritesInBatch + ", " + batch.renderCalls);
 
         pin.update();
         Inputs.update(camera);

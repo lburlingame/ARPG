@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.haruham.game.GameApp;
 import com.haruham.game.level.World;
 import com.haruham.game.obj.*;
+import com.haruham.game.obj.Character;
 import com.haruham.game.state.GameStateManager;
 import com.haruham.game.state.Play;
 import com.haruham.game.util.Util;
@@ -100,7 +101,7 @@ public class PlayInput {
         }
         if (Inputs.isPressed(Inputs.C)) {
             for (int i = 0; i < 150; i++) {
-                play.getWorld().addCharacter(new com.haruham.game.obj.Character(play.getWorld(), 1, new NullInput(), new Vector3(play.getPlayer().getPosition().add(MathUtils.random()*500-250, MathUtils.random()*500-250,0)), MathUtils.random() * 3.5f + .35f));
+                play.getWorld().addCharacter(new Character(play.getWorld(), 1, new NullInput(), new Vector3(play.getPlayer().getPosition().add(MathUtils.random()*500-250, MathUtils.random()*500-250,0)), MathUtils.random() * 3.5f + .35f));
             }
         }
         /*if ((camera.zoom > .5 && amount < 0) || (camera.zoom < 2 && amount > 0)) {

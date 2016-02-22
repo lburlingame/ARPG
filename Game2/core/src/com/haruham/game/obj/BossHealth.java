@@ -7,7 +7,11 @@ package com.haruham.game.obj;
 // on boss death, notify observers
 public class BossHealth extends HealthComponent {
 
-    public void takeHit(AttackObject attack, Character character) {
+    public BossHealth(Character character) {
+        super(character);
+    }
+
+    public void takeHit(AttackObject attack) {
 
     }
 

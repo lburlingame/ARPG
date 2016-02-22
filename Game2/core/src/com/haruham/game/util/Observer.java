@@ -1,5 +1,7 @@
 package com.haruham.game.util;
 
+import com.haruham.game.obj.GameObject;
+
 /**
  * Created on 10/1/2015.
  */
@@ -13,5 +15,5 @@ package com.haruham.game.util;
 
 public interface Observer {
 
-    public void onNotify(Subject o, Event event);
+    public void onNotify(GameObject obj, Event event);
 }

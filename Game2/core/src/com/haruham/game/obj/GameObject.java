@@ -53,9 +53,9 @@ public abstract class GameObject implements Comparable<GameObject>, Subject{
         observers.remove(o);
     }
 
-    public void notify(Event event) {
+    public void notify(GameObject obj, Event event) {
         for (int i = 0; i < observers.size(); i++) {
-            observers.get(i).onNotify(this, event);
+            observers.get(i).onNotify(obj, event);
         }
     }
 
