@@ -9,6 +9,8 @@ import com.haruham.game.util.Util;
 /**
  * Created on 10/6/2015.
  */
+
+// implements collidable?
 public abstract class Entity extends GameObject {
 
     protected HitCircle hit;

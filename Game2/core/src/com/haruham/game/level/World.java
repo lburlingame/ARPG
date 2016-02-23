@@ -147,19 +147,19 @@ public class World implements Observer {
         objects.add(player);
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random() * 300 + 200, MathUtils.random() * 300 + 200, 0), MathUtils.random() * 2 + .75f));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random() * 500 + 200, MathUtils.random() * 500 + 200, 0), MathUtils.random() * 3.5f + .75f));
         }
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 600, MathUtils.random() * 300 + 600, 0), MathUtils.random() * 2 + .75f));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 500 + 600, MathUtils.random() * 500 + 600, 0), MathUtils.random() * 3.5f + .75f));
         }
 
         for (int i = 0; i < 150; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 1000, MathUtils.random()  * 300 + 1000, 0), MathUtils.random() * 2 + .75f));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 500 + 1000, MathUtils.random()  * 500 + 1000, 0), MathUtils.random() * 3.5f + .75f));
         }
 
         for (int i = 0; i < 8; i++) {
-            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 300 + 1400, MathUtils.random()  * 300 + 1400, 0), MathUtils.random() * 2 + .75f));
+            addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random()  * 500 + 1400, MathUtils.random()  * 500 + 1400, 0), MathUtils.random() * 3.5f + .75f));
         }
         for (int i = 0; i < 8000; i++) {
             addObstacle(new Obstacle(this, new Vector3(MathUtils.random()*16032, MathUtils.random() * 13340, 0)));
@@ -473,42 +473,27 @@ public class World implements Observer {
         return player;
     }
 
-    @Override
     public void onNotify(GameObject obj, Event event) {
-        if (event == Event.EVENT_CHARACTER_DEATH) {
+        switch (event) {
+            case EVENT_CHARACTER_DEATH:
+                break;
+            case EVENT_CHARACTER_HIT:
+                float distance = Util.findDistance(camera.position, obj.getPosition());
+                float xdist = camera.position.x - obj.getX();
+                float pan = xdist / -100;
+                if (distance < dropoff) distance = dropoff;
+                float volume = dropoff / distance;
+                volume *= volume * .4f;
 
-        }
-        if (event == Event.EVENT_CHARACTER_HIT) {
-            float maxVol = 0;
-            float maxPan = 0;
-            //   if (collisionsound <= 0) {
-            float distance = Util.findDistance(camera.position, obj.getPosition());
-            float xdist = camera.position.x - obj.getX();
+                if (volume > .01) {
+                    sizzle.play(volume, MathUtils.random() * .15f + .85f, pan);
+                    collisionsound = MathUtils.random() * collisionreset + .15f;
+                }
 
-            float pan = xdist / -100;
-            if (pan > 1) pan = 1;
-            if (pan < -1) pan = -1;
-
-            if (distance < dropoff) distance = dropoff;
-            float volume = dropoff / distance;
-            volume *= volume * .4f;
-
-            if (volume > maxVol) {
-                maxVol = volume;
-                maxPan = pan;
-            }
-
-            if (maxVol > .01) {
-                sizzle.play(maxVol, MathUtils.random() * .15f + .85f, maxPan);
-                collisionsound = MathUtils.random() * collisionreset + .15f;
-            }
-            //}
+                System.out.println(event.getValue());
+                break;
         }
     }
-
-
-    // remove this stuff later
-
 
 }
 

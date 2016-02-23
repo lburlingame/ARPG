@@ -15,6 +15,8 @@ import com.haruham.game.input.InputComponent;
 import com.haruham.game.item.Weapon;
 import com.haruham.game.util.Event;
 
+import static com.haruham.game.util.Event.*;
+
 // enemy aggro could be cone based on vision, and circular based on noise, your noise level depends on whether you are running or walking or sprinting, and maybe even have a talent tree that reduces noise and stuff
 // vision is reduced in poorly lit areas
 
@@ -318,7 +320,9 @@ public class Character extends Entity {
 
     public void takeHit(AttackObject attack) {
         health.takeHit(attack);
-        notify(this, Event.EVENT_CHARACTER_HIT);
+        Event event = EVENT_CHARACTER_HIT;
+        event.setValue("fireball");
+        notify(this, event);
     }
 
 
