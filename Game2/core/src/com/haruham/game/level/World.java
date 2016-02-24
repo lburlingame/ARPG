@@ -143,8 +143,7 @@ public class World implements Observer {
         player = play.getPlayer();
         player.setWorld(this);
 
-        characters.add(player);
-        objects.add(player);
+        addCharacter(player);
 
         for (int i = 0; i < 150; i++) {
             addCharacter(new Character(this, 1, new NullInput(), new Vector3(MathUtils.random() * 500 + 200, MathUtils.random() * 500 + 200, 0), MathUtils.random() * 3.5f + .75f));
@@ -434,6 +433,15 @@ public class World implements Observer {
         }
     }
 
+    public void clearCharacters() {
+        for (int i = 0; i < characters.size(); i++) {
+            if (!characters.get(i).equals(player)) {
+                removeCharacter(characters.get(i));
+                i--;
+            }
+        }
+    }
+
     public TileMap getMap() {
         return map;
     }
@@ -455,14 +463,12 @@ public class World implements Observer {
     }
 
     public void clearEverything() {
-        removeCharacter(player);
         objects.clear();
-        characters.clear();
+        clearCharacters();
         emitter.clear();
         attacks.clear();
         pickups.clear();
         obstacles.clear();
-        addCharacter(player);
     }
 
     public int getSize() {
@@ -476,6 +482,7 @@ public class World implements Observer {
     public void onNotify(GameObject obj, Event event) {
         switch (event) {
             case EVENT_CHARACTER_DEATH:
+                System.out.println("Character died");
                 break;
             case EVENT_CHARACTER_HIT:
                 float distance = Util.findDistance(camera.position, obj.getPosition());

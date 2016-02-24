@@ -19,9 +19,15 @@ import com.haruham.game.obj.Character;
 import com.haruham.game.gfx.Art;
 import com.haruham.game.input.Inputs;
 import com.haruham.game.input.PlayerInput;
+import com.haruham.game.obj.GameObject;
+import com.haruham.game.util.Event;
+import com.haruham.game.util.Observer;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import static com.haruham.game.state.GameStateManager.DEAD;
+import static com.haruham.game.util.Event.EVENT_CHARACTER_DEATH;
 
 
 /**
@@ -46,7 +52,7 @@ public class Play extends GameState {
     private Texture light = new Texture("lighttest/light3.png");
 
     private AssetManager assetManager;
-            ;
+
     private FrameBuffer fbo;
 
     //out different shaders. currentShader is just a pointer to the 4 others
@@ -88,6 +94,16 @@ public class Play extends GameState {
     public void init() {
 
         player = new Character(null, 1, new PlayerInput(), new Vector3(100,100,0), 1);
+
+        player.registerObserver(new Observer() {
+
+            @Override
+            public void onNotify(GameObject obj, Event event) {
+                if (event == EVENT_CHARACTER_DEATH) {
+                    gsm.pushState(DEAD);
+                }
+            }
+        });
         camera.setToOrtho(false,740, 416.25f);
 
         //wavSound.loop(.4f, 1f,.1f);

@@ -11,6 +11,8 @@ import com.haruham.game.state.GameStateManager;
 import com.haruham.game.state.Play;
 import com.haruham.game.util.Util;
 
+import static com.haruham.game.state.GameStateManager.GAMEMENU;
+
 /**
  * Created on 3/26/2015.
  */
@@ -34,7 +36,7 @@ public class PlayInput {
     public void update() {
 
         if (Inputs.isPressed(Inputs.ESCAPE)) {
-            gsm.pushState(GameStateManager.GAMEMENU);
+            gsm.pushState(GAMEMENU);
             //gsm.leavePlay();
         }
 

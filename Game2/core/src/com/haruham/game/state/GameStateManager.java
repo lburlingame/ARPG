@@ -23,8 +23,10 @@ public class GameStateManager {
     public static final int PLAY = 2;
     public static final int PLAYSERVER = 3;
     public static final int PLAYCLIENT = 4;
-    public static final int GAMEMENU = 5;
-    public static final int SETTINGS = 6;
+    public static final int DEAD = 5;
+
+    public static final int GAMEMENU = 6;
+    public static final int SETTINGS = 7;
 
     public GameStateManager(GameApp game) {
         this.game = game;
@@ -82,6 +84,7 @@ public class GameStateManager {
             }
             return play;
         }
+        if (state == DEAD) return new Dead(this);
         if (state == GAMEMENU) return new GameMenu(this);
         if (state == SETTINGS) return new Settings(this);
 
